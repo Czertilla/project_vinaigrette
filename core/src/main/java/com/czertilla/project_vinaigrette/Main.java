@@ -16,7 +16,9 @@ public class Main extends ApplicationAdapter {
     @Override
     public void create() {
         batch = new SpriteBatch();
-        backgroundTexture = new Texture("libgdx.png");
+        backgroundTexture = new Texture("background.png");
+        bucketTexture = new Texture("bucket.png");
+        dropTexture = new Texture("drop.png");
     }
 
     @Override
