@@ -71,7 +71,7 @@ public class Main extends ApplicationAdapter {
             float worldHeight = viewport.getWorldHeight();
 
             batch.draw(backgroundTexture, 0, 0, worldWidth, worldHeight);
-            batch.draw(bucketTexture, 0, 0, 1, 1);
+            bucketSprite.draw(batch);
         }
         batch.end();
     }
