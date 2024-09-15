@@ -1,6 +1,8 @@
 package com.czertilla.project_vinaigrette;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -12,6 +14,9 @@ public class Main extends ApplicationAdapter {
         backgroundTexture,
         bucketTexture,
         dropTexture;
+
+    private Sound dropSound;
+    private Music music;
 
     @Override
     public void create() {
