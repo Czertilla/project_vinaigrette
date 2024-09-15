@@ -49,7 +49,7 @@ public class Main extends ApplicationAdapter {
     }
 
     private void input() {
-        
+
     }
 
     private void logic() {
@@ -57,7 +57,14 @@ public class Main extends ApplicationAdapter {
     }
 
     private void draw() {
+        ScreenUtils.clear(Color.CLEAR);
+        viewport.apply();
+        batch.setProjectionMatrix(viewport.getCamera().combined);
+        batch.begin();
+        /*add draw implementations only in this scope*/{
 
+        }
+        batch.end();
     }
 
     @Override
