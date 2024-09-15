@@ -51,5 +51,9 @@ public class Main extends ApplicationAdapter {
     public void dispose() {
         batch.dispose();
         backgroundTexture.dispose();
+        bucketTexture.dispose();
+        dropTexture.dispose();
+        dropSound.dispose();
+        music.dispose();
     }
 }
