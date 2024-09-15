@@ -2,17 +2,20 @@ package com.czertilla.project_vinaigrette;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
+    private Vector2 touchPos;
     private SpriteBatch batch;
     private Sprite bucketSprite;
     private FitViewport viewport;
@@ -26,6 +29,8 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void create() {
+        touchPos = new Vector2();
+
         batch = new SpriteBatch();
         viewport = new FitViewport(8, 5);
 
@@ -54,7 +59,20 @@ public class Main extends ApplicationAdapter {
     }
 
     private void input() {
+        float speed = 4f;
+        float delta = Gdx.graphics.getDeltaTime();
 
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+            bucketSprite.translateX(speed * delta);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+            bucketSprite.translateX(- speed * delta);
+        }
+        if (Gdx.input.isTouched()){
+            touchPos.set(Gdx.input.getX(),Gdx.input.getY());
+            viewport.unproject(touchPos);
+            bucketSprite.setCenterX(touchPos.x);
+        }
     }
 
     private void logic() {
