@@ -62,7 +62,11 @@ public class Main extends ApplicationAdapter {
         batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
         /*add draw implementations only in this scope*/{
+            float worldWidth = viewport.getWorldWidth();
+            float worldHeight = viewport.getWorldHeight();
 
+            batch.draw(backgroundTexture, 0, 0, worldWidth, worldHeight);
+            batch.draw(bucketTexture, 0, 0, 1, 1);
         }
         batch.end();
     }
