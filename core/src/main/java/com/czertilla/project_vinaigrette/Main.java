@@ -33,6 +33,9 @@ public class Main extends ApplicationAdapter {
         bucketTexture = new Texture("bucket.png");
         dropTexture = new Texture("drop.png");
 
+        bucketSprite = new Sprite(bucketTexture);
+        bucketSprite.setSize(1, 1);
+
         dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.mp3"));
         music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
     }
