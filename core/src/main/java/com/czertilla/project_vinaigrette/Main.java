@@ -9,9 +9,12 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
@@ -20,6 +23,9 @@ public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
     private Sprite bucketSprite;
     private Array<Sprite> dropSprites;
+    private Rectangle
+        bucketHitbox,
+        dropHitbox;
     private FitViewport viewport;
     private Texture
         backgroundTexture,
@@ -28,10 +34,13 @@ public class Main extends ApplicationAdapter {
 
     private Sound dropSound;
     private Music music;
+    private long dropCreatedTimestamp = 0;
 
     @Override
     public void create() {
         touchPos = new Vector2();
+        bucketHitbox = new Rectangle();
+        dropHitbox = new Rectangle();
 
         batch = new SpriteBatch();
         viewport = new FitViewport(8, 5);
@@ -79,7 +88,42 @@ public class Main extends ApplicationAdapter {
     }
 
     private void logic() {
+        float worldWidth = viewport.getWorldWidth();
+        float worldHeight = viewport.getWorldHeight();
+        float bucketWidth = bucketSprite.getWidth();
+        float bucketHeight = bucketSprite.getHeight();
 
+        bucketSprite.setX(MathUtils.clamp(
+            bucketSprite.getX(),
+            0,
+            worldWidth - bucketWidth
+        ));
+
+        float fallSpeed = 2f;
+        float delta = Gdx.graphics.getDeltaTime();
+
+        bucketHitbox.set(bucketSprite.getX(), bucketSprite.getY(), bucketWidth, bucketHeight);
+        for (int i = dropSprites.size - 1; i >= 0; i--) {
+            Sprite dropSprite = dropSprites.get(i);
+            float dropWidth = dropSprite.getWidth();
+            float dropHeight = dropSprite.getHeight();
+
+            dropSprite.translateY(-fallSpeed * delta);
+            dropHitbox.set(dropSprite.getX(), dropSprite.getY(), dropWidth, dropHeight);
+
+            if (dropSprite.getY() < -dropHeight) dropSprites.removeIndex(i);
+            else if (bucketHitbox.overlaps(dropHitbox)) {
+                dropSprites.removeIndex(i);
+            }
+
+        }
+
+        long timestamp = TimeUtils.millis();
+        long dropCreateGapMs = 1000;
+        if (timestamp - dropCreatedTimestamp >= dropCreateGapMs) {
+            dropCreatedTimestamp = timestamp;
+            createDroplet();
+        }
     }
 
     private void draw() {
@@ -93,6 +137,10 @@ public class Main extends ApplicationAdapter {
 
             batch.draw(backgroundTexture, 0, 0, worldWidth, worldHeight);
             bucketSprite.draw(batch);
+//            dropSprites.forEach(sprite -> {sprite.draw(batch);}); TODO edit min API
+            for (Sprite sprite: dropSprites){
+                sprite.draw(batch);
+            }
         }
         batch.end();
     }
