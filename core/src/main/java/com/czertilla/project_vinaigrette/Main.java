@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -18,6 +19,7 @@ public class Main extends ApplicationAdapter {
     private Vector2 touchPos;
     private SpriteBatch batch;
     private Sprite bucketSprite;
+    private Array<Sprite> dropSprites;
     private FitViewport viewport;
     private Texture
         backgroundTexture,
@@ -40,6 +42,7 @@ public class Main extends ApplicationAdapter {
 
         bucketSprite = new Sprite(bucketTexture);
         bucketSprite.setSize(1, 1);
+        dropSprites = new Array<>();
 
         dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.mp3"));
         music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
@@ -92,6 +95,19 @@ public class Main extends ApplicationAdapter {
             bucketSprite.draw(batch);
         }
         batch.end();
+    }
+
+    private void createDroplet(){
+        float dropWidth = 1f;
+        float dropHeight = 1f;
+        float worldWidth = viewport.getWorldWidth();
+        float worldHeight = viewport.getWorldHeight();
+
+        Sprite dropSprite = new Sprite(dropTexture);
+        dropSprite.setSize(dropWidth, dropHeight);
+        dropSprite.setX(MathUtils.random(0f, worldWidth - dropWidth));
+        dropSprite.setY(worldHeight);
+        dropSprites.add(dropSprite);
     }
 
     @Override
