@@ -37,7 +37,7 @@ public class MainMenu extends ScreenAdapter {
 
         Skin skin = new Skin();
         buttonDrawable = new TextureRegionDrawable(
-            new TextureRegion(new Texture("buttonDrawableRegion"))
+            new TextureRegion(new Texture("buttonDrawableRegion.jpg"))
         );
 
         createTextButtonStyle();
