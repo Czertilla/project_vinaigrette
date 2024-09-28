@@ -8,14 +8,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-
+// TODO replace all strings with variables alt
 
 public class MainMenu extends ScreenAdapter {
     private final Texture background;
@@ -42,7 +45,26 @@ public class MainMenu extends ScreenAdapter {
 
         createTextButtonStyle();
 
+        if (false) {// TODO implement saves detections
+            createContinueButton();
+        }
+    }
 
+    private void createContinueButton() {
+        TextButton button = new TextButton("Continue", textButtonStyle);
+        button.setSize(500f, 150f);
+        button.setPosition(
+            Gdx.graphics.getWidth() / 2f - button.getWidth() / 2f,
+            Gdx.graphics.getHeight() / 1.5f
+        );
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+//                TODO implement Continue Button click trigger
+            }
+        });
+
+        stage.addActor(button);
     }
 
     private void createTextButtonStyle() {
