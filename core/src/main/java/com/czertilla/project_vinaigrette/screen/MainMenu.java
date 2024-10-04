@@ -85,11 +85,7 @@ public class MainMenu extends ScreenAdapter {
 
     private void createContinueButton() {
         TextButton button = new TextButton("Continue", textButtonStyle);
-        button.setSize(500f, 150f);
-        button.setPosition(
-            Gdx.graphics.getWidth() / 2f - button.getWidth() / 2f,
-            Gdx.graphics.getHeight() / 1.5f
-        );
+
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
