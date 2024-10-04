@@ -88,6 +88,9 @@ public class ButtonContainer {
         this.positionY = positionY;
         this.buttonsWidth = buttonsWidth;
         this.buttonsHeight = buttonsHeight;
+        this.buttonsInterval
+            = this.buttonsPadding
+            = buttonsHeight/4f;
         this.buttons = new ArrayList<>();
     }
 
