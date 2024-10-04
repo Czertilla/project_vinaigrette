@@ -78,14 +78,27 @@ public class ButtonContainer {
     private int
         buttonsRows = 1;
 
-    public ButtonContainer(float buttonsWidth, float buttonsHeight) {
+    public ButtonContainer(
+            float positionX,
+            float positionY,
+            float buttonsWidth,
+            float buttonsHeight
+    ) {
+        this.positionX = positionX;
+        this.positionY = positionY;
         this.buttonsWidth = buttonsWidth;
         this.buttonsHeight = buttonsHeight;
         this.buttons = new ArrayList<>();
     }
 
-    public ButtonContainer(float buttonsWidth, float buttonsHeight, int buttonsRows){
-        this(buttonsWidth, buttonsHeight);
+    public ButtonContainer(
+        float positionX,
+        float positionY,
+        float buttonsWidth,
+        float buttonsHeight,
+        int buttonsRows
+    ) {
+        this(positionX, positionY, buttonsWidth, buttonsHeight);
         this.buttonsRows = buttonsRows;
     }
 
