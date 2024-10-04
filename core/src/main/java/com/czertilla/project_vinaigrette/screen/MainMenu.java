@@ -64,6 +64,12 @@ public class MainMenu extends ScreenAdapter {
         }
     }
 
+
+    private void initButton(Button button){
+        stage.addActor(button);
+        buttonContainer.add(button);
+    }
+
     private void createContinueButton() {
         TextButton button = new TextButton("Continue", textButtonStyle);
         button.setSize(500f, 150f);
