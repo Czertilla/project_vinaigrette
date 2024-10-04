@@ -70,6 +70,19 @@ public class MainMenu extends ScreenAdapter {
         buttonContainer.add(button);
     }
 
+    private void createSettingsButton() {
+        TextButton button = new TextButton("Settings", textButtonStyle);
+
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+//                TODO implement Continue Button click trigger
+            }
+        });
+
+        initButton(button);
+    }
+
     private void createContinueButton() {
         TextButton button = new TextButton("Continue", textButtonStyle);
         button.setSize(500f, 150f);
