@@ -9,7 +9,43 @@ public class ButtonContainer {
     private final List<Button> buttons;
     private float
         buttonsWidth,
-        buttonsHeight;
+        buttonsHeight,
+        buttonsInterval,
+        buttonsPadding,
+        positionX,
+        positionY;
+
+    public float getButtonsInterval() {
+        return buttonsInterval;
+    }
+
+    public void setButtonsInterval(float buttonsInterval) {
+        this.buttonsInterval = buttonsInterval;
+    }
+
+    public float getButtonsPadding() {
+        return buttonsPadding;
+    }
+
+    public void setButtonsPadding(float buttonsPadding) {
+        this.buttonsPadding = buttonsPadding;
+    }
+
+    public float getPositionX() {
+        return positionX;
+    }
+
+    public void setPositionX(float positionX) {
+        this.positionX = positionX;
+    }
+
+    public float getPositionY() {
+        return positionY;
+    }
+
+    public void setPositionY(float positionY) {
+        this.positionY = positionY;
+    }
 
     public void setButtonsWidth(float buttonsWidth) {
         this.buttonsWidth = buttonsWidth;
