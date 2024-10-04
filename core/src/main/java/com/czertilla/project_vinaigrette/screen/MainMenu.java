@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.czertilla.project_vinaigrette.screen.utils.ButtonContainer;
 // TODO replace all strings with variables alt
 
 public class MainMenu extends ScreenAdapter {
@@ -30,8 +31,15 @@ public class MainMenu extends ScreenAdapter {
     private final Drawable buttonDrawable;
 
     private TextButton.TextButtonStyle textButtonStyle;
-    static final float FRAMES_LOCK = 30f;
-    static final int FONT_SIZE = 40;
+    private final ButtonContainer buttonContainer;
+
+    static final float
+        FRAMES_LOCK = 30f,
+        MENU_BUTTONS_WIDTH = 500f,
+        MENU_BUTTONS_HEIGHT = 150f;
+    static final int
+        FONT_SIZE = 40,
+        MENU_BUTTONS_ROWS = 1;
 
     public MainMenu(final Game game) {
         background = new Texture("mainMenuBackground.png");
@@ -41,6 +49,12 @@ public class MainMenu extends ScreenAdapter {
         Skin skin = new Skin();
         buttonDrawable = new TextureRegionDrawable(
             new TextureRegion(new Texture("buttonDrawableRegion.png"))
+        );
+        buttonContainer = new ButtonContainer(
+            Gdx.graphics.getWidth() / 2f - MENU_BUTTONS_WIDTH,
+            Gdx.graphics.getHeight() / 1.5f,
+            MENU_BUTTONS_WIDTH,
+            MENU_BUTTONS_HEIGHT
         );
 
         createTextButtonStyle();
