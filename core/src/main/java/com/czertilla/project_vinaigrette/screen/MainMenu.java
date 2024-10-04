@@ -50,9 +50,14 @@ public class MainMenu extends ScreenAdapter {
         buttonDrawable = new TextureRegionDrawable(
             new TextureRegion(new Texture("buttonDrawableRegion.png"))
         );
+        float
+            posX = Gdx.graphics.getWidth() / 2f - MENU_BUTTONS_WIDTH,
+            posY = Gdx.graphics.getHeight() / 1.5f;
         buttonContainer = new ButtonContainer(
-            Gdx.graphics.getWidth() / 2f - MENU_BUTTONS_WIDTH,
-            Gdx.graphics.getHeight() / 1.5f,
+            posX,
+            posY,
+            MENU_BUTTONS_WIDTH*2,
+            posY,
             MENU_BUTTONS_WIDTH,
             MENU_BUTTONS_HEIGHT
         );
