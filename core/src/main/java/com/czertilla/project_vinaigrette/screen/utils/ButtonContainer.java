@@ -8,12 +8,30 @@ import java.util.List;
 public class ButtonContainer {
     private final List<Button> buttons;
     private float
+        width,
+        height,
         buttonsWidth,
         buttonsHeight,
         buttonsInterval,
         buttonsPadding,
         positionX,
         positionY;
+
+    public float getWidth() {
+        return width;
+    }
+
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
 
     public float getButtonsInterval() {
         return buttonsInterval;
@@ -81,11 +99,15 @@ public class ButtonContainer {
     public ButtonContainer(
             float positionX,
             float positionY,
+            float width,
+            float height,
             float buttonsWidth,
             float buttonsHeight
     ) {
         this.positionX = positionX;
         this.positionY = positionY;
+        this.width = width;
+        this.height = height;
         this.buttonsWidth = buttonsWidth;
         this.buttonsHeight = buttonsHeight;
         this.buttonsInterval
@@ -97,11 +119,19 @@ public class ButtonContainer {
     public ButtonContainer(
         float positionX,
         float positionY,
+        float width,
+        float height,
         float buttonsWidth,
         float buttonsHeight,
         int buttonsRows
     ) {
-        this(positionX, positionY, buttonsWidth, buttonsHeight);
+        this(positionX,
+            positionY,
+            width,
+            height,
+            buttonsWidth,
+            buttonsHeight
+        );
         this.buttonsRows = buttonsRows;
     }
 
