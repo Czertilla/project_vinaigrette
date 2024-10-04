@@ -40,12 +40,12 @@ public class MainMenu extends ScreenAdapter {
 
         Skin skin = new Skin();
         buttonDrawable = new TextureRegionDrawable(
-            new TextureRegion(new Texture("buttonDrawableRegion.jpg"))
+            new TextureRegion(new Texture("buttonDrawableRegion.png"))
         );
 
         createTextButtonStyle();
 
-        if (false) {// TODO implement saves detections
+        if (true) {// TODO implement saves detections
             createContinueButton();
         }
     }
