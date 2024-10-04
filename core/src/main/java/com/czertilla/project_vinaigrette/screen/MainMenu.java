@@ -93,7 +93,7 @@ public class MainMenu extends ScreenAdapter {
             }
         });
 
-        stage.addActor(button);
+        initButton(button);
     }
 
     private void createTextButtonStyle() {
