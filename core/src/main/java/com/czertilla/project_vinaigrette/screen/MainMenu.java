@@ -19,15 +19,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.czertilla.project_vinaigrette.screen.utils.ButtonContainer;
 // TODO replace all strings with variables alt
 
 public class MainMenu extends ScreenAdapter {
+    private final Game game;
     private final Texture background;
     private final Stage stage;
 //    private final Music backgroundMusic;
 //    private final Sound clickSound;
-//    private final TextButton PersonnageButton;
 
     private final Drawable buttonDrawable;
 
@@ -43,6 +42,8 @@ public class MainMenu extends ScreenAdapter {
         MENU_BUTTONS_ROWS = 1;
 
     public MainMenu(final Game game) {
+        this.game = game;
+
         background = new Texture("mainMenuBackground.png");
 
         stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
