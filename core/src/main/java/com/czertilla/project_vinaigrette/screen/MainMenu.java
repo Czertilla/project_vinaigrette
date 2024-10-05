@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -31,7 +32,7 @@ public class MainMenu extends ScreenAdapter {
     private final Drawable buttonDrawable;
 
     private TextButton.TextButtonStyle textButtonStyle;
-    private final ButtonContainer buttonContainer;
+    private final Table buttonTable;
 
     static final float
         FRAMES_LOCK = 30f,
@@ -53,26 +54,30 @@ public class MainMenu extends ScreenAdapter {
         float
             posX = Gdx.graphics.getWidth() / 2f - MENU_BUTTONS_WIDTH,
             posY = Gdx.graphics.getHeight() / 1.5f;
-        buttonContainer = new ButtonContainer(
-            posX,
-            posY,
-            MENU_BUTTONS_WIDTH*2,
-            posY,
-            MENU_BUTTONS_WIDTH,
-            MENU_BUTTONS_HEIGHT
-        );
+        buttonTable = new Table();
+        buttonTable.setFillParent(true);
+        buttonTable.debug();
+        buttonTable.setSize(MENU_BUTTONS_WIDTH*2, posY);
 
         createTextButtonStyle();
 
         if (true) {// TODO implement saves detections
             createContinueButton();
         }
+        createSettingsButton();
+
+
+        stage.addActor(buttonTable);
     }
 
 
     private void initButton(Button button){
-        stage.addActor(button);
-        buttonContainer.add(button);
+        button.setDebug(true);
+        buttonTable.add(button)
+            .width(MENU_BUTTONS_WIDTH)
+            .height(MENU_BUTTONS_HEIGHT)
+            .center();
+        buttonTable.row();
     }
 
     private void createSettingsButton() {
