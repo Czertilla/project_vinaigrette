@@ -117,9 +117,14 @@ public class MainMenu extends ScreenAdapter {
             new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = FONT_SIZE;
         BitmapFont font = generator.generateFont(parameter);
+        font.setColor(Color.WHITE);
         generator.dispose();
         textButtonStyle.font = font;
         textButtonStyle.up = buttonDrawable;
+        textButtonStyle.fontColor = Color.BLACK;
+        textButtonStyle.downFontColor = Color.WHITE;
+        textButtonStyle.overFontColor = Color.CORAL;
+        textButtonStyle.checkedFontColor = Color.GREEN;
     }
 
     @Override
