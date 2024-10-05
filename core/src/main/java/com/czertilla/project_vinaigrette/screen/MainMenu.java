@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 // TODO replace all strings with variables alt
 
 public class MainMenu extends ScreenAdapter {
+    static private MainMenu instance;
     private final Game game;
     private final Texture background;
     private final Stage stage;
@@ -41,7 +42,17 @@ public class MainMenu extends ScreenAdapter {
         FONT_SIZE = 40,
         MENU_BUTTONS_ROWS = 1;
 
-    public MainMenu(final Game game) {
+    public static MainMenu getInstance(final Game game) {
+        if (instance == null)
+            instance = new MainMenu(game);
+        return instance;
+    }
+    /** call this, only when you sure, that instance already exists */
+    public static MainMenu getInstance(){
+        return instance;
+    }
+
+    private MainMenu(final Game game) {
         this.game = game;
 
         background = new Texture("mainMenuBackground.png");
