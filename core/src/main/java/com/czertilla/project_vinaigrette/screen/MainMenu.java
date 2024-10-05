@@ -47,6 +47,7 @@ public class MainMenu extends ScreenAdapter {
         background = new Texture("mainMenuBackground.png");
 
         stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+        Gdx.input.setInputProcessor(stage);
 
         Skin skin = new Skin();
         buttonDrawable = new TextureRegionDrawable(
