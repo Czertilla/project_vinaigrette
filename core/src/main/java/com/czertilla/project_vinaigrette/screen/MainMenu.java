@@ -34,6 +34,7 @@ public class MainMenu extends ScreenAdapter {
     private TextButton.TextButtonStyle textButtonStyle;
     private final Table buttonTable;
 
+    static boolean debug = true;
     static final float
         FRAMES_LOCK = 30f,
         MENU_BUTTONS_WIDTH = 500f,
@@ -52,7 +53,7 @@ public class MainMenu extends ScreenAdapter {
         return instance;
     }
 
-    private MainMenu(final Game game) {
+    public MainMenu(final Game game) {
         this.game = game;
 
         background = new Texture("mainMenuBackground.png");
@@ -69,23 +70,27 @@ public class MainMenu extends ScreenAdapter {
             posY = Gdx.graphics.getHeight() / 1.5f;
         buttonTable = new Table();
         buttonTable.setFillParent(true);
-        buttonTable.debug();
         buttonTable.setSize(MENU_BUTTONS_WIDTH*2, posY);
-
-        createTextButtonStyle();
-
-        if (true) {// TODO implement saves detections
-            createContinueButton();
-        }
-        createSettingsButton();
-
 
         stage.addActor(buttonTable);
     }
 
+    @Override
+    public void show(){
+        buttonTable.clear();
+        buttonTable.setDebug(MainMenu.debug);
+
+        createTextButtonStyle();
+
+        if (false) {// TODO implement saves detections
+            createContinueButton();
+        }
+        createSettingsButton();
+
+    }
 
     private void initButton(Button button){
-        button.setDebug(true);
+        button.setDebug(debug);
         buttonTable.add(button)
             .width(MENU_BUTTONS_WIDTH)
             .height(MENU_BUTTONS_HEIGHT)
@@ -99,7 +104,8 @@ public class MainMenu extends ScreenAdapter {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-//                TODO implement Continue Button click trigger
+                game.setScreen(new OptionsMenu(game, MainMenu.this));
+                dispose();
             }
         });
 
@@ -143,7 +149,7 @@ public class MainMenu extends ScreenAdapter {
         ScreenUtils.clear(Color.CLEAR);
 
         stage.getBatch().begin();
-        stage.getBatch().draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+//        stage.getBatch().draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         stage.getBatch().end();
 
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / FRAMES_LOCK));
