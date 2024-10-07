@@ -38,6 +38,13 @@ public class BaseMenu extends ScreenAdapter {
         this.stage.show();
     }
 
+    public void setStage(BaseMenuStage stage){
+        this.stage = stage;
+
+        Gdx.input.setInputProcessor(stage);
+        stage.show();
+    }
+
     @Override
     public void render(float delta) {
         ScreenUtils.clear(Color.CLEAR);
