@@ -17,10 +17,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.czertilla.project_vinaigrette.Main;
+import com.czertilla.project_vinaigrette.stage.menu.BaseMenuStage;
 
 public class BaseMenu extends ScreenAdapter {
     static protected BaseMenu instance;
-    protected final Game game;
+    protected final Main game;
     protected Texture background;
     protected BaseMenuStage stage;
 //    private final Sound clickSound;
@@ -28,17 +30,7 @@ public class BaseMenu extends ScreenAdapter {
     static protected final float
         FRAMES_LOCK = 30f;
 
-    public static BaseMenu getInstance(final Game game) {
-        if (instance == null)
-            instance = new BaseMenu(game);
-        return instance;
-    }
-    /** call this, only when you sure, that instance already exists */
-    public static BaseMenu getInstance(){
-        return instance;
-    }
-
-    public BaseMenu(final Game game) {
+    public BaseMenu(final Main game) {
         this.game = game;
     }
 
