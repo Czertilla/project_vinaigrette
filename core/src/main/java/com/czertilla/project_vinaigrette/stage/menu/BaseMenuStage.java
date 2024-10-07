@@ -20,6 +20,7 @@ import com.czertilla.project_vinaigrette.screen.menu.BaseMenu;
 public class BaseMenuStage extends Stage {
     static BaseMenuStage instance;
 //    TODO implement 'back' button logic
+    protected BaseMenu menu;
     protected final Drawable buttonDrawable;
     protected final Table buttonTable;
     private TextButton.TextButtonStyle textButtonStyle;
