@@ -1,4 +1,4 @@
-package com.czertilla.project_vinaigrette.screen;
+package com.czertilla.project_vinaigrette.screen.menu;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -19,12 +19,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-// TODO replace all strings with variables alt
 
-public class MainMenu extends ScreenAdapter {
-    static private MainMenu instance;
+public class OptionsMenu extends ScreenAdapter {
+    private Class<? extends ScreenAdapter> lastAdapter;
+    static private OptionsMenu instance;
     private final Game game;
-    private final Texture background;
+//    private final Texture background;
     private final Stage stage;
 //    private final Music backgroundMusic;
 //    private final Sound clickSound;
@@ -34,7 +34,6 @@ public class MainMenu extends ScreenAdapter {
     private TextButton.TextButtonStyle textButtonStyle;
     private final Table buttonTable;
 
-    static boolean debug = true;
     static final float
         FRAMES_LOCK = 30f,
         MENU_BUTTONS_WIDTH = 500f,
@@ -43,20 +42,22 @@ public class MainMenu extends ScreenAdapter {
         FONT_SIZE = 40,
         MENU_BUTTONS_ROWS = 1;
 
-    public static MainMenu getInstance(final Game game) {
+    public static OptionsMenu getInstance(final Game game, ScreenAdapter lastAdapter) {
         if (instance == null)
-            instance = new MainMenu(game);
+            instance = new OptionsMenu(game, lastAdapter);
         return instance;
     }
     /** call this, only when you sure, that instance already exists */
-    public static MainMenu getInstance(){
+    public static OptionsMenu getInstance(ScreenAdapter lastAdapter){
+        instance.lastAdapter = lastAdapter.getClass();
         return instance;
     }
 
-    public MainMenu(final Game game) {
+    public OptionsMenu(final Game game, ScreenAdapter lastAdapter) {
         this.game = game;
+        this.lastAdapter = lastAdapter.getClass();
 
-        background = new Texture("mainMenuBackground.png");
+//        background = new Texture("optionsMenuBackground.png");
 
         stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         Gdx.input.setInputProcessor(stage);
@@ -72,25 +73,25 @@ public class MainMenu extends ScreenAdapter {
         buttonTable.setFillParent(true);
         buttonTable.setSize(MENU_BUTTONS_WIDTH*2, posY);
 
+
         stage.addActor(buttonTable);
     }
 
     @Override
     public void show(){
         buttonTable.clear();
+
+
         buttonTable.setDebug(MainMenu.debug);
 
         createTextButtonStyle();
 
-        if (false) {// TODO implement saves detections
-            createContinueButton();
-        }
-        createSettingsButton();
-
+        createDebugButton();
+        createBackButton();
     }
 
     private void initButton(Button button){
-        button.setDebug(debug);
+        button.setDebug(MainMenu.debug);
         buttonTable.add(button)
             .width(MENU_BUTTONS_WIDTH)
             .height(MENU_BUTTONS_HEIGHT)
@@ -98,27 +99,35 @@ public class MainMenu extends ScreenAdapter {
         buttonTable.row();
     }
 
-    private void createSettingsButton() {
-        TextButton button = new TextButton("Settings", textButtonStyle);
+    private void createDebugButton() {
+        TextButton button = new TextButton("Debug", textButtonStyle);
 
+
+        button.setChecked(MainMenu.debug);
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new OptionsMenu(game, MainMenu.this));
-                dispose();
+                MainMenu.debug = button.isChecked();
+                show();
             }
         });
 
         initButton(button);
     }
 
-    private void createContinueButton() {
-        TextButton button = new TextButton("Continue", textButtonStyle);
-
+    private void createBackButton() {
+        TextButton button = new TextButton("back", textButtonStyle);
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-//                TODO implement Continue Button click trigger
+                ScreenAdapter adapter;
+                if (lastAdapter.equals(MainMenu.class)) {
+                    adapter = new MainMenu(game);
+                }
+                else
+                    adapter = new ScreenAdapter();
+                game.setScreen(adapter);
+                dispose();
             }
         });
 
@@ -163,7 +172,7 @@ public class MainMenu extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        background.dispose();
+//        background.dispose();
         stage.dispose();
 //        backgroundMusic.dispose();
 //        clickSound.dispose();

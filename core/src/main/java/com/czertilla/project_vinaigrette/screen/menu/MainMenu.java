@@ -1,4 +1,4 @@
-package com.czertilla.project_vinaigrette.screen;
+package com.czertilla.project_vinaigrette.screen.menu;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -20,12 +19,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+// TODO replace all strings with variables alt
 
-public class OptionsMenu extends ScreenAdapter {
-    private Class<? extends ScreenAdapter> lastAdapter;
-    static private OptionsMenu instance;
+public class MainMenu extends ScreenAdapter {
+    static private MainMenu instance;
     private final Game game;
-//    private final Texture background;
+    private final Texture background;
     private final Stage stage;
 //    private final Music backgroundMusic;
 //    private final Sound clickSound;
@@ -35,6 +34,7 @@ public class OptionsMenu extends ScreenAdapter {
     private TextButton.TextButtonStyle textButtonStyle;
     private final Table buttonTable;
 
+    static boolean debug = true;
     static final float
         FRAMES_LOCK = 30f,
         MENU_BUTTONS_WIDTH = 500f,
@@ -43,22 +43,20 @@ public class OptionsMenu extends ScreenAdapter {
         FONT_SIZE = 40,
         MENU_BUTTONS_ROWS = 1;
 
-    public static OptionsMenu getInstance(final Game game, ScreenAdapter lastAdapter) {
+    public static MainMenu getInstance(final Game game) {
         if (instance == null)
-            instance = new OptionsMenu(game, lastAdapter);
+            instance = new MainMenu(game);
         return instance;
     }
     /** call this, only when you sure, that instance already exists */
-    public static OptionsMenu getInstance(ScreenAdapter lastAdapter){
-        instance.lastAdapter = lastAdapter.getClass();
+    public static MainMenu getInstance(){
         return instance;
     }
 
-    public OptionsMenu(final Game game, ScreenAdapter lastAdapter) {
+    public MainMenu(final Game game) {
         this.game = game;
-        this.lastAdapter = lastAdapter.getClass();
 
-//        background = new Texture("optionsMenuBackground.png");
+        background = new Texture("mainMenuBackground.png");
 
         stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         Gdx.input.setInputProcessor(stage);
@@ -74,25 +72,25 @@ public class OptionsMenu extends ScreenAdapter {
         buttonTable.setFillParent(true);
         buttonTable.setSize(MENU_BUTTONS_WIDTH*2, posY);
 
-
         stage.addActor(buttonTable);
     }
 
     @Override
     public void show(){
         buttonTable.clear();
-
-
         buttonTable.setDebug(MainMenu.debug);
 
         createTextButtonStyle();
 
-        createDebugButton();
-        createBackButton();
+        if (false) {// TODO implement saves detections
+            createContinueButton();
+        }
+        createSettingsButton();
+
     }
 
     private void initButton(Button button){
-        button.setDebug(MainMenu.debug);
+        button.setDebug(debug);
         buttonTable.add(button)
             .width(MENU_BUTTONS_WIDTH)
             .height(MENU_BUTTONS_HEIGHT)
@@ -100,35 +98,27 @@ public class OptionsMenu extends ScreenAdapter {
         buttonTable.row();
     }
 
-    private void createDebugButton() {
-        TextButton button = new TextButton("Debug", textButtonStyle);
+    private void createSettingsButton() {
+        TextButton button = new TextButton("Settings", textButtonStyle);
 
-
-        button.setChecked(MainMenu.debug);
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                MainMenu.debug = button.isChecked();
-                show();
+                game.setScreen(new OptionsMenu(game, MainMenu.this));
+                dispose();
             }
         });
 
         initButton(button);
     }
 
-    private void createBackButton() {
-        TextButton button = new TextButton("back", textButtonStyle);
+    private void createContinueButton() {
+        TextButton button = new TextButton("Continue", textButtonStyle);
+
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ScreenAdapter adapter;
-                if (lastAdapter.equals(MainMenu.class)) {
-                    adapter = new MainMenu(game);
-                }
-                else
-                    adapter = new ScreenAdapter();
-                game.setScreen(adapter);
-                dispose();
+//                TODO implement Continue Button click trigger
             }
         });
 
@@ -173,7 +163,7 @@ public class OptionsMenu extends ScreenAdapter {
 
     @Override
     public void dispose() {
-//        background.dispose();
+        background.dispose();
         stage.dispose();
 //        backgroundMusic.dispose();
 //        clickSound.dispose();
