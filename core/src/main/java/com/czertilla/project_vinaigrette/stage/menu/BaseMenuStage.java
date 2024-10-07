@@ -18,7 +18,7 @@ public class BaseMenuStage extends Stage {
         FONT_SIZE = 40,
         MENU_BUTTONS_ROWS = 1;
 
-    private BaseMenuStage(){
+    protected BaseMenuStage(){
         super(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 
         Skin skin = new Skin();
