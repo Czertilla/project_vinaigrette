@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends Game {
     private SpriteBatch batch;
+    public static boolean debug = true;
     private Texture image;
 
     @Override
