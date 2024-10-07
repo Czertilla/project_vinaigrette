@@ -20,7 +20,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.czertilla.project_vinaigrette.Main;
 import com.czertilla.project_vinaigrette.stage.menu.BaseMenuStage;
 
-public class BaseMenu extends ScreenAdapter {
+public abstract class BaseMenu extends ScreenAdapter {
     static protected BaseMenu instance;
     protected final Main game;
     protected Texture background;
@@ -44,6 +44,8 @@ public class BaseMenu extends ScreenAdapter {
         Gdx.input.setInputProcessor(stage);
         stage.show();
     }
+
+    public abstract void setDefaultStage();
 
     @Override
     public void render(float delta) {
