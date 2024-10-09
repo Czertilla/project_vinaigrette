@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -22,6 +23,7 @@ public class BaseMenuStage extends Stage {
 //    TODO implement 'back' button logic
     protected BaseMenu menu;
     protected final Drawable buttonDrawable;
+    ScrollPane scrollPane;
     protected final Table buttonTable;
     private TextButton.TextButtonStyle textButtonStyle;
 
@@ -41,9 +43,9 @@ public class BaseMenuStage extends Stage {
             new TextureRegion(new Texture("buttonDrawableRegion.png"))
         );
         buttonTable = new Table();
-        buttonTable.setFillParent(true);
+        scrollPane = new ScrollPane(buttonTable);
 
-        this.addActor(buttonTable);
+        this.addActor(scrollPane);
     }
 
     public void show(){
