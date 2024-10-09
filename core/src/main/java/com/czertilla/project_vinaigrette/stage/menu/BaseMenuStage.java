@@ -50,7 +50,7 @@ public class BaseMenuStage extends Stage {
 
     public void show(){
         buttonTable.clear();
-        buttonTable.setDebug(Main.debug);
+        setDebugAll(Main.debug);
 
         createTextButtonStyle();
     }
