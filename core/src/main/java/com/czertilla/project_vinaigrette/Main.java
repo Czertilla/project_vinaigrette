@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class Main extends Game {
     private SpriteBatch batch;
     public static boolean debug = true;
+    public static int scale = 0;
     private Texture image;
 
     @Override

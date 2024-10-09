@@ -27,6 +27,9 @@ public class BaseMenuStage extends Stage {
     protected final Table buttonTable;
     private TextButton.TextButtonStyle textButtonStyle;
 
+    public static
+    float[] scaleLine = new float[]{1f, 1.5f, 2f, 0.25f, 0.5f, 0.75f};
+
     static protected final float
         MENU_BUTTONS_WIDTH = 500f,
         MENU_BUTTONS_HEIGHT = 150f;

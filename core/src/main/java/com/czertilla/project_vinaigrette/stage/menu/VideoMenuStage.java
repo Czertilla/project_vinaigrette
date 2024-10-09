@@ -69,6 +69,25 @@ public class VideoMenuStage extends BaseMenuStage{
         initButton(button);
     }
 
+    private void createScaleButton() {
+        TextButton button = getNewTextButton("");
+
+        int scale = Main.scale;
+        button.setText("scale: x" + scaleLine[scale]);
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (scaleLine.length <= Main.scale + 1)
+                    Main.scale = 0;
+                else
+                    Main.scale += 1;
+                show();
+            }
+        });
+
+        initButton(button);
+    }
+
     private void createDebugButton() {
         TextButton button = getNewTextButton("debug");
 
