@@ -1,5 +1,7 @@
 package com.czertilla.project_vinaigrette.stage.menu;
 
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -29,6 +31,8 @@ public class VideoMenuStage extends BaseMenuStage{
         super.show();
 
         createDebugButton();
+        if (Gdx.app.getType() == Application.ApplicationType.Desktop)
+            createFullscreenButton();
         createBackButton();
     }
 
@@ -39,6 +43,26 @@ public class VideoMenuStage extends BaseMenuStage{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 menu.setStage(SettingsMenuStage.getInstance(menu));
+            }
+        });
+
+        initButton(button);
+    }
+
+    private void createFullscreenButton() {
+        TextButton button = getNewTextButton("full screen");
+
+        button.setChecked(Gdx.graphics.isFullscreen());
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (button.isChecked())
+                    Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+                else
+//                    TODO implement remembering last window size to get back
+//                    TODO put fullscreen switcher in some method
+                    Gdx.graphics.setWindowedMode(800, 600);
+                show();
             }
         });
 
