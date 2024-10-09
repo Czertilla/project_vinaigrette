@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.czertilla.project_vinaigrette.Main;
 import com.czertilla.project_vinaigrette.screen.menu.BaseMenu;
 
@@ -33,7 +33,7 @@ public class BaseMenuStage extends Stage {
         MENU_BUTTONS_ROWS = 1;
 
     protected BaseMenuStage(){
-        super(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+        super(new ScreenViewport());
 
         Skin skin = new Skin();
         createTextButtonStyle();
