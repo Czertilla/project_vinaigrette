@@ -53,7 +53,9 @@ public class VideoMenuStage extends BaseMenuStage{
     private void createFullscreenButton() {
         TextButton button = getNewTextButton("full screen");
 
-        button.setChecked(Gdx.graphics.isFullscreen());
+        boolean isFullscreen = Gdx.graphics.isFullscreen();
+        button.setChecked(isFullscreen);
+        button.setText("full screen: " + (isFullscreen ? "on" : "off"));
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -92,7 +94,9 @@ public class VideoMenuStage extends BaseMenuStage{
     private void createDebugButton() {
         TextButton button = getNewTextButton("debug");
 
-        button.setChecked(Main.debug);
+        boolean isDebug = Main.debug;
+        button.setChecked(isDebug);
+        button.setText("debug: " + (isDebug ? "on" : "off"));
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
