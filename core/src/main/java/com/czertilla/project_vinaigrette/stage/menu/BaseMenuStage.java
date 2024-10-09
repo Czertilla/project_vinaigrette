@@ -33,7 +33,7 @@ public class BaseMenuStage extends Stage {
     static protected final float
         MENU_BUTTONS_WIDTH = 500f,
         MENU_BUTTONS_HEIGHT = 150f;
-    static  protected final int
+    static protected final int
         FONT_SIZE = 40,
         MENU_BUTTONS_ROWS = 1;
 
@@ -60,9 +60,9 @@ public class BaseMenuStage extends Stage {
     protected void initButton(Button button){
         button.setDebug(Main.debug);
         buttonTable.add(button)
-            .width(MENU_BUTTONS_WIDTH)
-            .height(MENU_BUTTONS_HEIGHT)
-            .center();
+            .width(MENU_BUTTONS_WIDTH * scaleLine[Main.scale])
+            .height(MENU_BUTTONS_HEIGHT * scaleLine[Main.scale])
+            ;
         buttonTable.row();
     }
 
@@ -77,7 +77,7 @@ public class BaseMenuStage extends Stage {
         );
         FreeTypeFontGenerator.FreeTypeFontParameter parameter =
             new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = FONT_SIZE;
+        parameter.size = (int) (FONT_SIZE * scaleLine[Main.scale]);
         BitmapFont font = generator.generateFont(parameter);
         font.setColor(Color.WHITE);
         generator.dispose();
