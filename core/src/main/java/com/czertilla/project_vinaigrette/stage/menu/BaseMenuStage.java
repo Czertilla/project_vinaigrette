@@ -86,4 +86,8 @@ public class BaseMenuStage extends Stage {
         textButtonStyle.checkedFontColor = Color.GREEN;
     }
 
+    public void resize(int width, int height) {
+        getViewport().update(width, height, true);
+        scrollPane.setBounds(0, 0, getWidth(), getHeight());
+    }
 }
