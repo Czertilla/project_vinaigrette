@@ -33,6 +33,7 @@ public class VideoMenuStage extends BaseMenuStage{
         createDebugButton();
         if (Gdx.app.getType() == Application.ApplicationType.Desktop)
             createFullscreenButton();
+        createScaleButton();
         createBackButton();
     }
 
