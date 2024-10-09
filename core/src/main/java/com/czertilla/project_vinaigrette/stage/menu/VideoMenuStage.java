@@ -11,6 +11,10 @@ import com.czertilla.project_vinaigrette.screen.menu.MainMenu;
 
 public class VideoMenuStage extends BaseMenuStage{
     private static VideoMenuStage instance;
+
+    private int
+        lastWidth = 800,
+        lastHeight = 600;
     public static VideoMenuStage getInstance(BaseMenu menu){
         if (instance == null){
             instance = new VideoMenuStage();
@@ -59,10 +63,12 @@ public class VideoMenuStage extends BaseMenuStage{
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (button.isChecked())
+                if (button.isChecked()) {
+                    lastWidth = Gdx.graphics.getWidth();
+                    lastHeight = Gdx.graphics.getHeight();
                     Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+                }
                 else
-//                    TODO implement remembering last window size to get back
 //                    TODO put fullscreen switcher in some method
                     Gdx.graphics.setWindowedMode(800, 600);
                 show();
