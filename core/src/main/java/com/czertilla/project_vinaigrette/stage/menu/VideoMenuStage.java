@@ -70,7 +70,7 @@ public class VideoMenuStage extends BaseMenuStage{
                 }
                 else
 //                    TODO put fullscreen switcher in some method
-                    Gdx.graphics.setWindowedMode(800, 600);
+                    Gdx.graphics.setWindowedMode(lastWidth, lastHeight);
                 show();
             }
         });
