@@ -52,7 +52,7 @@ public abstract class BaseMenu extends ScreenAdapter {
 
     @Override
     public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
+        stage.resize(width, height);
     }
 
     @Override
