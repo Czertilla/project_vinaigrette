@@ -40,12 +40,8 @@ public class BaseMenuStage extends Stage {
         buttonDrawable = new TextureRegionDrawable(
             new TextureRegion(new Texture("buttonDrawableRegion.png"))
         );
-        float
-            posX = Gdx.graphics.getWidth() / 2f - MENU_BUTTONS_WIDTH,
-            posY = Gdx.graphics.getHeight() / 1.5f;
         buttonTable = new Table();
         buttonTable.setFillParent(true);
-        buttonTable.setSize(MENU_BUTTONS_WIDTH*2, posY);
 
         this.addActor(buttonTable);
     }
