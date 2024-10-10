@@ -52,6 +52,19 @@ public class MainMenuStage extends BaseMenuStage{
         initButton(button);
     }
 
+    private void createNewGameButton() {
+        TextButton button = getNewTextButton("New Game");
+
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+//                TODO implement New Game Button click trigger
+            }
+        });
+
+        initButton(button);
+    }
+
     private void createQuitButton() {
         TextButton button = getNewTextButton("Quit");
 
