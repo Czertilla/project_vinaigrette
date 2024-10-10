@@ -20,7 +20,10 @@ public class MainMenuStage extends BaseMenuStage{
     public void show(){
         super.show();
 
-        createContinueButton();
+        if (false)
+//            TODO implement saves detections
+            createContinueButton();
+        createNewGameButton();
         createSettingsButton();
         if (Gdx.app.getType().equals(Application.ApplicationType.Desktop))
             createQuitButton();
@@ -46,6 +49,19 @@ public class MainMenuStage extends BaseMenuStage{
             @Override
             public void clicked(InputEvent event, float x, float y) {
 //                TODO implement Continue Button click trigger
+            }
+        });
+
+        initButton(button);
+    }
+
+    private void createNewGameButton() {
+        TextButton button = getNewTextButton("New Game");
+
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+//                TODO implement New Game Button click trigger
             }
         });
 
