@@ -20,7 +20,10 @@ public class MainMenuStage extends BaseMenuStage{
     public void show(){
         super.show();
 
-        createContinueButton();
+        if (false)
+//            TODO implement saves detections
+            createContinueButton();
+        createNewGameButton();
         createSettingsButton();
         if (Gdx.app.getType().equals(Application.ApplicationType.Desktop))
             createQuitButton();
