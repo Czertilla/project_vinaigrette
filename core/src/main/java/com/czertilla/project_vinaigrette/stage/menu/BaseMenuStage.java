@@ -14,13 +14,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.czertilla.project_vinaigrette.Main;
+import com.czertilla.project_vinaigrette.asset.Bundle;
 import com.czertilla.project_vinaigrette.screen.menu.BaseMenu;
 
 public class BaseMenuStage extends Stage {
+
+    protected static final String prefix = "BUTTONS/MENU/";
+    protected I18NBundle bundle;
     static BaseMenuStage instance;
-//    TODO implement 'back' button logic
     protected BaseMenu menu;
     protected final Drawable buttonDrawable;
     ScrollPane scrollPane;
@@ -41,6 +45,7 @@ public class BaseMenuStage extends Stage {
         super(new ScreenViewport());
 
         Skin skin = new Skin();
+        bundle = Bundle.getInstance();
         createTextButtonStyle();
         buttonDrawable = new TextureRegionDrawable(
             new TextureRegion(new Texture("buttonDrawableRegion.png"))
