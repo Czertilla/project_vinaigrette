@@ -4,10 +4,10 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.czertilla.project_vinaigrette.scene.actor.BaseActor;
+import com.czertilla.project_vinaigrette.scene.actor.PlayerActor;
 
 public class InputHandler extends InputAdapter {
-    private final BaseActor actor;
+    private final PlayerActor actor;
     private final float speed = 200f;
     private final Stage stage;
     private boolean moveUp = false;
@@ -15,7 +15,7 @@ public class InputHandler extends InputAdapter {
     private boolean moveLeft = false;
     private boolean moveRight = false;
 
-    public InputHandler(BaseActor actor,Stage stage) {
+    public InputHandler(PlayerActor actor, Stage stage) {
         this.actor = actor;
         this.stage = stage;
     }

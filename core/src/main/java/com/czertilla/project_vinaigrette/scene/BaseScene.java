@@ -6,12 +6,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.czertilla.project_vinaigrette.scene.actor.BaseActor;
+import com.czertilla.project_vinaigrette.scene.actor.PlayerActor;
 import com.czertilla.project_vinaigrette.handler.InputHandler;
+import com.czertilla.project_vinaigrette.scene.actor.BulletActor;
 
 public class BaseScene extends Stage {
-    protected BaseActor actor;
+    protected PlayerActor actor;
     private InputHandler inputHandler;
     private ShapeRenderer shapeRenderer;
     public BaseScene() {
@@ -22,7 +24,7 @@ public class BaseScene extends Stage {
         // Загрузка текстуры
         Texture texture = new Texture(Gdx.files.internal("ui/shutgun.png"));
         TextureRegion region = new TextureRegion(texture); // Создаем TextureRegion
-        actor = new BaseActor(region);
+        actor = new PlayerActor(region);
         actor.setPosition(200, 200);
         actor.setSize(200, 100);// Устанавливаем актера в центре экрана
         actor.toFront();
@@ -39,6 +41,35 @@ public class BaseScene extends Stage {
         super.draw();
         drawBoundingBoxes();
     }
+    private void checkCollisions() {
+        // Сохраняем ссылки на актеров в виде списка
+        Array<Actor> actors = getActors();
+
+        // Проходим по каждому актеру
+        for (int i = 0; i < actors.size; i++) {
+            Actor actor = actors.get(i);
+            if (actor instanceof PlayerActor) {
+                PlayerActor playerActor = (PlayerActor) actor;
+
+                // Проверяем столкновения только с остальными актерами
+                for (int j = 0; j < actors.size; j++) {
+                    if (i == j) continue; // Игнорируем самого себя
+                    Actor other = actors.get(j);
+                    if (other instanceof PlayerActor) {
+                        PlayerActor otherActor = (PlayerActor) other;
+                        if (playerActor.collidesWith(otherActor)) {
+                            playerActor.handleCollision(otherActor);
+                        }
+                    } else if (other instanceof BulletActor) {
+                        BulletActor bullet = (BulletActor) other;
+                        if (playerActor.collidesWith(bullet)) {
+                            playerActor.bulletCollision(playerActor);
+                        }
+                    }
+                }
+            }
+        }
+    }
     private void drawBoundingBoxes() {
         shapeRenderer.setProjectionMatrix(getCamera().combined);  // Установка матрицы проекции камеры
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);  // Начало отрисовки линий
@@ -46,9 +77,9 @@ public class BaseScene extends Stage {
 
         // Проход по всем актёрам
         for (Actor actor : getActors()) {
-            if (actor instanceof BaseActor) {
-                BaseActor baseActor = (BaseActor) actor;
-                baseActor.drawBoundingBox(shapeRenderer);  // Отрисовка бокса для каждого BaseActor
+            if (actor instanceof PlayerActor) {
+                PlayerActor playerActor = (PlayerActor) actor;
+                playerActor.drawBoundingBox(shapeRenderer);  // Отрисовка бокса для каждого BaseActor
             }
         }
 
@@ -58,6 +89,7 @@ public class BaseScene extends Stage {
     public void act(float delta) {
         super.act(delta);
         inputHandler.update(delta);
+        checkCollisions();
     }
 
     // Метод для обработки изменения размера окна

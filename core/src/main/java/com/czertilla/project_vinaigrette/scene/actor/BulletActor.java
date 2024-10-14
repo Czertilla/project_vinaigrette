@@ -5,16 +5,15 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class BulletActor extends Actor {
-    private TextureRegion region;
-    private Polygon collisionPolygon; // Полигон для коллизии
+public class BulletActor extends BaseActor { // Полигон для коллизии
     private float speed;
     private float direction; // Угол направления пули
 
-    public BulletActor(Texture texture, float startX, float startY, float direction, float speed) {
-        this.region = new TextureRegion(texture);
+    public BulletActor(TextureRegion texture, float startX, float startY, float direction, float speed) {
+        super(texture);
         this.direction = direction;
         this.speed = speed;
 
@@ -25,7 +24,7 @@ public class BulletActor extends Actor {
         setPosition(startX - getWidth() / 2, startY - getHeight() / 2); // центрирование пули
 
         // Создаем полигон для коллизии (прямоугольник)
-        collisionPolygon = new Polygon(new float[]{
+        this.BoundingBox = new Polygon(new float[]{
             0, 0,                   // нижний левый угол
             getWidth(), 0,           // нижний правый угол
             getWidth(), getHeight(), // верхний правый угол
@@ -64,8 +63,5 @@ public class BulletActor extends Actor {
     }
 
     // Возвращает полигон для проверки столкновений
-    public Polygon getCollisionPolygon() {
-        return collisionPolygon;
-    }
 }
 
