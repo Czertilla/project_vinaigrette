@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.czertilla.project_vinaigrette.Main;
+import com.czertilla.project_vinaigrette.asset.Bundle;
 import com.czertilla.project_vinaigrette.screen.menu.BaseMenu;
 import com.czertilla.project_vinaigrette.screen.menu.MainMenu;
 
@@ -59,7 +60,13 @@ public class VideoMenuStage extends BaseMenuStage{
 
         boolean isFullscreen = Gdx.graphics.isFullscreen();
         button.setChecked(isFullscreen);
-        button.setText("full screen: " + (isFullscreen ? "on" : "off"));
+        button.setText(
+            bundle.get(prefix+"FULLSCREEN") +
+            (isFullscreen ?
+                bundle.get(prefix+"SWITCH/ON") :
+                bundle.get(prefix+"SWITCH/OFF")
+            )
+        );
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -82,7 +89,7 @@ public class VideoMenuStage extends BaseMenuStage{
         TextButton button = getNewTextButton("");
 
         int scale = Main.scale;
-        button.setText("scale: x" + scaleLine[scale]);
+        button.setText(bundle.format(prefix+"SCALE", scaleLine[scale]));
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -102,7 +109,12 @@ public class VideoMenuStage extends BaseMenuStage{
 
         boolean isDebug = Main.debug;
         button.setChecked(isDebug);
-        button.setText("debug: " + (isDebug ? "on" : "off"));
+        button.setText(
+            bundle.get(prefix+"DEBUG") + (isDebug ?
+                bundle.get(prefix+"SWITCH/ON") :
+                bundle.get(prefix+"SWITCH/OFF")
+            )
+        );
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

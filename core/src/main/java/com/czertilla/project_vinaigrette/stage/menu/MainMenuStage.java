@@ -30,7 +30,7 @@ public class MainMenuStage extends BaseMenuStage{
     }
 
     private void createSettingsButton() {
-        TextButton button = getNewTextButton("Settings");
+        TextButton button = getNewTextButton(bundle.get(prefix+"SETTINGS"));
 
         button.addListener(new ClickListener() {
             @Override
@@ -43,7 +43,7 @@ public class MainMenuStage extends BaseMenuStage{
     }
 
     private void createContinueButton() {
-        TextButton button = getNewTextButton("Continue");
+        TextButton button = getNewTextButton(bundle.get(prefix+"CONTINUE"));
 
         button.addListener(new ClickListener() {
             @Override
@@ -56,7 +56,7 @@ public class MainMenuStage extends BaseMenuStage{
     }
 
     private void createNewGameButton() {
-        TextButton button = getNewTextButton("New Game");
+        TextButton button = getNewTextButton(bundle.get(prefix+"NEW_GAME"));
 
         button.addListener(new ClickListener() {
             @Override
@@ -69,7 +69,7 @@ public class MainMenuStage extends BaseMenuStage{
     }
 
     private void createQuitButton() {
-        TextButton button = getNewTextButton("Quit");
+        TextButton button = getNewTextButton(bundle.get(prefix+"QUIT"));
 
         button.addListener(new ClickListener() {
             @Override

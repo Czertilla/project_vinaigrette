@@ -33,7 +33,7 @@ public class SettingsMenuStage extends BaseMenuStage{
     }
 
     private void createVideoButton(){
-        TextButton button = getNewTextButton("Video");
+        TextButton button = getNewTextButton(bundle.get(prefix+"VIDEO"));
 
         button.addListener(new ClickListener() {
             @Override
@@ -45,7 +45,7 @@ public class SettingsMenuStage extends BaseMenuStage{
         initButton(button);
     }
     private void createBackButton() {
-        TextButton button = getNewTextButton("back");
+        TextButton button = getNewTextButton(bundle.get(prefix+"BACK"));
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
