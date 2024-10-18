@@ -77,6 +77,12 @@ public class BaseMenuStage extends Stage {
         return new TextButton(label, textButtonStyle);
     }
 
+    <T> SelectBox<T> getNewSelectBox(T[] params){
+        SelectBox<T> box = new SelectBox<>(selectBoxStyle);
+        box.setItems(params);
+        return box;
+    }
+
     private BitmapFont getFont(){
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(
             Gdx.files.internal("fonts/pixel_font.ttf")
