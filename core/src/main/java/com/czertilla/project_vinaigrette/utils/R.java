@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.I18NBundle;
 
 public class R {
     public static class path {
-        private static I18NBundle bundle = I18NBundle.createBundle(
+        private static final I18NBundle bundle = I18NBundle.createBundle(
             new FileHandle("strings/paths")
         );
 
