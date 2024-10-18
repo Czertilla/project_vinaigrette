@@ -21,6 +21,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.czertilla.project_vinaigrette.Main;
 import com.czertilla.project_vinaigrette.asset.Bundle;
 import com.czertilla.project_vinaigrette.screen.menu.BaseMenu;
+import com.czertilla.project_vinaigrette.utils.CharSet;
 import com.czertilla.project_vinaigrette.utils.ScrollPane;
 
 public class BaseMenuStage extends Stage {
@@ -94,6 +95,7 @@ public class BaseMenuStage extends Stage {
         FreeTypeFontGenerator.FreeTypeFontParameter parameter =
             new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = (int) (FONT_SIZE * scaleLine[Main.scale]);
+        parameter.characters = CharSet.CHARSET;
         BitmapFont font = generator.generateFont(parameter);
         font.setColor(Color.WHITE);
         generator.dispose();
