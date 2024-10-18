@@ -108,7 +108,12 @@ public class BaseMenuStage extends Stage {
 
     void createSelectBoxStyle() {
         selectBoxStyle = new SelectBox.SelectBoxStyle();
-        selectBoxStyle.font = getFont();
+        BitmapFont font = getFont();
+        selectBoxStyle.scrollStyle = new ScrollPane.ScrollPaneStyle();
+        selectBoxStyle.listStyle = new List.ListStyle();
+        selectBoxStyle.listStyle.font = font;
+        selectBoxStyle.listStyle.selection = buttonDrawable;
+        selectBoxStyle.font = font;
         selectBoxStyle.background = buttonDrawable;
         selectBoxStyle.fontColor = Color.BLACK;
         selectBoxStyle.overFontColor = Color.CORAL;
