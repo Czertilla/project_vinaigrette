@@ -100,7 +100,7 @@ public class BaseMenuStage extends Stage {
         textButtonStyle.checkedFontColor = Color.GREEN;
     }
 
-    private void createSelectBoxStyle() {
+    void createSelectBoxStyle() {
         selectBoxStyle = new SelectBox.SelectBoxStyle();
         selectBoxStyle.font = getFont();
         selectBoxStyle.background = buttonDrawable;
