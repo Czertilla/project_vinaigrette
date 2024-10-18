@@ -83,6 +83,8 @@ public class BaseMenuStage extends Stage {
 
     <T> SelectBox<T> getNewSelectBox(T[] params){
         SelectBox<T> box = new SelectBox<>(selectBoxStyle);
+        box.setAlignment(Align.center);
+        box.getList().setAlignment(Align.center);
         box.setItems(params);
         return box;
     }
