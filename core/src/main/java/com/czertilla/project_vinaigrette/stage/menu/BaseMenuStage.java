@@ -28,7 +28,7 @@ import com.czertilla.project_vinaigrette.screen.menu.BaseMenu;
 public class BaseMenuStage extends Stage {
 
     protected static final String prefix = "BUTTONS/MENU/";
-    protected I18NBundle bundle;
+    protected static I18NBundle bundle;
     static BaseMenuStage instance;
     protected BaseMenu menu;
     protected final Drawable buttonDrawable;
