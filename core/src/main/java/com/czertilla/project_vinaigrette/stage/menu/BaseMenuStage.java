@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -30,6 +31,7 @@ public class BaseMenuStage extends Stage {
     ScrollPane scrollPane;
     protected final Table buttonTable;
     private TextButton.TextButtonStyle textButtonStyle;
+    private SelectBox.SelectBoxStyle selectBoxStyle;
 
     public static
     float[] scaleLine = new float[]{1f, 1.5f, 2f, 0.25f, 0.5f, 0.75f};
@@ -74,6 +76,7 @@ public class BaseMenuStage extends Stage {
     public TextButton getNewTextButton(String label){
         return new TextButton(label, textButtonStyle);
     }
+
     private BitmapFont getFont(){
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(
             Gdx.files.internal("fonts/pixel_font.ttf")
@@ -95,6 +98,14 @@ public class BaseMenuStage extends Stage {
         textButtonStyle.downFontColor = Color.WHITE;
         textButtonStyle.overFontColor = Color.CORAL;
         textButtonStyle.checkedFontColor = Color.GREEN;
+    }
+
+    private void createSelectBoxStyle() {
+        selectBoxStyle = new SelectBox.SelectBoxStyle();
+        selectBoxStyle.font = getFont();
+        selectBoxStyle.background = buttonDrawable;
+        selectBoxStyle.fontColor = Color.BLACK;
+        selectBoxStyle.overFontColor = Color.CORAL;
     }
 
     public void resize(int width, int height) {
