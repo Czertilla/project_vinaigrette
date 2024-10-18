@@ -77,9 +77,15 @@ public class BaseMenuStage extends Stage {
         return new TextButton(label, textButtonStyle);
     }
 
-    <T> SelectBox<T> getNewSelectBox(T[] params){
-        SelectBox<T> box = new SelectBox<>(selectBoxStyle);
-        box.setItems(params);
+    SelectBox<Label> getNewSelectBox(String[] params){
+        SelectBox<Label> box = new SelectBox<>(selectBoxStyle);
+        Label.LabelStyle labelStyle = new Label.LabelStyle(selectBoxStyle.font, selectBoxStyle.fontColor);
+        Label[] labels = new Label[params.length];
+        for (int i=0; i < params.length; i++) {
+            labels[i] = new Label(params[i], labelStyle);
+            labels[i].setAlignment(Align.center);
+        }
+        box.setItems(labels);
         return box;
     }
 
