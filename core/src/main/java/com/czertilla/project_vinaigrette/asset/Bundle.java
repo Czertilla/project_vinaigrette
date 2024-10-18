@@ -42,6 +42,6 @@ public class Bundle extends I18NBundle{
     }
 
     private Bundle(){
-        instance = I18NBundle.createBundle(baseFileHandle);
+        instance = I18NBundle.createBundle(baseFileHandle, new Locale("en"));
     }
 }
