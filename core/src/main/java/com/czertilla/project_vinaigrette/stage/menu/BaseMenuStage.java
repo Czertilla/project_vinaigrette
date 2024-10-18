@@ -89,16 +89,7 @@ public class BaseMenuStage extends Stage {
 
     private void createTextButtonStyle() {
         textButtonStyle = new TextButton.TextButtonStyle();
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(
-            Gdx.files.internal("fonts/pixel_font.ttf")
-        );
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter =
-            new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = (int) (FONT_SIZE * scaleLine[Main.scale]);
-        BitmapFont font = generator.generateFont(parameter);
-        font.setColor(Color.WHITE);
-        generator.dispose();
-        textButtonStyle.font = font;
+        textButtonStyle.font = getFont();
         textButtonStyle.up = buttonDrawable;
         textButtonStyle.fontColor = Color.BLACK;
         textButtonStyle.downFontColor = Color.WHITE;
