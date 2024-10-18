@@ -22,6 +22,7 @@ import com.czertilla.project_vinaigrette.Main;
 import com.czertilla.project_vinaigrette.asset.Bundle;
 import com.czertilla.project_vinaigrette.screen.menu.BaseMenu;
 import com.czertilla.project_vinaigrette.utils.CharSet;
+import com.czertilla.project_vinaigrette.utils.R;
 import com.czertilla.project_vinaigrette.utils.ScrollPane;
 
 public class BaseMenuStage extends Stage {
@@ -51,7 +52,7 @@ public class BaseMenuStage extends Stage {
         bundle = Bundle.getInstance();
         createTextButtonStyle();
         buttonDrawable = new TextureRegionDrawable(
-            new TextureRegion(new Texture("buttonDrawableRegion.png"))
+            new TextureRegion(new Texture(R.path.BUTTON_DRAWABLE_REGION))
         );
         buttonTable = new Table();
         scrollPane = new ScrollPane(buttonTable);
@@ -88,7 +89,7 @@ public class BaseMenuStage extends Stage {
 
     private BitmapFont getFont(){
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(
-            Gdx.files.internal("fonts/pixel_font.ttf")
+            Gdx.files.internal(R.path.PIXEL_FONT)
         );
         FreeTypeFontGenerator.FreeTypeFontParameter parameter =
             new FreeTypeFontGenerator.FreeTypeFontParameter();

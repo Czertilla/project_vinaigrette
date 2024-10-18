@@ -5,6 +5,6 @@ import com.badlogic.gdx.utils.I18NBundle;
 
 public class CharSet {
     public final static String CHARSET = I18NBundle.createBundle(
-        new FileHandle("strings/charset")
-    ).get("CHARSET");
+        new FileHandle(R.path.CHARSET_HANDLE)
+    ).get(R.id.CHARSET);
 }

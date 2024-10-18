@@ -44,7 +44,7 @@ public class VideoMenuStage extends BaseMenuStage{
     }
 
     private void createBackButton() {
-        TextButton button = getNewTextButton(bundle.get("BUTTONS/MENU/BACK"));
+        TextButton button = getNewTextButton(bundle.get(R.id.BACK));
 
         button.addListener(new ClickListener() {
             @Override

@@ -21,13 +21,14 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.czertilla.project_vinaigrette.Main;
 import com.czertilla.project_vinaigrette.stage.menu.MainMenuStage;
+import com.czertilla.project_vinaigrette.utils.R;
 // TODO replace all strings with variables alt
 
 public class MainMenu extends BaseMenu {
     public MainMenu(final Main game) {
         super(game);
 
-        background = new Texture("mainMenuBackground.png");
+        background = new Texture(R.path.MAIN_MENU_BACKGROUND);
 
         setDefaultStage();
     }
