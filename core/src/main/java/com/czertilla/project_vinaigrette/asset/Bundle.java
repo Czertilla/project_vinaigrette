@@ -6,7 +6,8 @@ import com.badlogic.gdx.utils.I18NBundle;
 
 public class Bundle extends I18NBundle{
     static private I18NBundle instance;
-
+    static private final String[] langCodes = {"en", "ru"};
+    static private String[] langList;
     static final FileHandle baseFileHandle = Gdx.files.internal("strings/strings");
 
     public static I18NBundle getInstance() {
