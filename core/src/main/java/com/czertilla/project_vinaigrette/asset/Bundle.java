@@ -29,6 +29,11 @@ public class Bundle extends I18NBundle{
         }
         return langList;
     }
+
+    public static Integer getSelectedLang(){
+//        return langList[Arrays.asList(langCodes).indexOf(instance.getLocale().getLanguage())];
+        return Arrays.asList(langCodes).indexOf(instance.getLocale().getLanguage());
+    }
     private Bundle(){
         instance = I18NBundle.createBundle(baseFileHandle);
     }
