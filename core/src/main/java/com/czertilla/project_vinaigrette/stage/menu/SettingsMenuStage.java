@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.czertilla.project_vinaigrette.asset.Bundle;
 import com.czertilla.project_vinaigrette.screen.menu.BaseMenu;
+import com.czertilla.project_vinaigrette.utils.R;
 
 public class SettingsMenuStage extends BaseMenuStage{
     private static SettingsMenuStage instance;
@@ -54,7 +55,7 @@ public class SettingsMenuStage extends BaseMenuStage{
     }
 
     private void createVideoButton(){
-        TextButton button = getNewTextButton(bundle.get(prefix+"VIDEO"));
+        TextButton button = getNewTextButton(bundle.get(R.id.VIDEO));
 
         button.addListener(new ClickListener() {
             @Override
@@ -66,7 +67,7 @@ public class SettingsMenuStage extends BaseMenuStage{
         initButton(button);
     }
     private void createBackButton() {
-        TextButton button = getNewTextButton(bundle.get(prefix+"BACK"));
+        TextButton button = getNewTextButton(bundle.get(R.id.BACK));
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
