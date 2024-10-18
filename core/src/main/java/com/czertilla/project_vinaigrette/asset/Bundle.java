@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.I18NBundle;
 public class Bundle extends I18NBundle{
     static private I18NBundle instance;
 
+    static final FileHandle baseFileHandle = Gdx.files.internal("strings/strings");
 
     public static I18NBundle getInstance() {
         if (instance == null)
@@ -15,7 +16,6 @@ public class Bundle extends I18NBundle{
     }
 
     private Bundle(){
-        FileHandle baseFileHandle = Gdx.files.internal("strings/strings");
         instance = I18NBundle.createBundle(baseFileHandle);
     }
 }
