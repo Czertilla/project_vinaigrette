@@ -17,7 +17,7 @@ public class Bundle extends I18NBundle{
         return instance;
     }
 
-    private static String[] getLangLIst(){
+    public static String[] getLangLIst(){
         if (langList == null){
             langList = new String[langCodes.length];
             for (int i=0; i < langCodes.length; i++){
