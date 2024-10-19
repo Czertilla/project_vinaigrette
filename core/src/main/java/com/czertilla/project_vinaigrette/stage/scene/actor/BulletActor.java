@@ -1,12 +1,9 @@
-package com.czertilla.project_vinaigrette.scene.actor;
+package com.czertilla.project_vinaigrette.stage.scene.actor;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.collision.BoundingBox;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class BulletActor extends BaseActor { // Полигон для коллизии
     private float speed;

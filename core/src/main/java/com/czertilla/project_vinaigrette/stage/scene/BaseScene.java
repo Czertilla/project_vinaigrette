@@ -1,4 +1,4 @@
-package com.czertilla.project_vinaigrette.scene;
+package com.czertilla.project_vinaigrette.stage.scene;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -8,9 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.czertilla.project_vinaigrette.scene.actor.PlayerActor;
+import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
 import com.czertilla.project_vinaigrette.handler.InputHandler;
-import com.czertilla.project_vinaigrette.scene.actor.BulletActor;
 
 public class BaseScene extends Stage {
     protected PlayerActor actor;

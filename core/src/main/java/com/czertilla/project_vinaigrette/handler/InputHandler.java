@@ -4,7 +4,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.czertilla.project_vinaigrette.scene.actor.PlayerActor;
+import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
 
 public class InputHandler extends InputAdapter {
     private final PlayerActor actor;

@@ -1,11 +1,9 @@
-package com.czertilla.project_vinaigrette.scene.actor;
+package com.czertilla.project_vinaigrette.stage.scene.actor;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class PlayerActor extends BaseActor {
 

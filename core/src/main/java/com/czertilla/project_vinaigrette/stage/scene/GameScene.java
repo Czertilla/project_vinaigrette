@@ -1,11 +1,10 @@
-package com.czertilla.project_vinaigrette.scene;
+package com.czertilla.project_vinaigrette.stage.scene;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.czertilla.project_vinaigrette.scene.actor.PlayerActor;
-import com.czertilla.project_vinaigrette.scene.actor.BulletActor;
+import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
+import com.czertilla.project_vinaigrette.stage.scene.actor.BulletActor;
 
 public class GameScene extends BaseScene {
     private PlayerActor actor2;

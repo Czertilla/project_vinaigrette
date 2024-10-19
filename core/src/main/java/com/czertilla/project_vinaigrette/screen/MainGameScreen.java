@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.czertilla.project_vinaigrette.scene.GameScene;
+import com.czertilla.project_vinaigrette.stage.scene.GameScene;
 
 public class MainGameScreen extends ScreenAdapter {
     private SpriteBatch batch;
