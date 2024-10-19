@@ -62,7 +62,7 @@ public class MainMenuStage extends BaseMenuStage{
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-//                TODO implement New Game Button click trigger
+                ((MainMenu)menu).startGame();
             }
         });
 
