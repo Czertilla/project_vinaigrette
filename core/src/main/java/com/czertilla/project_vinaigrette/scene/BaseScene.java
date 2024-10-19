@@ -60,11 +60,6 @@ public class BaseScene extends Stage {
                         if (playerActor.collidesWith(otherActor)) {
                             playerActor.handleCollision(otherActor);
                         }
-                    } else if (other instanceof BulletActor) {
-                        BulletActor bullet = (BulletActor) other;
-                        if (playerActor.collidesWith(bullet)) {
-                            playerActor.bulletCollision(playerActor);
-                        }
                     }
                 }
             }

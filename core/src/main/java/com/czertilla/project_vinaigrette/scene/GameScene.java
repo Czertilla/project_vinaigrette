@@ -33,11 +33,12 @@ public class GameScene extends BaseScene {
 
     public void act(float deltaTime) {
         super.act(deltaTime);
-        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-            shootBullet();
-        }
+        //if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+            //shootBullet();
+        //}
 
     }
+
     private void shootBullet() {
         // Получаем координаты центра актора (игрока или пушки)
         float actorCenterX = actor.getX() + actor.getWidth() / 2;
@@ -54,6 +55,7 @@ public class GameScene extends BaseScene {
         BulletActor bullet = new BulletActor(regionbullet, actorCenterX, actorCenterY, angle, bulletSpeed);
         addActor(bullet);
     }
+
 
     @Override
     public void dispose() {

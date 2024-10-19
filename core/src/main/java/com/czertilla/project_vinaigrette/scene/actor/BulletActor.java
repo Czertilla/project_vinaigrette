@@ -24,7 +24,7 @@ public class BulletActor extends BaseActor { // Полигон для колли
         setPosition(startX - getWidth() / 2, startY - getHeight() / 2); // центрирование пули
 
         // Создаем полигон для коллизии (прямоугольник)
-        this.BoundingBox = new Polygon(new float[]{
+        this.boundingBox = new Polygon(new float[]{
             0, 0,                   // нижний левый угол
             getWidth(), 0,           // нижний правый угол
             getWidth(), getHeight(), // верхний правый угол
@@ -32,8 +32,8 @@ public class BulletActor extends BaseActor { // Полигон для колли
         });
 
         // Устанавливаем исходную позицию полигона
-        collisionPolygon.setPosition(getX(), getY());
-        collisionPolygon.setOrigin(getWidth() / 2, getHeight() / 2);
+        boundingBox.setPosition(getX(), getY());
+        boundingBox.setOrigin(getWidth() / 2, getHeight() / 2);
     }
 
     @Override
@@ -46,8 +46,8 @@ public class BulletActor extends BaseActor { // Полигон для колли
         moveBy(velocityX * delta, velocityY * delta);
 
         // Обновляем позицию полигона при движении
-        collisionPolygon.setPosition(getX(), getY());
-        collisionPolygon.setRotation(getRotation());
+        boundingBox.setPosition(getX(), getY());
+        boundingBox.setRotation(getRotation());
 
         // Если пуля выходит за пределы экрана, удаляем её
         if (getX() < -getWidth() || getX() > getStage().getWidth() || getY() < -getHeight() || getY() > getStage().getHeight()) {

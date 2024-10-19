@@ -7,12 +7,10 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class PlayerActor extends Actor {
-    private TextureRegion region;
-    private Polygon boundingBox;
+public class PlayerActor extends BaseActor {
 
     public PlayerActor(TextureRegion region) {
-        this.region = region;
+        super(region);
         super.setSize(region.getRegionWidth(), region.getRegionHeight());
         setOrigin(getWidth() / 2, getHeight() / 2); // Устанавливаем точку вращения в центр
         boundingBox = new Polygon(new float[]{
@@ -24,7 +22,9 @@ public class PlayerActor extends Actor {
     }
     @Override
     public void setSize(float width, float height) {
-        super.setSize(width, height); // Вызов родительского метода
+        super.setSize(width, height);
+
+        // Вызов родительского метода
         setOrigin(width / 2, height / 2); // Обновляем точку вращения
         boundingBox.setVertices(new float[]{
             0, 0,  // нижний левый угол
@@ -68,9 +68,6 @@ public class PlayerActor extends Actor {
         float angle = (float) Math.toDegrees(Math.atan2(mouseY - centerY, mouseX - centerX));
         setRotation(angle);
     }
-    public boolean collidesWith(PlayerActor other) {
-        return Intersector.overlapConvexPolygons(this.getBoundingBox(), other.getBoundingBox());
-    }
 
     public void act(float delta) {
         super.act(delta);
@@ -80,12 +77,5 @@ public class PlayerActor extends Actor {
 
     public void handleCollision(PlayerActor other) {
         System.out.println("Collision Detected!");
-    }
-    public void bulletCollision(PlayerActor other) {
-        System.out.println("die");
-    }
-    public Polygon getBoundingBox() {
-        return boundingBox;
-
     }
 }
