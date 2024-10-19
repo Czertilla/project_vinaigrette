@@ -9,6 +9,7 @@ import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
 public class InputHandler extends InputAdapter {
     private final PlayerActor actor;
     private final float speed = 200f;
+//    TODO remove useless numeric constants
     private final Stage stage;
     private boolean moveUp = false;
     private boolean moveDown = false;
@@ -42,7 +43,7 @@ public class InputHandler extends InputAdapter {
 
     public void update(float delta) {
         float speed = 300 * delta; // Скорость перемещения актора
-
+//        TODO remove constants as local variables. Use property file "game" in "numbers" assets dir
         // Обновляем позицию актора в зависимости от состояния флагов
         if (moveUp) actor.moveBy(0, speed);
         if (moveDown) actor.moveBy(0, -speed);

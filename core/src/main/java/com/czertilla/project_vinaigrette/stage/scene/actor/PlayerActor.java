@@ -74,6 +74,7 @@ public class PlayerActor extends BaseActor {
     }
 
     public void handleCollision(PlayerActor other) {
+//        TODO replace sout by logging
         System.out.println("Collision Detected!");
     }
 }

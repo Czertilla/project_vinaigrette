@@ -21,9 +21,11 @@ public class BaseScene extends Stage {
         setViewport(new FitViewport(1280, 960)); // Устанавливаем начальные размеры сцены
 
         // Загрузка текстуры
+//        TODO replace string filepath by variable from R.path class in utils. use "paths" bundle
         Texture texture = new Texture(Gdx.files.internal("ui/shutgun.png"));
         TextureRegion region = new TextureRegion(texture); // Создаем TextureRegion
         actor = new PlayerActor(region);
+//        TODO replace numeric constant
         actor.setPosition(200, 200);
         actor.setSize(200, 100);// Устанавливаем актера в центре экрана
         actor.toFront();
@@ -64,6 +66,7 @@ public class BaseScene extends Stage {
             }
         }
     }
+//    TODO remove method, use setDebug. get debug (true/false) value from preferences
     private void drawBoundingBoxes() {
         shapeRenderer.setProjectionMatrix(getCamera().combined);  // Установка матрицы проекции камеры
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);  // Начало отрисовки линий
