@@ -21,6 +21,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.czertilla.project_vinaigrette.Main;
 import com.czertilla.project_vinaigrette.asset.Bundle;
 import com.czertilla.project_vinaigrette.screen.menu.BaseMenu;
+import com.czertilla.project_vinaigrette.utils.C;
 import com.czertilla.project_vinaigrette.utils.CharSet;
 import com.czertilla.project_vinaigrette.utils.R;
 import com.czertilla.project_vinaigrette.utils.ScrollPane;
@@ -36,14 +37,7 @@ public class BaseMenuStage extends Stage {
     private SelectBox.SelectBoxStyle selectBoxStyle;
 
     public static
-    float[] scaleLine = new float[]{1f, 1.5f, 2f, 0.25f, 0.5f, 0.75f};
-
-    static protected final float
-        MENU_BUTTONS_WIDTH = 500f,
-        MENU_BUTTONS_HEIGHT = 150f;
-    static protected final int
-        FONT_SIZE = 40,
-        MENU_BUTTONS_ROWS = 1;
+    float[] scaleLine = C.SCALE_ARRAY;
 
     protected BaseMenuStage(){
         super(new ScreenViewport());
@@ -69,8 +63,8 @@ public class BaseMenuStage extends Stage {
     protected void initButton(Actor button){
         button.setDebug(Main.debug);
         buttonTable.add(button)
-            .width(MENU_BUTTONS_WIDTH * scaleLine[Main.scale])
-            .height(MENU_BUTTONS_HEIGHT * scaleLine[Main.scale])
+            .width(C.MENU_BUTTONS_WIDTH * scaleLine[Main.scale])
+            .height(C.MENU_BUTTONS_HEIGHT * scaleLine[Main.scale])
             ;
         buttonTable.row();
     }
@@ -93,7 +87,7 @@ public class BaseMenuStage extends Stage {
         );
         FreeTypeFontGenerator.FreeTypeFontParameter parameter =
             new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = (int) (FONT_SIZE * scaleLine[Main.scale]);
+        parameter.size = (int) (C.FONT_SIZE * scaleLine[Main.scale]);
         parameter.characters = CharSet.CHARSET;
         BitmapFont font = generator.generateFont(parameter);
         font.setColor(Color.WHITE);

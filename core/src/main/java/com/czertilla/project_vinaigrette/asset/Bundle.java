@@ -3,6 +3,7 @@ package com.czertilla.project_vinaigrette.asset;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.I18NBundle;
+import com.czertilla.project_vinaigrette.utils.C;
 import com.czertilla.project_vinaigrette.utils.R;
 
 import java.util.Arrays;
@@ -10,7 +11,7 @@ import java.util.Locale;
 
 public class Bundle extends I18NBundle{
     static private I18NBundle instance;
-    static private final String[] langCodes = {"en", "ru"};
+    static private final String[] langCodes = C.LANG_CODES;
     static private String[] langList;
     static final FileHandle baseFileHandle = Gdx.files.internal(R.path.STRINGS_HANDLE);
 
@@ -44,6 +45,6 @@ public class Bundle extends I18NBundle{
     }
 
     private Bundle(){
-        instance = I18NBundle.createBundle(baseFileHandle, new Locale("en"));
+        instance = I18NBundle.createBundle(baseFileHandle, new Locale(langCodes[0]));
     }
 }

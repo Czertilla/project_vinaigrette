@@ -9,14 +9,15 @@ import com.czertilla.project_vinaigrette.Main;
 import com.czertilla.project_vinaigrette.asset.Bundle;
 import com.czertilla.project_vinaigrette.screen.menu.BaseMenu;
 import com.czertilla.project_vinaigrette.screen.menu.MainMenu;
+import com.czertilla.project_vinaigrette.utils.C;
 import com.czertilla.project_vinaigrette.utils.R;
 
 public class VideoMenuStage extends BaseMenuStage{
     private static VideoMenuStage instance;
 
     private int
-        lastWidth = 800,
-        lastHeight = 600;
+        lastWidth = C.DEFAULT_WIDTH,
+        lastHeight = C.DEFAULT_HEIGHT;
     public static VideoMenuStage getInstance(BaseMenu menu){
         if (instance == null){
             instance = new VideoMenuStage();
