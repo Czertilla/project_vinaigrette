@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.czertilla.project_vinaigrette.Main;
 import com.czertilla.project_vinaigrette.stage.menu.BaseMenuStage;
+import com.czertilla.project_vinaigrette.utils.C;
 
 public abstract class BaseMenu extends ScreenAdapter {
     static protected BaseMenu instance;
@@ -14,9 +15,6 @@ public abstract class BaseMenu extends ScreenAdapter {
     protected Texture background;
     protected BaseMenuStage stage;
 //    private final Sound clickSound;
-
-    static protected final float
-        FRAMES_LOCK = 30f;
 
     public BaseMenu(final Main game) {
         this.game = game;
@@ -46,7 +44,7 @@ public abstract class BaseMenu extends ScreenAdapter {
 //        stage.getBatch().draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         stage.getBatch().end();
 
-        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / FRAMES_LOCK));
+        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / C.FRAMES_LOCK));
         stage.draw();
     }
 

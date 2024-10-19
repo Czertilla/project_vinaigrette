@@ -8,10 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -24,11 +21,13 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.czertilla.project_vinaigrette.Main;
 import com.czertilla.project_vinaigrette.asset.Bundle;
 import com.czertilla.project_vinaigrette.screen.menu.BaseMenu;
+import com.czertilla.project_vinaigrette.utils.C;
+import com.czertilla.project_vinaigrette.utils.CharSet;
+import com.czertilla.project_vinaigrette.utils.R;
+import com.czertilla.project_vinaigrette.utils.ScrollPane;
 
 public class BaseMenuStage extends Stage {
-
-    protected static final String prefix = "BUTTONS/MENU/";
-    protected I18NBundle bundle;
+    protected static I18NBundle bundle;
     static BaseMenuStage instance;
     protected BaseMenu menu;
     protected final Drawable buttonDrawable;
@@ -38,14 +37,7 @@ public class BaseMenuStage extends Stage {
     private SelectBox.SelectBoxStyle selectBoxStyle;
 
     public static
-    float[] scaleLine = new float[]{1f, 1.5f, 2f, 0.25f, 0.5f, 0.75f};
-
-    static protected final float
-        MENU_BUTTONS_WIDTH = 500f,
-        MENU_BUTTONS_HEIGHT = 150f;
-    static protected final int
-        FONT_SIZE = 40,
-        MENU_BUTTONS_ROWS = 1;
+    float[] scaleLine = C.SCALE_ARRAY;
 
     protected BaseMenuStage(){
         super(new ScreenViewport());
@@ -54,7 +46,7 @@ public class BaseMenuStage extends Stage {
         bundle = Bundle.getInstance();
         createTextButtonStyle();
         buttonDrawable = new TextureRegionDrawable(
-            new TextureRegion(new Texture("buttonDrawableRegion.png"))
+            new TextureRegion(new Texture(R.path.BUTTON_DRAWABLE_REGION))
         );
         buttonTable = new Table();
         scrollPane = new ScrollPane(buttonTable);
@@ -71,8 +63,8 @@ public class BaseMenuStage extends Stage {
     protected void initButton(Actor button){
         button.setDebug(Main.debug);
         buttonTable.add(button)
-            .width(MENU_BUTTONS_WIDTH * scaleLine[Main.scale])
-            .height(MENU_BUTTONS_HEIGHT * scaleLine[Main.scale])
+            .width(C.MENU_BUTTONS_WIDTH * scaleLine[Main.scale])
+            .height(C.MENU_BUTTONS_HEIGHT * scaleLine[Main.scale])
             ;
         buttonTable.row();
     }
@@ -81,25 +73,22 @@ public class BaseMenuStage extends Stage {
         return new TextButton(label, textButtonStyle);
     }
 
-    SelectBox<Label> getNewSelectBox(String[] params){
-        SelectBox<Label> box = new SelectBox<>(selectBoxStyle);
-        Label.LabelStyle labelStyle = new Label.LabelStyle(selectBoxStyle.font, selectBoxStyle.fontColor);
-        Label[] labels = new Label[params.length];
-        for (int i=0; i < params.length; i++) {
-            labels[i] = new Label(params[i], labelStyle);
-            labels[i].setAlignment(Align.center);
-        }
-        box.setItems(labels);
+    <T> SelectBox<T> getNewSelectBox(T[] params){
+        SelectBox<T> box = new SelectBox<>(selectBoxStyle);
+        box.setAlignment(Align.center);
+        box.getList().setAlignment(Align.center);
+        box.setItems(params);
         return box;
     }
 
     private BitmapFont getFont(){
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(
-            Gdx.files.internal("fonts/pixel_font.ttf")
+            Gdx.files.internal(R.path.PIXEL_FONT)
         );
         FreeTypeFontGenerator.FreeTypeFontParameter parameter =
             new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = (int) (FONT_SIZE * scaleLine[Main.scale]);
+        parameter.size = (int) (C.FONT_SIZE * scaleLine[Main.scale]);
+        parameter.characters = CharSet.CHARSET;
         BitmapFont font = generator.generateFont(parameter);
         font.setColor(Color.WHITE);
         generator.dispose();

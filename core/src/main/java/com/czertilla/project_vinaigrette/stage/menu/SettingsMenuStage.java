@@ -1,16 +1,14 @@
 package com.czertilla.project_vinaigrette.stage.menu;
 
-import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.czertilla.project_vinaigrette.asset.Bundle;
 import com.czertilla.project_vinaigrette.screen.menu.BaseMenu;
-import com.czertilla.project_vinaigrette.screen.menu.MainMenu;
+import com.czertilla.project_vinaigrette.utils.R;
 
 public class SettingsMenuStage extends BaseMenuStage{
     private static SettingsMenuStage instance;
@@ -35,12 +33,12 @@ public class SettingsMenuStage extends BaseMenuStage{
         createSelectBoxStyle();
 
         createVideoButton();
-        createBackButton();
         createLanguageButton();
+        createBackButton();
     }
 
     private void createLanguageButton() {
-        SelectBox<Label> box = getNewSelectBox(Bundle.getLangLIst());
+        SelectBox<String> box = getNewSelectBox(Bundle.getLangList());
 
         box.setSelectedIndex(Bundle.getSelectedLang());
         box.addListener(new ChangeListener() {
@@ -57,7 +55,7 @@ public class SettingsMenuStage extends BaseMenuStage{
     }
 
     private void createVideoButton(){
-        TextButton button = getNewTextButton(bundle.get(prefix+"VIDEO"));
+        TextButton button = getNewTextButton(bundle.get(R.id.VIDEO));
 
         button.addListener(new ClickListener() {
             @Override
@@ -69,7 +67,7 @@ public class SettingsMenuStage extends BaseMenuStage{
         initButton(button);
     }
     private void createBackButton() {
-        TextButton button = getNewTextButton(bundle.get(prefix+"BACK"));
+        TextButton button = getNewTextButton(bundle.get(R.id.BACK));
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

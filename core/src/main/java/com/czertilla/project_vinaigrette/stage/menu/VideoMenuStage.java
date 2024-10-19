@@ -9,13 +9,15 @@ import com.czertilla.project_vinaigrette.Main;
 import com.czertilla.project_vinaigrette.asset.Bundle;
 import com.czertilla.project_vinaigrette.screen.menu.BaseMenu;
 import com.czertilla.project_vinaigrette.screen.menu.MainMenu;
+import com.czertilla.project_vinaigrette.utils.C;
+import com.czertilla.project_vinaigrette.utils.R;
 
 public class VideoMenuStage extends BaseMenuStage{
     private static VideoMenuStage instance;
 
     private int
-        lastWidth = 800,
-        lastHeight = 600;
+        lastWidth = C.DEFAULT_WIDTH,
+        lastHeight = C.DEFAULT_HEIGHT;
     public static VideoMenuStage getInstance(BaseMenu menu){
         if (instance == null){
             instance = new VideoMenuStage();
@@ -43,7 +45,7 @@ public class VideoMenuStage extends BaseMenuStage{
     }
 
     private void createBackButton() {
-        TextButton button = getNewTextButton("back");
+        TextButton button = getNewTextButton(bundle.get(R.id.BACK));
 
         button.addListener(new ClickListener() {
             @Override
@@ -61,10 +63,10 @@ public class VideoMenuStage extends BaseMenuStage{
         boolean isFullscreen = Gdx.graphics.isFullscreen();
         button.setChecked(isFullscreen);
         button.setText(
-            bundle.get(prefix+"FULLSCREEN") +
+            bundle.get(R.id.FULLSCREEN) +
             (isFullscreen ?
-                bundle.get(prefix+"SWITCH/ON") :
-                bundle.get(prefix+"SWITCH/OFF")
+                bundle.get(R.id.SWITCH_ON) :
+                bundle.get(R.id.SWITCH_OFF)
             )
         );
         button.addListener(new ClickListener() {
@@ -89,7 +91,7 @@ public class VideoMenuStage extends BaseMenuStage{
         TextButton button = getNewTextButton("");
 
         int scale = Main.scale;
-        button.setText(bundle.format(prefix+"SCALE", scaleLine[scale]));
+        button.setText(bundle.format(R.id.SCALE, scaleLine[scale]));
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -110,9 +112,9 @@ public class VideoMenuStage extends BaseMenuStage{
         boolean isDebug = Main.debug;
         button.setChecked(isDebug);
         button.setText(
-            bundle.get(prefix+"DEBUG") + (isDebug ?
-                bundle.get(prefix+"SWITCH/ON") :
-                bundle.get(prefix+"SWITCH/OFF")
+            bundle.get(R.id.DEBUG) + (isDebug ?
+                bundle.get(R.id.SWITCH_ON) :
+                bundle.get(R.id.SWITCH_OFF)
             )
         );
         button.addListener(new ClickListener() {
