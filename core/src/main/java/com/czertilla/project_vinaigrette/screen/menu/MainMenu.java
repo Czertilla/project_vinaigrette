@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.czertilla.project_vinaigrette.Main;
+import com.czertilla.project_vinaigrette.screen.MainGameScreen;
 import com.czertilla.project_vinaigrette.stage.menu.MainMenuStage;
 import com.czertilla.project_vinaigrette.utils.R;
 
@@ -36,6 +37,10 @@ public class MainMenu extends BaseMenu {
         setStage(MainMenuStage.getInstance(this));
     }
 
+
+    public void startGame() {
+        game.setScreen(new MainGameScreen());
+    }
 
     public void dispose() {
         super.dispose();
