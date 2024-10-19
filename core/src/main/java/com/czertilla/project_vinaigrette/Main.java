@@ -1,28 +1,38 @@
 package com.czertilla.project_vinaigrette;
 
-/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 import com.badlogic.gdx.Game;
-    import com.czertilla.project_vinaigrette.screen.MainGameScreen;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.ScreenUtils;
+import com.czertilla.project_vinaigrette.screen.menu.MainMenu;
 
+/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends Game {
+    private SpriteBatch batch;
+    public static boolean debug = true;
+    public static int scale = 0;
+    private Texture image;
 
     @Override
     public void create() {
-        // Устанавливаем стартовый экран
-        this.setScreen(new MainGameScreen());
+        batch = new SpriteBatch();
+        image = new Texture("libgdx.png");
+        setScreen(new MainMenu(this));
     }
 
     @Override
     public void render() {
-        // Вызываем метод render() текущего экрана
+        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
+        batch.begin();
+        batch.draw(image, 140, 210);
+        batch.end();
         super.render();
     }
 
     @Override
     public void dispose() {
-        // Освобождаем ресурсы текущего экрана
-        if (getScreen() != null) {
-            getScreen().dispose();
-        }
+        batch.dispose();
+        image.dispose();
+        super.dispose();
     }
 }
