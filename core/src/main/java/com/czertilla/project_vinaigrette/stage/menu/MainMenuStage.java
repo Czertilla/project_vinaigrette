@@ -82,4 +82,13 @@ public class MainMenuStage extends BaseMenuStage{
         initButton(button);
     }
 
+    @Override
+    public void onEscape() {
+
+    }
+
+    @Override
+    public void onBack() {
+
+    }
 }

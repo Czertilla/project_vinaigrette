@@ -21,12 +21,13 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.czertilla.project_vinaigrette.Main;
 import com.czertilla.project_vinaigrette.asset.Bundle;
 import com.czertilla.project_vinaigrette.screen.menu.BaseMenu;
+import com.czertilla.project_vinaigrette.stage.BaseStage;
 import com.czertilla.project_vinaigrette.utils.C;
 import com.czertilla.project_vinaigrette.utils.CharSet;
 import com.czertilla.project_vinaigrette.utils.R;
 import com.czertilla.project_vinaigrette.utils.ScrollPane;
 
-public class BaseMenuStage extends Stage {
+abstract public class BaseMenuStage extends BaseStage {
     protected static I18NBundle bundle;
     static BaseMenuStage instance;
     protected BaseMenu menu;

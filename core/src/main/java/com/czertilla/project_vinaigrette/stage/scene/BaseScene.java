@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
 import com.czertilla.project_vinaigrette.handler.InputHandler;
 
-public class BaseScene extends Stage {
+public class BaseScene extends BaseStage {
     protected PlayerActor actor;
     private InputHandler inputHandler;
     private ShapeRenderer shapeRenderer;
@@ -34,6 +34,16 @@ public class BaseScene extends Stage {
 
         inputHandler = new InputHandler(actor,this);
         Gdx.input.setInputProcessor(inputHandler);
+    }
+
+    @Override
+    public void onEscape() {
+        screen.onPause();
+    }
+
+    @Override
+    public void onBack() {
+
     }
 
 

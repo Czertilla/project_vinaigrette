@@ -78,4 +78,13 @@ public class SettingsMenuStage extends BaseMenuStage{
         initButton(button);
     }
 
+    @Override
+    public void onEscape() {
+
+    }
+
+    @Override
+    public void onBack() {
+
+    }
 }
