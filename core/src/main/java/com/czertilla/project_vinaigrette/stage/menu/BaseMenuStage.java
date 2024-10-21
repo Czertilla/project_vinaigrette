@@ -125,6 +125,12 @@ abstract public class BaseMenuStage extends BaseStage {
         selectBoxStyle.overFontColor = Color.CORAL;
     }
 
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        handler.update();
+    }
+
     public void resize(int width, int height) {
         getViewport().update(width, height, true);
         scrollPane.setBounds(0, 0, getWidth(), getHeight());
