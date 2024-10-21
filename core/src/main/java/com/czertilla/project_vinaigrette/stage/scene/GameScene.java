@@ -3,6 +3,7 @@ package com.czertilla.project_vinaigrette.stage.scene;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.czertilla.project_vinaigrette.screen.game.MainGame;
 import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.BulletActor;
 
@@ -14,8 +15,20 @@ public class GameScene extends BaseScene {
     private TextureRegion regionbullet;
     private float bulletSpeed = 500f;
 
-    public GameScene() {
-        super(); // Вызов конструктора базовой сцены
+    private static GameScene instance;
+
+    public static GameScene getInstance(MainGame screen){
+        if (instance == null)
+            instance = new GameScene(screen);
+        else {
+            instance.screen = screen;
+            Gdx.input.setInputProcessor(instance.inputHandler);
+        }
+        return instance;
+    }
+
+    private GameScene(MainGame screen) {
+        super(screen); // Вызов конструктора базовой сцены
 
         // Загружаем текстуры для актеров
         actorTexture2 = new Texture(Gdx.files.internal("ui/gg.png"));
