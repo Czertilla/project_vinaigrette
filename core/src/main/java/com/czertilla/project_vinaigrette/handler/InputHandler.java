@@ -4,19 +4,21 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.czertilla.project_vinaigrette.stage.BaseStage;
 import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
 
 public class InputHandler extends InputAdapter {
     private final PlayerActor actor;
     private final float speed = 200f;
 //    TODO remove useless numeric constants
-    private final Stage stage;
+    private final BaseStage stage;
     private boolean moveUp = false;
     private boolean moveDown = false;
     private boolean moveLeft = false;
     private boolean moveRight = false;
+    private boolean escape = false;
 
-    public InputHandler(PlayerActor actor, Stage stage) {
+    public InputHandler(PlayerActor actor, BaseStage stage) {
         this.actor = actor;
         this.stage = stage;
     }
@@ -38,6 +40,7 @@ public class InputHandler extends InputAdapter {
         if (keycode == Input.Keys.S) moveDown = false;
         if (keycode == Input.Keys.A) moveLeft = false;
         if (keycode == Input.Keys.D) moveRight = false;
+        if (keycode == Input.Keys.ESCAPE) escape = true;
         return true;
     }
 
@@ -45,6 +48,10 @@ public class InputHandler extends InputAdapter {
         float speed = 300 * delta; // Скорость перемещения актора
 //        TODO remove constants as local variables. Use property file "game" in "numbers" assets dir
         // Обновляем позицию актора в зависимости от состояния флагов
+        if (escape) {
+            escape = false;
+            stage.onEscape();
+        }
         if (moveUp) actor.moveBy(0, speed);
         if (moveDown) actor.moveBy(0, -speed);
         if (moveLeft) actor.moveBy(-speed, 0);
