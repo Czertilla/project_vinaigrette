@@ -74,5 +74,6 @@ public class GameScene extends BaseScene {
         super.dispose(); // Освобождаем ресурсы базовой сцен// Освобождаем текстуры
         actorTexture2.dispose();
         bulletTexture.dispose();
+        instance = null;
     }
 }
