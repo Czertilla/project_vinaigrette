@@ -22,7 +22,8 @@ public abstract class BaseMenu extends ScreenAdapter {
         this.game = game;
     }
 
-    public void show(){
+    @Override
+    public void show() {
         this.stage.show();
     }
 
