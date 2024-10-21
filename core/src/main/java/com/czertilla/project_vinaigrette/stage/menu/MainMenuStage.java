@@ -75,7 +75,7 @@ public class MainMenuStage extends BaseMenuStage{
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.exit();
+                onEscape();
             }
         });
 
@@ -84,11 +84,11 @@ public class MainMenuStage extends BaseMenuStage{
 
     @Override
     public void onEscape() {
-
+        Gdx.app.exit();
     }
 
     @Override
     public void onBack() {
-
+        onEscape();
     }
 }

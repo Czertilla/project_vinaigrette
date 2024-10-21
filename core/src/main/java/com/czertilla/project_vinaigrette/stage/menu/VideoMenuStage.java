@@ -50,7 +50,7 @@ public class VideoMenuStage extends BaseMenuStage{
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                menu.setStage(SettingsMenuStage.getInstance(menu));
+                onBack();
             }
         });
 
@@ -130,11 +130,11 @@ public class VideoMenuStage extends BaseMenuStage{
 
     @Override
     public void onEscape() {
-
+        menu.setDefaultStage();
     }
 
     @Override
     public void onBack() {
-
+        menu.setStage(SettingsMenuStage.getInstance(menu));
     }
 }
