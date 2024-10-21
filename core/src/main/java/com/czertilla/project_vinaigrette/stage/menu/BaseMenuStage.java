@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.czertilla.project_vinaigrette.Main;
 import com.czertilla.project_vinaigrette.asset.Bundle;
+import com.czertilla.project_vinaigrette.handler.BaseHandler;
 import com.czertilla.project_vinaigrette.screen.menu.BaseMenu;
 import com.czertilla.project_vinaigrette.stage.BaseStage;
 import com.czertilla.project_vinaigrette.utils.C;
@@ -29,6 +30,7 @@ import com.czertilla.project_vinaigrette.utils.ScrollPane;
 
 abstract public class BaseMenuStage extends BaseStage {
     protected static I18NBundle bundle;
+    private BaseHandler handler;
     static BaseMenuStage instance;
     protected BaseMenu menu;
     protected final Drawable buttonDrawable;
@@ -53,6 +55,10 @@ abstract public class BaseMenuStage extends BaseStage {
         scrollPane = new ScrollPane(buttonTable);
 
         this.addActor(scrollPane);
+    }
+
+    public void setHandler(BaseHandler handler) {
+        this.handler = handler;
     }
 
     public void show(){
