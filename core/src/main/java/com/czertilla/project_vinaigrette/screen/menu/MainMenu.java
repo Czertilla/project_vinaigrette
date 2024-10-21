@@ -21,7 +21,7 @@ public class MainMenu extends BaseMenu {
 
 
     public void startGame() {
-        game.setScreen(new MainGame());
+        game.setScreen(new MainGame(game));
     }
 
     public void dispose() {
