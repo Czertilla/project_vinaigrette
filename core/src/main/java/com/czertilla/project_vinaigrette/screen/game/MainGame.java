@@ -11,17 +11,13 @@ import com.czertilla.project_vinaigrette.stage.scene.BaseScene;
 import com.czertilla.project_vinaigrette.stage.scene.GameScene;
 
 public class MainGame extends ScreenAdapter {
-    private SpriteBatch batch;
+    private final SpriteBatch batch;
     private Texture backgroundTexture;
     public BaseScene scene;
-    private Main game;
+    private final Main game;
 
     public MainGame(Main game) {
         this.game = game;
-    }
-
-    @Override
-    public void show() {
         batch = new SpriteBatch();
         scene = GameScene.getInstance(this);
     }
