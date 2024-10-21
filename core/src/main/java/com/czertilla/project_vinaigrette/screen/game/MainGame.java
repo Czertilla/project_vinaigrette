@@ -1,4 +1,4 @@
-package com.czertilla.project_vinaigrette.screen;
+package com.czertilla.project_vinaigrette.screen.game;
 
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.Gdx;
@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.czertilla.project_vinaigrette.stage.scene.GameScene;
 
-public class MainGameScreen extends ScreenAdapter {
+public class MainGame extends ScreenAdapter {
     private SpriteBatch batch;
     private Texture backgroundTexture;
     public GameScene game;
