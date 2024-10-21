@@ -1,11 +1,13 @@
 package com.czertilla.project_vinaigrette.screen.menu;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.czertilla.project_vinaigrette.Main;
+import com.czertilla.project_vinaigrette.handler.BaseHandler;
 import com.czertilla.project_vinaigrette.stage.menu.BaseMenuStage;
 import com.czertilla.project_vinaigrette.utils.C;
 
