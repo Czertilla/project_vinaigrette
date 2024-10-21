@@ -3,11 +3,10 @@ package com.czertilla.project_vinaigrette.stage.scene;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.czertilla.project_vinaigrette.Main;
 import com.czertilla.project_vinaigrette.screen.game.MainGame;
 import com.czertilla.project_vinaigrette.stage.BaseStage;
 import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
@@ -16,13 +15,11 @@ import com.czertilla.project_vinaigrette.handler.InputHandler;
 public class BaseScene extends BaseStage {
     protected PlayerActor actor;
     final InputHandler inputHandler;
-    private final ShapeRenderer shapeRenderer;
 
     protected MainGame screen;
     public BaseScene(MainGame screen) {
         super();
         this.screen = screen;
-        shapeRenderer = new ShapeRenderer();
         // Устанавливаем FitViewport с начальной шириной и высотой
         setViewport(new FitViewport(1280, 960)); // Устанавливаем начальные размеры сцены
 
@@ -56,12 +53,6 @@ public class BaseScene extends BaseStage {
 
     }
 
-
-    @Override
-    public void draw() {
-        super.draw();
-        drawBoundingBoxes();
-    }
     private void checkCollisions() {
         // Сохраняем ссылки на актеров в виде списка
         Array<Actor> actors = getActors();
@@ -86,22 +77,7 @@ public class BaseScene extends BaseStage {
             }
         }
     }
-//    TODO remove method, use setDebug. get debug (true/false) value from preferences
-    private void drawBoundingBoxes() {
-        shapeRenderer.setProjectionMatrix(getCamera().combined);  // Установка матрицы проекции камеры
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);  // Начало отрисовки линий
-        shapeRenderer.setColor(1, 0, 0, 1);  // Цвет бокса (красный)
 
-        // Проход по всем актёрам
-        for (Actor actor : getActors()) {
-            if (actor instanceof PlayerActor) {
-                PlayerActor playerActor = (PlayerActor) actor;
-                playerActor.drawBoundingBox(shapeRenderer);  // Отрисовка бокса для каждого BaseActor
-            }
-        }
-
-        shapeRenderer.end();  // Конец отрисовки
-    }
     @Override
     public void act(float delta) {
         super.act(delta);
