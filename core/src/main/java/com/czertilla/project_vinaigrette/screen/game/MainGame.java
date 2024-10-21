@@ -5,17 +5,25 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.czertilla.project_vinaigrette.Main;
+import com.czertilla.project_vinaigrette.screen.menu.PauseMenu;
+import com.czertilla.project_vinaigrette.stage.scene.BaseScene;
 import com.czertilla.project_vinaigrette.stage.scene.GameScene;
 
 public class MainGame extends ScreenAdapter {
     private SpriteBatch batch;
     private Texture backgroundTexture;
-    public GameScene game;
+    public BaseScene scene;
+    private Main game;
+
+    public MainGame(Main game) {
+        this.game = game;
+    }
 
     @Override
     public void show() {
         batch = new SpriteBatch();
-        game = new GameScene();
+        scene = GameScene.getInstance(this);
     }
 
     @Override
@@ -26,13 +34,13 @@ public class MainGame extends ScreenAdapter {
         // Обновляем логику сцен
 
         // Отрисовываем сцену
-        game.draw();
-        game.act(delta);
+        scene.draw();
+        scene.act(delta);
     }
 
     @Override
     public void resize(int width, int height) {
-        game.getViewport().update(width, height, true);
+        scene.getViewport().update(width, height, true);
     }
 
     @Override
