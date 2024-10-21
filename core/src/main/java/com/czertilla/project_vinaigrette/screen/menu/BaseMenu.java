@@ -28,7 +28,12 @@ public abstract class BaseMenu extends ScreenAdapter {
         this.stage = stage;
 
         if (stage != null) {
-            Gdx.input.setInputProcessor(stage);
+            InputMultiplexer multiplexer = new InputMultiplexer();
+            BaseHandler handler = new BaseHandler(stage);
+            stage.setHandler(handler);
+            multiplexer.addProcessor(handler);
+            multiplexer.addProcessor(stage);
+            Gdx.input.setInputProcessor(multiplexer);
             stage.show();
             this.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         }
