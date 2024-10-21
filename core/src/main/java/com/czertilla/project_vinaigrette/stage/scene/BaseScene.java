@@ -42,6 +42,10 @@ public class BaseScene extends BaseStage {
         Gdx.input.setInputProcessor(inputHandler);
     }
 
+    public void show(){
+        setDebugAll(Main.debug);
+    }
+
     @Override
     public void onEscape() {
         screen.onPause();
