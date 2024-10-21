@@ -53,6 +53,10 @@ public class MainGame extends ScreenAdapter {
     public void dispose() {
         // Освобождение ресурсов
         batch.dispose();
-        game.dispose();
+        scene.dispose();
+    }
+
+    public void onPause() {
+        game.setScreen(new PauseMenu(game));
     }
 }
