@@ -7,12 +7,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
@@ -22,6 +23,7 @@ import com.czertilla.project_vinaigrette.Main;
 import com.czertilla.project_vinaigrette.asset.Bundle;
 import com.czertilla.project_vinaigrette.handler.BaseHandler;
 import com.czertilla.project_vinaigrette.screen.menu.BaseMenu;
+import com.czertilla.project_vinaigrette.screen.menu.PauseMenu;
 import com.czertilla.project_vinaigrette.stage.BaseStage;
 import com.czertilla.project_vinaigrette.utils.C;
 import com.czertilla.project_vinaigrette.utils.CharSet;
@@ -69,6 +71,12 @@ abstract public class BaseMenuStage extends BaseStage {
     }
     protected void initButton(Actor button){
         button.setDebug(Main.debug);
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                menu.click();
+            }
+        });
         buttonTable.add(button)
             .width(C.MENU_BUTTONS_WIDTH * scaleLine[Main.scale])
             .height(C.MENU_BUTTONS_HEIGHT * scaleLine[Main.scale])
