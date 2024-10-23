@@ -47,7 +47,6 @@ public class MainGame extends ScreenAdapter {
     @Override
     public void hide() {
         // Освобождение ресурсов при скрытии экрана
-//        TODO implement stopping game without dispose for PauseMenu
     }
 
     @Override
