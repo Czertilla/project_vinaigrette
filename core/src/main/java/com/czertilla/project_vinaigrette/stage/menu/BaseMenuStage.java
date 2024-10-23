@@ -44,6 +44,13 @@ abstract public class BaseMenuStage extends BaseStage {
     public static
     float[] scaleLine = C.SCALE_ARRAY;
 
+    class SoundClickListener extends ClickListener{
+        @Override
+        public void clicked(InputEvent event, float x, float y) {
+            menu.click();
+        }
+    }
+
     protected BaseMenuStage(){
         super(new ScreenViewport());
 
