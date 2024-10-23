@@ -59,6 +59,10 @@ public abstract class BaseMenu extends ScreenAdapter {
         stage.draw();
     }
 
+    public void click(){
+        clickSound.play();
+    }
+
     @Override
     public void resize(int width, int height) {
         stage.resize(width, height);
