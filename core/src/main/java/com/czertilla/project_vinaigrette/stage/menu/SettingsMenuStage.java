@@ -40,10 +40,12 @@ public class SettingsMenuStage extends BaseMenuStage{
         SelectBox<String> box = getNewSelectBox(Bundle.getLangList());
 
         box.setSelectedIndex(Bundle.getSelectedLang());
+        box.addListener(new SoundClickListener());
         box.addListener(new ChangeListener() {
 
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                menu.click();
                 Bundle.setLanguage(box.getSelectedIndex());
                 bundle = Bundle.getInstance();
                 show();
