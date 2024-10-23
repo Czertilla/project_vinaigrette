@@ -78,12 +78,6 @@ abstract public class BaseMenuStage extends BaseStage {
     }
     protected void initButton(Actor button){
         button.setDebug(Main.debug);
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                menu.click();
-            }
-        });
         buttonTable.add(button)
             .width(C.MENU_BUTTONS_WIDTH * scaleLine[Main.scale])
             .height(C.MENU_BUTTONS_HEIGHT * scaleLine[Main.scale])
