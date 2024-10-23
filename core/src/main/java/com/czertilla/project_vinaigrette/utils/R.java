@@ -17,7 +17,8 @@ public class R {
             PIXEL_FONT = bundle.get("PIXEL_FONT"),
             STRINGS_HANDLE = bundle.get("STRINGS_HANDLE"),
             CHARSET_HANDLE = bundle.get("CHARSET_HANDLE"),
-            PATHS_HANDLE = bundle.get("PATHS_HANDLE");
+            PATHS_HANDLE = bundle.get("PATHS_HANDLE"),
+            CLICK_SOUND = bundle.get("CLICK_SOUND");
     }
 
     public static final class id {
