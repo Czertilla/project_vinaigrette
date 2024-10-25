@@ -12,7 +12,8 @@ public class C {
     public static final float
         FRAMES_LOCK = Float.parseFloat((videoBundle.get(R.id.FRAMES_LOCK))),
         MENU_BUTTONS_WIDTH = Float.parseFloat(layoutBundle.get(R.id.MENU_BUTTONS_WIDTH)),
-        MENU_BUTTONS_HEIGHT = Float.parseFloat(layoutBundle.get(R.id.MENU_BUTTONS_HEIGHT));
+        MENU_BUTTONS_HEIGHT = Float.parseFloat(layoutBundle.get(R.id.MENU_BUTTONS_HEIGHT)),
+        CAM_DELTA_LIMIT = Float.parseFloat(videoBundle.get(R.id.CAM_DELTA_LIMIT));
     public static final int
         FONT_SIZE = Integer.parseInt(layoutBundle.get(R.id.FONT_SIZE)),
         DEFAULT_WIDTH = Integer.parseInt(videoBundle.get(R.id.DEFAULT_WIDTH)),
