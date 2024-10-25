@@ -5,12 +5,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.czertilla.project_vinaigrette.Main;
 import com.czertilla.project_vinaigrette.screen.game.MainGame;
 import com.czertilla.project_vinaigrette.stage.BaseStage;
 import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
 import com.czertilla.project_vinaigrette.handler.InputHandler;
+import com.czertilla.project_vinaigrette.utils.C;
 
 public class BaseScene extends BaseStage {
     protected PlayerActor actor;
@@ -21,7 +22,7 @@ public class BaseScene extends BaseStage {
         super();
         this.screen = screen;
         // Устанавливаем FitViewport с начальной шириной и высотой
-        setViewport(new FitViewport(1280, 960)); // Устанавливаем начальные размеры сцены
+        setViewport(new ExtendViewport(C.MIN_WORLD_WIDTH, C.MIN_WORLD_HEIGHT));
 
         // Загрузка текстуры
 //        TODO replace string filepath by variable from R.path class in utils. use "paths" bundle
