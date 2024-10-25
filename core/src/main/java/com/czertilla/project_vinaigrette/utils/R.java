@@ -42,6 +42,8 @@ public class R {
             FONT_SIZE = "FONT_SIZE",
             DEFAULT_WIDTH = "DEFAULT_WIDTH",
             DEFAULT_HEIGHT = "DEFAULT_HEIGHT",
-            CAM_DELTA_LIMIT = "CAM_DELTA_LIMIT";
+            CAM_DELTA_LIMIT = "CAM_DELTA_LIMIT",
+            MIN_WORLD_WIDTH = "MIN_WORLD_WIDTH",
+            MIN_WORLD_HEIGHT = "MIN_WORLD_HEIGHT";
     }
 }
