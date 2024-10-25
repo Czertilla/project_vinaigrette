@@ -1,6 +1,7 @@
 package com.czertilla.project_vinaigrette.stage.scene;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.czertilla.project_vinaigrette.screen.game.MainGame;
@@ -14,6 +15,7 @@ public class GameScene extends BaseScene {
     private Texture bulletTexture;
     private TextureRegion regionbullet;
     private float bulletSpeed = 500f;
+    private OrthographicCamera camera;
 
     private static GameScene instance;
 
@@ -29,6 +31,10 @@ public class GameScene extends BaseScene {
 
     private GameScene(MainGame screen) {
         super(screen); // Вызов конструктора базовой сцены
+
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false);
+        getViewport().setCamera(camera);
 
         // Загружаем текстуры для актеров
         actorTexture2 = new Texture(Gdx.files.internal("ui/gg.png"));
