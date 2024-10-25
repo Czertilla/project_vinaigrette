@@ -1,9 +1,8 @@
 package com.czertilla.project_vinaigrette.handler;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.czertilla.project_vinaigrette.stage.BaseStage;
 import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
 
@@ -43,25 +42,18 @@ public class InputHandler extends BaseHandler {
 
     public void update(float delta) {
         super.update();
-        float speed = 300 * delta; // Скорость перемещения актора
+        float speed = 500 * delta; // Скорость перемещения актора
 //        TODO remove constants as local variables. Use property file "game" in "numbers" assets dir
         // Обновляем позицию актора в зависимости от состояния флагов
         if (moveUp) actor.moveBy(0, speed);
         if (moveDown) actor.moveBy(0, -speed);
         if (moveLeft) actor.moveBy(-speed, 0);
         if (moveRight) actor.moveBy(speed, 0);
-    }
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        Vector3 screenCoords = new Vector3(screenX, screenY, 0);
+
+        Vector3 screenCoords = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
         Vector3 worldCoords = stage.getViewport().unproject(screenCoords);
 
-        // Поворачиваем актера в сторону курсора с учетом преобразованных координат
         actor.rotateTowards(worldCoords.x, worldCoords.y);
-        return true;
-        // Получаем координаты курсора
-
-
     }
 }
 
