@@ -64,6 +64,7 @@ public class GameScene extends BaseScene {
 
     public void act(float deltaTime) {
         super.act(deltaTime);
+        dragCamera();
         //if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
             //shootBullet();
         //}
