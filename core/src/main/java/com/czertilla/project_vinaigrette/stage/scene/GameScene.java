@@ -4,9 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector3;
 import com.czertilla.project_vinaigrette.screen.game.MainGame;
 import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.BulletActor;
+import com.czertilla.project_vinaigrette.utils.C;
 
 public class GameScene extends BaseScene {
     private PlayerActor actor2;
@@ -47,6 +49,17 @@ public class GameScene extends BaseScene {
         TextureRegion regionbullet = new TextureRegion(bulletTexture);
 
         // Устанавливаем обработчик ввода для упр   авления первым актером
+    }
+
+    private void dragCamera(){
+        Vector3 delta = actor.getCenter().sub(camera.position);
+        float mlp = delta.len();
+        float LIM = C.CAM_DELTA_LIMIT;
+        if (mlp < LIM)
+            mlp = mlp / LIM;
+        else
+            mlp = 1f - (LIM / mlp);
+        camera.position.mulAdd(delta, (float)Math.sqrt(mlp));
     }
 
     public void act(float deltaTime) {
