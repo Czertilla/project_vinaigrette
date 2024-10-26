@@ -12,6 +12,7 @@ public class R {
         public static final String
             LAYOUT_HANDLE = bundle.get("LAYOUT_HANDLE"),
             VIDEO_HANDLE = bundle.get("VIDEO_HANDLE"),
+            GAME_HANDLE = bundle.get("GAME_HANDLE"),
             MAIN_MENU_BACKGROUND = bundle.get("MAIN_MENU_BACKGROUND"),
             BUTTON_DRAWABLE_REGION = bundle.get("BUTTON_DRAWABLE_REGION"),
             PIXEL_FONT = bundle.get("PIXEL_FONT"),
