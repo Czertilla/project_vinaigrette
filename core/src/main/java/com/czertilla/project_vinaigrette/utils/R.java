@@ -45,6 +45,7 @@ public class R {
             DEFAULT_HEIGHT = "DEFAULT_HEIGHT",
             CAM_DELTA_LIMIT = "CAM_DELTA_LIMIT",
             MIN_WORLD_WIDTH = "MIN_WORLD_WIDTH",
-            MIN_WORLD_HEIGHT = "MIN_WORLD_HEIGHT";
+            MIN_WORLD_HEIGHT = "MIN_WORLD_HEIGHT",
+            DAMAGE_COOLDOWN = "DAMAGE_COOLDOWN";
     }
 }
