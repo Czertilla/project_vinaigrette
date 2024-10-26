@@ -40,7 +40,7 @@ public class GameScene extends BaseScene {
         getViewport().setCamera(camera);
 
         // Загружаем текстуры для актеров
-        actorTexture2 = new Texture(Gdx.files.internal("ui/gg.png"));
+        actorTexture2 = new Texture(Gdx.files.internal("ui/zombie.png"));
         TextureRegion region2 = new TextureRegion(actorTexture2);
         actor2 = new PlayerActor(region2);
         actor2.setPosition(500,500 );
