@@ -70,6 +70,9 @@ public class PlayerActor extends BaseActor {
 
     public void act(float delta) {
         super.act(delta);
+        dmgTime -= delta;
+        if (dmgTime <= 0)
+            setColor(1, 1, 1, 1);
         // Проверка коллизии с другим объектом
         updateBoundingBox();  // Обновляем границы при каждом действии
     }
