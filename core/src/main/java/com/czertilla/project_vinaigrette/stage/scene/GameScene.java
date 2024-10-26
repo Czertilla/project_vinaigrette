@@ -61,6 +61,10 @@ public class GameScene extends BaseScene {
         else
             mlp = 1f - (LIM / mlp);
         camera.position.mulAdd(delta, (float)Math.sqrt(mlp));
+
+        Vector3 sight = getViewport().unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
+        sight.sub(actor.getCenter());
+        camera.position.mulAdd(sight, Math.min(sight.len()/LIM, LIM/sight.len())/sight.len()*C.CAM_SIGHT_DELTA);
     }
 
     public void act(float deltaTime) {
