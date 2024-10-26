@@ -7,7 +7,8 @@ public class C {
     private static final I18NBundle
         stringBundle = I18NBundle.createBundle(new FileHandle(R.path.STRINGS_HANDLE)),
         layoutBundle = I18NBundle.createBundle(new FileHandle(R.path.LAYOUT_HANDLE)),
-        videoBundle = I18NBundle.createBundle(new FileHandle(R.path.VIDEO_HANDLE));
+        videoBundle = I18NBundle.createBundle(new FileHandle(R.path.VIDEO_HANDLE)),
+        gameBundle = I18NBundle.createBundle(new FileHandle(R.path.GAME_HANDLE));
     public static final String[] LANG_CODES = stringBundle.get(R.id.LANG_CODES).split(";");
     public static final float
         FRAMES_LOCK = Float.parseFloat((videoBundle.get(R.id.FRAMES_LOCK))),
@@ -15,7 +16,8 @@ public class C {
         MENU_BUTTONS_HEIGHT = Float.parseFloat(layoutBundle.get(R.id.MENU_BUTTONS_HEIGHT)),
         CAM_DELTA_LIMIT = Float.parseFloat(videoBundle.get(R.id.CAM_DELTA_LIMIT)),
         MIN_WORLD_WIDTH = Float.parseFloat(videoBundle.get(R.id.MIN_WORLD_WIDTH)),
-        MIN_WORLD_HEIGHT = Float.parseFloat(videoBundle.get(R.id.MIN_WORLD_HEIGHT));
+        MIN_WORLD_HEIGHT = Float.parseFloat(videoBundle.get(R.id.MIN_WORLD_HEIGHT)),
+        DAMAGE_COOLDOWN = Float.parseFloat(gameBundle.get(R.id.DAMAGE_COOLDOWN));
     public static final int
         FONT_SIZE = Integer.parseInt(layoutBundle.get(R.id.FONT_SIZE)),
         DEFAULT_WIDTH = Integer.parseInt(videoBundle.get(R.id.DEFAULT_WIDTH)),
