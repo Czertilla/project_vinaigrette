@@ -2,23 +2,29 @@ package com.czertilla.project_vinaigrette.stage.scene.actor;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Vector3;
 
 public class BulletActor extends BaseActor { // Полигон для коллизии
-    private float speed;
-    private float direction; // Угол направления пули
 
-    public BulletActor(TextureRegion texture, float startX, float startY, float direction, float speed) {
+    private final Vector3
+        destination,
+        velocity;
+
+    public BulletActor(TextureRegion texture, Vector3 start, Vector3 destination, float speed) {
         super(texture);
-        this.direction = direction;
-        this.speed = speed;
+        this.destination = destination;
 
         // Устанавливаем размеры пули на основе текстуры
-        setSize(region.getRegionWidth(), region.getRegionHeight());
+        setSize(15, 15);
 
         // Устанавливаем начальную позицию пули
-        setPosition(startX - getWidth() / 2, startY - getHeight() / 2); // центрирование пули
+        setPosition(start.x - getWidth() / 2, start.y); // центрирование пули
+        velocity = destination.cpy().sub(start);
+        velocity.scl(speed/velocity.len());
+        rotateTowards(destination.x, destination.y);
+        Vector3 barrel = velocity.cpy().scl((101+getWidth())/speed);
+        moveBy(barrel.x, barrel.y);
 
         // Создаем полигон для коллизии (прямоугольник)
         this.boundingBox = new Polygon(new float[]{
@@ -37,19 +43,18 @@ public class BulletActor extends BaseActor { // Полигон для колли
     public void act(float delta) {
         super.act(delta);
 
-        // Движение пули
-        float velocityX = MathUtils.cosDeg(direction) * speed;
-        float velocityY = MathUtils.sinDeg(direction) * speed;
-        moveBy(velocityX * delta, velocityY * delta);
+        float dst = destination.dst(getCenter());
+        Vector3 drag = velocity.cpy().scl(delta);
+        if (drag.len() >= dst) {
+            remove();
+            return;
+        }
+        moveBy(drag.x, drag.y);
 
         // Обновляем позицию полигона при движении
         boundingBox.setPosition(getX(), getY());
         boundingBox.setRotation(getRotation());
 
-        // Если пуля выходит за пределы экрана, удаляем её
-        if (getX() < -getWidth() || getX() > getStage().getWidth() || getY() < -getHeight() || getY() > getStage().getHeight()) {
-            remove(); // Удаляем пулю из сцены
-        }
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.czertilla.project_vinaigrette.stage.scene;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -16,7 +17,7 @@ public class GameScene extends BaseScene {
     private Texture actorTexture2;
     private Texture bulletTexture;
     private TextureRegion regionbullet;
-    private float bulletSpeed = 500f;
+    private float bulletSpeed = 5000f;
     private OrthographicCamera camera;
 
     private static GameScene instance;
@@ -46,7 +47,7 @@ public class GameScene extends BaseScene {
         addActor(actor2);
         actor2.setSize(200,200);
         bulletTexture = new Texture(Gdx.files.internal("ui/bullet.png"));
-        TextureRegion regionbullet = new TextureRegion(bulletTexture);
+        regionbullet = new TextureRegion(bulletTexture);
 
         // Устанавливаем обработчик ввода для упр   авления первым актером
     }
@@ -65,26 +66,24 @@ public class GameScene extends BaseScene {
     public void act(float deltaTime) {
         super.act(deltaTime);
         dragCamera();
-        //if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-            //shootBullet();
-        //}
+        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+            shootBullet();
+        }
 
     }
 
     private void shootBullet() {
         // Получаем координаты центра актора (игрока или пушки)
-        float actorCenterX = actor.getX() + actor.getWidth() / 2;
-        float actorCenterY = actor.getY() + actor.getHeight() / 2;
+        Vector3 dot = actor.getCenter();
+
 
         // Получаем координаты курсора
-        float mouseX = Gdx.input.getX();
-        float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY(); // Инверсия Y
+        Vector3 screenCoords = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        Vector3 destination = getViewport().unproject(screenCoords);
 
-        // Вычисляем угол между центром актора и курсором
-        float angle = (float) Math.toDegrees(Math.atan2(mouseY - actorCenterY, mouseX - actorCenterX));
 
         // Создаем пулю и добавляем её на сцену
-        BulletActor bullet = new BulletActor(regionbullet, actorCenterX, actorCenterY, angle, bulletSpeed);
+        BulletActor bullet = new BulletActor(regionbullet, actor.getCenter(), destination, bulletSpeed);
         addActor(bullet);
     }
 
