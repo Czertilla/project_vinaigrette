@@ -7,13 +7,12 @@ import com.badlogic.gdx.math.Vector3;
 
 public class BulletActor extends BaseActor { // Полигон для коллизии
 
-    private final Vector3
-        destination,
-        velocity;
+    private final Vector3 velocity;
+    private float path;
 
     public BulletActor(TextureRegion texture, Vector3 start, Vector3 destination, float speed) {
         super(texture);
-        this.destination = destination;
+        path = 0;
 
         // Устанавливаем размеры пули на основе текстуры
         setSize(15, 15);
@@ -43,9 +42,9 @@ public class BulletActor extends BaseActor { // Полигон для колли
     public void act(float delta) {
         super.act(delta);
 
-        float dst = destination.dst(getCenter());
         Vector3 drag = velocity.cpy().scl(delta);
-        if (drag.len() >= dst) {
+        path += drag.len();
+        if (path >= 2000f) {
             remove();
             return;
         }
