@@ -9,6 +9,8 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.czertilla.project_vinaigrette.Main;
 import com.czertilla.project_vinaigrette.screen.game.MainGame;
 import com.czertilla.project_vinaigrette.stage.BaseStage;
+import com.czertilla.project_vinaigrette.stage.scene.actor.BaseActor;
+import com.czertilla.project_vinaigrette.stage.scene.actor.BulletActor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
 import com.czertilla.project_vinaigrette.handler.InputHandler;
 import com.czertilla.project_vinaigrette.utils.C;
