@@ -26,6 +26,15 @@ public class BaseActor extends Actor {
         );
     }
 
+    public void rotateTowards(float x, float y) {
+        // Находим центр актора
+        Vector3 center = getCenter();
+
+        // Рассчитываем угол между центром актора и курсором
+        float angle = (float) Math.toDegrees(Math.atan2(y - center.y, x - center.x));
+        setRotation(angle);
+    }
+
     public Polygon getBoundingBox() {
         return boundingBox;
     }

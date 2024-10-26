@@ -57,15 +57,6 @@ public class PlayerActor extends BaseActor {
         float[] vertices = boundingBox.getTransformedVertices();
         shapeRenderer.polygon(vertices);  // Отрисовка полигона
     }
-    public void rotateTowards(float mouseX, float mouseY) {
-        // Находим центр актора
-        float centerX = getX() + getWidth() / 2;
-        float centerY = getY() + getHeight() / 2;
-
-        // Рассчитываем угол между центром актора и курсором
-        float angle = (float) Math.toDegrees(Math.atan2(mouseY - centerY, mouseX - centerX));
-        setRotation(angle);
-    }
 
     public void act(float delta) {
         super.act(delta);
