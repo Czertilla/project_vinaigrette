@@ -15,6 +15,7 @@ public class C {
         MENU_BUTTONS_WIDTH = Float.parseFloat(layoutBundle.get(R.id.MENU_BUTTONS_WIDTH)),
         MENU_BUTTONS_HEIGHT = Float.parseFloat(layoutBundle.get(R.id.MENU_BUTTONS_HEIGHT)),
         CAM_DELTA_LIMIT = Float.parseFloat(videoBundle.get(R.id.CAM_DELTA_LIMIT)),
+        CAM_SIGHT_DELTA = Float.parseFloat(videoBundle.get(R.id.CAM_SIGHT_DELTA)),
         MIN_WORLD_WIDTH = Float.parseFloat(videoBundle.get(R.id.MIN_WORLD_WIDTH)),
         MIN_WORLD_HEIGHT = Float.parseFloat(videoBundle.get(R.id.MIN_WORLD_HEIGHT)),
         DAMAGE_COOLDOWN = Float.parseFloat(gameBundle.get(R.id.DAMAGE_COOLDOWN));
