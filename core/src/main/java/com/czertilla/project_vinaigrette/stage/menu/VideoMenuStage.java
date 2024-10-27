@@ -4,11 +4,8 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.czertilla.project_vinaigrette.Main;
-import com.czertilla.project_vinaigrette.asset.Bundle;
 import com.czertilla.project_vinaigrette.screen.menu.BaseMenu;
-import com.czertilla.project_vinaigrette.screen.menu.MainMenu;
 import com.czertilla.project_vinaigrette.utils.C;
 import com.czertilla.project_vinaigrette.utils.R;
 
@@ -47,9 +44,10 @@ public class VideoMenuStage extends BaseMenuStage{
     private void createBackButton() {
         TextButton button = getNewTextButton(bundle.get(R.id.BACK));
 
-        button.addListener(new ClickListener() {
+        button.addListener(new SoundClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
                 onBack();
             }
         });
@@ -69,9 +67,10 @@ public class VideoMenuStage extends BaseMenuStage{
                 bundle.get(R.id.SWITCH_OFF)
             )
         );
-        button.addListener(new ClickListener() {
+        button.addListener(new SoundClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
                 if (button.isChecked()) {
                     lastWidth = Gdx.graphics.getWidth();
                     lastHeight = Gdx.graphics.getHeight();
@@ -92,9 +91,10 @@ public class VideoMenuStage extends BaseMenuStage{
 
         int scale = Main.scale;
         button.setText(bundle.format(R.id.SCALE, scaleLine[scale]));
-        button.addListener(new ClickListener() {
+        button.addListener(new SoundClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
                 if (scaleLine.length <= Main.scale + 1)
                     Main.scale = 0;
                 else
@@ -117,9 +117,10 @@ public class VideoMenuStage extends BaseMenuStage{
                 bundle.get(R.id.SWITCH_OFF)
             )
         );
-        button.addListener(new ClickListener() {
+        button.addListener(new SoundClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
                 Main.debug = button.isChecked();
                 show();
             }

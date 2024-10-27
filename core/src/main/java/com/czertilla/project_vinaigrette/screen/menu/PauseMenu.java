@@ -17,10 +17,12 @@ public class PauseMenu extends BaseMenu{
 
     @Override
     public void setDefaultStage() {
+        click();
         setStage(PauseMenuStage.getInstance(this));
     }
 
     public void resumeGame(){
+        click();
         game.setScreen(new MainGame(game));
     }
     public void exit() {
