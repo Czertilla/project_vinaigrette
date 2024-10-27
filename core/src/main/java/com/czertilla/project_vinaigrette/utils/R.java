@@ -48,8 +48,20 @@ public class R {
             DEFAULT_HEIGHT = "DEFAULT_HEIGHT",
             CAM_DELTA_LIMIT = "CAM_DELTA_LIMIT",
             CAM_SIGHT_DELTA = "CAM_SIGHT_DELTA",
+            CAM_WEIGHT= "CAM_WEIGHT",
+            RECOIL_DRAG = "RECOIL_DRAG",
             MIN_WORLD_WIDTH = "MIN_WORLD_WIDTH",
             MIN_WORLD_HEIGHT = "MIN_WORLD_HEIGHT",
-            DAMAGE_COOLDOWN = "DAMAGE_COOLDOWN";
+            DAMAGE_COOLDOWN = "DAMAGE_COOLDOWN",
+            DAMAGE = "DAMAGE",
+            BULLET_SPEED = "BULLET_SPEED",
+            BULLET_WEIGHT = "BULLET_WEIGHT",
+            MAGAZINE_SIZE = "MAGAZINE_SIZE",
+            FIRING_RANGE = "FIRING_RANGE",
+            FIRE_RATE = "FIRE_RATE",
+            RELOAD_TIME = "RELOAD_TIME",
+            PELLET_NUM = "PELLET_NUM",
+            PELLET_SPREAD = "PELLET_SPREAD";
+
     }
 }
