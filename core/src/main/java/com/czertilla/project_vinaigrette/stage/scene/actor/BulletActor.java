@@ -1,5 +1,7 @@
 package com.czertilla.project_vinaigrette.stage.scene.actor;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Polygon;
@@ -9,9 +11,11 @@ public class BulletActor extends BaseActor { // Полигон для колли
 
     private final Vector3 velocity;
     private float path;
+    static Texture bulletTexture = new Texture(Gdx.files.internal("ui/bullet.png"));
+    static TextureRegion regionbullet = new TextureRegion(bulletTexture);
 
-    public BulletActor(TextureRegion texture, Vector3 start, Vector3 destination, float speed) {
-        super(texture);
+    public BulletActor(Vector3 start, Vector3 destination, float speed) {
+        super(regionbullet);
         path = 0;
 
         // Устанавливаем размеры пули на основе текстуры
@@ -36,6 +40,10 @@ public class BulletActor extends BaseActor { // Полигон для колли
         // Устанавливаем исходную позицию полигона
         boundingBox.setPosition(getX(), getY());
         boundingBox.setOrigin(getWidth() / 2, getHeight() / 2);
+    }
+
+    public Vector3 getVelocity() {
+        return velocity;
     }
 
     @Override
