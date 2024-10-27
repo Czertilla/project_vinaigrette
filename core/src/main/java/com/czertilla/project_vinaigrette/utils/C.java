@@ -18,7 +18,9 @@ public class C {
         CAM_SIGHT_DELTA = Float.parseFloat(videoBundle.get(R.id.CAM_SIGHT_DELTA)),
         MIN_WORLD_WIDTH = Float.parseFloat(videoBundle.get(R.id.MIN_WORLD_WIDTH)),
         MIN_WORLD_HEIGHT = Float.parseFloat(videoBundle.get(R.id.MIN_WORLD_HEIGHT)),
-        DAMAGE_COOLDOWN = Float.parseFloat(gameBundle.get(R.id.DAMAGE_COOLDOWN));
+        DAMAGE_COOLDOWN = Float.parseFloat(gameBundle.get(R.id.DAMAGE_COOLDOWN)),
+        CAM_WEIGHT = Float.parseFloat(gameBundle.get(R.id.CAM_WEIGHT)),
+        RECOIL_DRAG = Float.parseFloat(gameBundle.get(R.id.RECOIL_DRAG));
     public static final int
         FONT_SIZE = Integer.parseInt(layoutBundle.get(R.id.FONT_SIZE)),
         DEFAULT_WIDTH = Integer.parseInt(videoBundle.get(R.id.DEFAULT_WIDTH)),
