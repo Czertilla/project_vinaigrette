@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.czertilla.project_vinaigrette.screen.game.MainGame;
+import com.czertilla.project_vinaigrette.stage.scene.actor.EnemyActor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.BulletActor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.Weapon;
@@ -61,6 +62,13 @@ public class GameScene extends BaseScene {
         shotgun.setPosition(10,10);
         shotgun.setSize(200,100);
         addActor(shotgun);
+
+        Texture texture2 = new Texture(Gdx.files.internal("ui/img.png"));
+        TextureRegion region3 = new TextureRegion(texture2); // Создаем TextureRegion
+        EnemyActor enemy = new EnemyActor(region3, 20);
+        enemy.setPosition(10,10);
+        enemy.setSize(200,200);
+        addActor(enemy);
 
         // Устанавливаем обработчик ввода для упр   авления первым актером
     }
