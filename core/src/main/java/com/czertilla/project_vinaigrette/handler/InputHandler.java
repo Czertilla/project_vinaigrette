@@ -4,20 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
 import com.czertilla.project_vinaigrette.stage.BaseStage;
-import com.czertilla.project_vinaigrette.stage.scene.actor.BaseActor;
-import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.Weapon;
+import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
 
 public class InputHandler extends BaseHandler {
-    private final BaseActor actor;
+    private final PlayerActor actor;
     private final float speed = 200f;
 //    TODO remove useless numeric constants
     private boolean moveUp = false;
+    private boolean pressE = false;
     private boolean moveDown = false;
     private boolean moveLeft = false;
     private boolean moveRight = false;
-    private boolean reload = false;
 
-    public InputHandler(BaseActor actor, BaseStage stage) {
+    public InputHandler(PlayerActor actor, BaseStage stage) {
         super(stage);
         this.actor = actor;
     }
@@ -39,7 +38,7 @@ public class InputHandler extends BaseHandler {
         if (keycode == Input.Keys.S) moveDown = false;
         if (keycode == Input.Keys.A) moveLeft = false;
         if (keycode == Input.Keys.D) moveRight = false;
-        if (keycode == Input.Keys.R) reload = true;
+        if (keycode == Input.Keys.E)  actor.pressE();
         return super.keyUp(keycode);
     }
 
@@ -52,15 +51,7 @@ public class InputHandler extends BaseHandler {
         if (moveDown) actor.moveBy(0, -speed);
         if (moveLeft) actor.moveBy(-speed, 0);
         if (moveRight) actor.moveBy(speed, 0);
-        if (reload) {
-            ((Weapon) actor).reload();
-            reload = false;
-        }
 
-        Vector3 screenCoords = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-        Vector3 worldCoords = stage.getViewport().unproject(screenCoords);
-
-        actor.rotateTowards(worldCoords.x, worldCoords.y);
     }
 }
 
