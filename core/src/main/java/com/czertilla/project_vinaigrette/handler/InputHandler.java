@@ -43,6 +43,10 @@ public class InputHandler extends BaseHandler {
         return super.keyUp(keycode);
     }
 
+    public static Vector3 getMousePos(){
+        return stage.getViewport().unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
+    }
+
     public void update(float delta) {
         super.update();
         float speed = 500 * delta; // Скорость перемещения актора
