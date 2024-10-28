@@ -3,6 +3,7 @@ package com.czertilla.project_vinaigrette.stage.scene.actor.weapon.firearm;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.I18NBundle;
+import com.czertilla.project_vinaigrette.stage.scene.actor.BaseActor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.Weapon;
 import com.czertilla.project_vinaigrette.utils.Ammo;
@@ -10,7 +11,7 @@ import com.czertilla.project_vinaigrette.utils.C;
 import com.czertilla.project_vinaigrette.utils.R;
 import com.czertilla.project_vinaigrette.utils.StatImport;
 
-public abstract class FireArm extends PlayerActor implements Weapon {
+public abstract class FireArm extends BaseActor implements Weapon {
 
     protected record Stats(
         float damage,
