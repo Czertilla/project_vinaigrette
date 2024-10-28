@@ -3,6 +3,7 @@ package com.czertilla.project_vinaigrette.stage.scene;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -56,6 +57,10 @@ public class BaseScene extends BaseStage {
     @Override
     public void onBack() {
 
+    }
+
+    public Vector3 getMousePos(){
+        return getViewport().unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
     }
 
     private void checkCollisions() {
