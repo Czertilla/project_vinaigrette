@@ -12,7 +12,6 @@ import com.czertilla.project_vinaigrette.stage.BaseStage;
 import com.czertilla.project_vinaigrette.stage.scene.actor.BaseActor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.BulletActor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
-import com.czertilla.project_vinaigrette.stage.scene.actor.gun.BaseGun;
 import com.czertilla.project_vinaigrette.handler.InputHandler;
 import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.Weapon;
 import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.firearm.FireArm;

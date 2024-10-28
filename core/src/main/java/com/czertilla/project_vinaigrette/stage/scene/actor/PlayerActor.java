@@ -12,7 +12,6 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.utils.Null;
-import com.czertilla.project_vinaigrette.stage.scene.actor.gun.BaseGun;
 import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.Weapon;
 import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.firearm.FireArm;
 import com.czertilla.project_vinaigrette.utils.Ammo;
