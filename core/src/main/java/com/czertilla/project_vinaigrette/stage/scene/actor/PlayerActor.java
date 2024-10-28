@@ -41,6 +41,12 @@ public class PlayerActor extends BaseActor{
     @Override
     public void act(float delta) {
         super.act(delta);
+        if (dmgTime <= 0) {
+            dmgTime=0;
+            setColor(Color.WHITE);
+        } else {
+            dmgTime-=delta;
+        }
         if (weapon!=null) {
             Vector3 position = getCenter();
             ((BaseActor) weapon).setPosition(position.x, position.y);
