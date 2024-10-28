@@ -8,12 +8,16 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.czertilla.project_vinaigrette.screen.game.MainGame;
 import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
+import com.czertilla.project_vinaigrette.stage.scene.actor.gun.BaseGun;
 import com.czertilla.project_vinaigrette.stage.scene.actor.BulletActor;
+import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.Weapon;
+import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.firearm.Shotgun;
 import com.czertilla.project_vinaigrette.utils.C;
 
 public class GameScene extends BaseScene {
-    private PlayerActor actor2;
-    private Texture actorTexture1;
+    private BaseGun actor2;
+    private PlayerActor player;
+    private Texture playerTexture;
     private Texture actorTexture2;
     private Texture bulletTexture;
     private TextureRegion regionbullet;
@@ -40,14 +44,29 @@ public class GameScene extends BaseScene {
         getViewport().setCamera(camera);
 
         // Загружаем текстуры для актеров
-        actorTexture2 = new Texture(Gdx.files.internal("ui/zombie.png"));
+        actorTexture2 = new Texture(Gdx.files.internal("ui/gg.png"));
         TextureRegion region2 = new TextureRegion(actorTexture2);
-        actor2 = new PlayerActor(region2);
+        actor2 = new BaseGun(region2);
         actor2.setPosition(500,500 );
         addActor(actor2);
         actor2.setSize(200,200);
+        //player
+        playerTexture = new Texture(Gdx.files.internal("ui/img.png"));
+        TextureRegion playerRegion = new TextureRegion(actorTexture2);
+        player = new PlayerActor(playerRegion);
+        player.setPosition(500,500 );
+        addActor(player);
+        player.setSize(200,400);
+        //bullet
         bulletTexture = new Texture(Gdx.files.internal("ui/bullet.png"));
         regionbullet = new TextureRegion(bulletTexture);
+
+        Texture texture = new Texture(Gdx.files.internal("ui/shutgun.png"));
+        TextureRegion region = new TextureRegion(texture); // Создаем TextureRegion
+        Shotgun shotgun = new Shotgun(region, "shotgunA");
+        shotgun.setPosition(10,10);
+        shotgun.setSize(200,100);
+        addActor(shotgun);
 
         // Устанавливаем обработчик ввода для упр   авления первым актером
     }
@@ -61,35 +80,18 @@ public class GameScene extends BaseScene {
         else
             mlp = 1f - (LIM / mlp);
         camera.position.mulAdd(delta, (float)Math.sqrt(mlp));
-
-        Vector3 sight = getViewport().unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
-        sight.sub(actor.getCenter());
-        camera.position.mulAdd(sight, Math.min(sight.len()/LIM, LIM/sight.len())/sight.len()*C.CAM_SIGHT_DELTA);
     }
 
     public void act(float deltaTime) {
         super.act(deltaTime);
         dragCamera();
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-            shootBullet();
+            actor.attack();
         }
 
     }
 
-    private void shootBullet() {
-        // Получаем координаты центра актора (игрока или пушки)
-        Vector3 dot = actor.getCenter();
 
-
-        // Получаем координаты курсора
-        Vector3 screenCoords = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-        Vector3 destination = getViewport().unproject(screenCoords);
-
-
-        // Создаем пулю и добавляем её на сцену
-        BulletActor bullet = new BulletActor(regionbullet, actor.getCenter(), destination, bulletSpeed);
-        addActor(bullet);
-    }
 
 
     @Override
