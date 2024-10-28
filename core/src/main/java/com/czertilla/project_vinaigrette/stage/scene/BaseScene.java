@@ -12,7 +12,10 @@ import com.czertilla.project_vinaigrette.stage.BaseStage;
 import com.czertilla.project_vinaigrette.stage.scene.actor.BaseActor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.BulletActor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
+import com.czertilla.project_vinaigrette.stage.scene.actor.gun.BaseGun;
 import com.czertilla.project_vinaigrette.handler.InputHandler;
+import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.Weapon;
+import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.firearm.FireArm;
 import com.czertilla.project_vinaigrette.utils.C;
 
 public class BaseScene extends BaseStage {
@@ -64,23 +67,26 @@ public class BaseScene extends BaseStage {
         for (int i = 0; i < actors.size; i++) {
             Actor actor = actors.get(i);
             if (actor instanceof PlayerActor) {
-                PlayerActor playerActor = (PlayerActor) actor;
+                PlayerActor player = (PlayerActor) actor;
 
                 // Проверяем столкновения только с остальными актерами
                 for (int j = 0; j < actors.size; j++) {
                     if (i == j) continue; // Игнорируем самого себя
                     Actor other = actors.get(j);
-                    if (other instanceof PlayerActor) {
-                        PlayerActor otherActor = (PlayerActor) other;
-                        if (playerActor.collidesWith(otherActor)) {
-                            playerActor.handleCollision(otherActor);
+                    if (other instanceof Weapon) {
+                        Weapon weapon = (Weapon) other;
+                        BaseActor otherActor = (BaseActor) other;
+                        if (player.collidesWith(otherActor) && !player.isHandWeapon(weapon)) {
+                            player.handGun(weapon);
                         }
                     }
-                    if (other instanceof BulletActor && playerActor.collidesWith((BaseActor) other)){
-                        playerActor.damage(0);
+                   /* if (other instanceof BulletActor && baseGun.collidesWith((BaseActor) other)){
+                        //baseGun.damage(0);
                         other.remove();
-                    }
+                    }*/
                 }
+                player.handGun(null);
+
             }
         }
     }
@@ -91,6 +97,7 @@ public class BaseScene extends BaseStage {
         inputHandler.update(delta);
         checkCollisions();
     }
+
 
     // Метод для обработки изменения размера окна
 
