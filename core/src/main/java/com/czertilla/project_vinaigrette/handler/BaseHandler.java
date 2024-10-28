@@ -5,11 +5,11 @@ import com.badlogic.gdx.InputAdapter;
 import com.czertilla.project_vinaigrette.stage.BaseStage;
 
 public class BaseHandler extends InputAdapter{
-    static BaseStage stage;
+    BaseStage stage;
     boolean escape = false;
 
     public BaseHandler(BaseStage stage) {
-        BaseHandler.stage = stage;
+        this.stage = stage;
     }
 
     @Override
