@@ -11,10 +11,10 @@ import com.czertilla.project_vinaigrette.screen.game.MainGame;
 import com.czertilla.project_vinaigrette.stage.BaseStage;
 import com.czertilla.project_vinaigrette.stage.scene.actor.BaseActor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.BulletActor;
+import com.czertilla.project_vinaigrette.stage.scene.actor.EnemyActor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
 import com.czertilla.project_vinaigrette.handler.InputHandler;
 import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.Weapon;
-import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.firearm.FireArm;
 import com.czertilla.project_vinaigrette.utils.C;
 
 public class BaseScene extends BaseStage {
@@ -86,6 +86,26 @@ public class BaseScene extends BaseStage {
                 }
                 player.handGun(null);
 
+            }
+            if (actor instanceof EnemyActor) {
+                EnemyActor enemy = (EnemyActor) actor;
+
+                // Проверяем столкновения только с остальными актерами
+                for (int j = 0; j < actors.size; j++) {
+                    if (i == j) continue; // Игнорируем самого себя
+                    Actor other = actors.get(j);
+                    if (other instanceof BulletActor) {
+                        if (((BaseActor) enemy).collidesWith((BaseActor) other)) {
+                            enemy.getDamage(1);
+                            other.remove();
+                        }
+                    }
+                    if (other instanceof PlayerActor) {
+                        if (((BaseActor) enemy).collidesWith((BaseActor) other)) {
+                            ((PlayerActor) other).damage(0);
+                        }
+                    }
+                }
             }
         }
     }
