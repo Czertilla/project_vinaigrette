@@ -3,6 +3,7 @@ package com.czertilla.project_vinaigrette.stage.scene.actor.weapon.firearm;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.I18NBundle;
+import com.czertilla.project_vinaigrette.handler.InputHandler;
 import com.czertilla.project_vinaigrette.stage.scene.actor.BaseActor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.Weapon;
@@ -74,6 +75,8 @@ public abstract class FireArm extends BaseActor implements Weapon {
 
     @Override
     public void update(float delta){
+        Vector3 dest = InputHandler.getMousePos();
+        rotateTowards(dest.x, dest.y);
         if (!isLoaded && isCocked && magazine > 0 && cooldown <= 0) {
             isLoaded = true;
             magazine -= 1;
