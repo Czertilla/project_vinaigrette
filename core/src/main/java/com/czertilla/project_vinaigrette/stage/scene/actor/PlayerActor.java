@@ -16,15 +16,24 @@ import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.Weapon;
 import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.firearm.FireArm;
 import com.czertilla.project_vinaigrette.utils.Ammo;
 import com.czertilla.project_vinaigrette.utils.C;
+import com.czertilla.project_vinaigrette.utils.Movable;
 
-public class PlayerActor extends BaseActor{
+public class PlayerActor extends BaseActor implements Movable {
     private Ammo ammo;
     public boolean pressE=false;
     private Weapon weapon;
     private float dmgTime = 0;
+    private Vector3 velocity;
+    private Vector3 acceleration;
+    private float maxSpeed;
+    private float friction;
+
     public PlayerActor(TextureRegion region) {
         super(region);
         ammo = new Ammo(100,100,100);
+        maxSpeed = C.PLAYER_MAX_SPEED;
+        velocity = new Vector3();
+        acceleration = new Vector3();
     }
 
     public void setWeapon(Weapon weapon) {
@@ -41,13 +50,12 @@ public class PlayerActor extends BaseActor{
     @Override
     public void act(float delta) {
         super.act(delta);
+        update(delta);
         if (weapon!=null) {
             Vector3 position = getCenter();
             ((BaseActor) weapon).setPosition(position.x, position.y);
             weapon.update(delta);
         }
-
-
     }
 
     public void damage(float dmg){
@@ -75,5 +83,31 @@ public class PlayerActor extends BaseActor{
     }
     public boolean isHandWeapon(Weapon other){
         return weapon==other;
+    }
+
+    @Override
+    public void setVelocity(Vector3 velocity) {
+        this.velocity = velocity.scl(maxSpeed);
+    }
+
+    @Override
+    public void moveTo(Vector3 destination) {
+        setPosition(destination.x, destination.y);
+    }
+
+    @Override
+    public void moveOn(Vector3 moving) {
+        moveBy(moving.x, moving.y);
+    }
+
+    @Override
+    public void setAcceleration(Vector3 acceleration) {
+        this.acceleration = acceleration;
+    }
+
+    @Override
+    public void update(float delta) {
+        velocity.mulAdd(acceleration, delta);
+        moveBy(velocity.x * delta, velocity.y * delta);
     }
 }
