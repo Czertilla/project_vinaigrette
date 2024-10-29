@@ -50,6 +50,7 @@ public class R {
             CAM_SIGHT_DELTA = "CAM_SIGHT_DELTA",
             CAM_WEIGHT= "CAM_WEIGHT",
             RECOIL_DRAG = "RECOIL_DRAG",
+            PLAYER_MAX_SPEED = "PLAYER_MAX_SPEED",
             MIN_WORLD_WIDTH = "MIN_WORLD_WIDTH",
             MIN_WORLD_HEIGHT = "MIN_WORLD_HEIGHT",
             DAMAGE_COOLDOWN = "DAMAGE_COOLDOWN",
