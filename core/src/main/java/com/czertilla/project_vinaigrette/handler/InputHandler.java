@@ -34,7 +34,8 @@ public class InputHandler extends BaseHandler {
         if (keycode == Input.Keys.S) moveDown = false;
         if (keycode == Input.Keys.A) moveLeft = false;
         if (keycode == Input.Keys.D) moveRight = false;
-        if (keycode == Input.Keys.E)  actor.pressE();
+        if (keycode == Input.Keys.E) actor.pressE();
+        if (keycode == Input.Keys.R) actor.onReload();
         return super.keyUp(keycode);
     }
 
