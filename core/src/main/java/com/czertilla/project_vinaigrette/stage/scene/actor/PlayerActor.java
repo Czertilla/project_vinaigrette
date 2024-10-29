@@ -110,4 +110,9 @@ public class PlayerActor extends BaseActor implements Movable {
         velocity.mulAdd(acceleration, delta);
         moveBy(velocity.x * delta, velocity.y * delta);
     }
+
+    public void onReload() {
+        if (weapon != null)
+            weapon.reload();
+    }
 }
