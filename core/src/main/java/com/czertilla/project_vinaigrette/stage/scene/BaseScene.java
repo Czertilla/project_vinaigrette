@@ -11,11 +11,9 @@ import com.czertilla.project_vinaigrette.Main;
 import com.czertilla.project_vinaigrette.screen.game.MainGame;
 import com.czertilla.project_vinaigrette.stage.BaseStage;
 import com.czertilla.project_vinaigrette.stage.scene.actor.BaseActor;
-import com.czertilla.project_vinaigrette.stage.scene.actor.BulletActor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
 import com.czertilla.project_vinaigrette.handler.InputHandler;
 import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.Weapon;
-import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.firearm.FireArm;
 import com.czertilla.project_vinaigrette.utils.C;
 
 public class BaseScene extends BaseStage {
@@ -98,7 +96,7 @@ public class BaseScene extends BaseStage {
     @Override
     public void act(float delta) {
         super.act(delta);
-        inputHandler.update(delta);
+        inputHandler.update();
         checkCollisions();
     }
 

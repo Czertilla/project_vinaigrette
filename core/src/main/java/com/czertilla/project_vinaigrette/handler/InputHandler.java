@@ -1,6 +1,5 @@
 package com.czertilla.project_vinaigrette.handler;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
 import com.czertilla.project_vinaigrette.stage.BaseStage;
@@ -8,8 +7,6 @@ import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
 
 public class InputHandler extends BaseHandler {
     private final PlayerActor actor;
-    private final float speed = 200f;
-//    TODO remove useless numeric constants
     private boolean moveUp = false;
     private boolean moveDown = false;
     private boolean moveLeft = false;
@@ -41,7 +38,7 @@ public class InputHandler extends BaseHandler {
         return super.keyUp(keycode);
     }
 
-    public void update(float delta) {
+    public void update() {
         super.update();
         Vector3 velocity = new Vector3();
         if (moveUp) velocity.y ++;
