@@ -11,7 +11,6 @@ public class InputHandler extends BaseHandler {
     private final float speed = 200f;
 //    TODO remove useless numeric constants
     private boolean moveUp = false;
-    private boolean pressE = false;
     private boolean moveDown = false;
     private boolean moveLeft = false;
     private boolean moveRight = false;
@@ -44,14 +43,12 @@ public class InputHandler extends BaseHandler {
 
     public void update(float delta) {
         super.update();
-        float speed = 500 * delta; // Скорость перемещения актора
-//        TODO remove constants as local variables. Use property file "game" in "numbers" assets dir
-        // Обновляем позицию актора в зависимости от состояния флагов
-        if (moveUp) actor.moveBy(0, speed);
-        if (moveDown) actor.moveBy(0, -speed);
-        if (moveLeft) actor.moveBy(-speed, 0);
-        if (moveRight) actor.moveBy(speed, 0);
-
+        Vector3 velocity = new Vector3();
+        if (moveUp) velocity.y ++;
+        if (moveDown) velocity.y --;
+        if (moveLeft) velocity.x --;
+        if (moveRight) velocity.x ++;
+        actor.setVelocity(velocity);
     }
 }
 
