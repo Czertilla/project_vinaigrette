@@ -12,13 +12,16 @@ import com.czertilla.project_vinaigrette.utils.R;
 import com.czertilla.project_vinaigrette.utils.StatImport;
 
 public abstract class FireArm extends BaseActor implements Weapon {
-
-    protected record Stats(
+    public record BulletStats(
         float damage,
         float bulletSpeed,
         float bulletWeight,
+        float firingRange
+    ) {};
+
+    protected record Stats(
+        BulletStats bulletStats,
         int magazineSize,
-        float firingRange,
         float fireRate,
         float reloadTime
     ){};
@@ -47,11 +50,13 @@ public abstract class FireArm extends BaseActor implements Weapon {
 
     void setStats(){
         stats = new Stats(
-            Float.parseFloat(bundle.get(R.id.DAMAGE)),
-            Float.parseFloat(bundle.get(R.id.BULLET_SPEED)),
-            Float.parseFloat(bundle.get(R.id.BULLET_WEIGHT)),
+            new BulletStats(
+                Float.parseFloat(bundle.get(R.id.DAMAGE)),
+                Float.parseFloat(bundle.get(R.id.BULLET_SPEED)),
+                Float.parseFloat(bundle.get(R.id.BULLET_WEIGHT)),
+                Float.parseFloat(bundle.get(R.id.FIRING_RANGE))
+            ),
             Integer.parseInt(bundle.get(R.id.MAGAZINE_SIZE)),
-            Float.parseFloat(bundle.get(R.id.FIRING_RANGE)),
             60f/Float.parseFloat(bundle.get(R.id.FIRE_RATE)),
             Float.parseFloat(bundle.get(R.id.RELOAD_TIME))
         );
