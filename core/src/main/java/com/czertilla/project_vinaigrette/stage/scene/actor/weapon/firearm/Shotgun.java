@@ -37,10 +37,10 @@ public class Shotgun extends FireArm{
                     MathUtils.random(-spread, spread)*distance,
                     0
                 ),
-                super.stats.bulletSpeed()
+                super.stats.bulletStats()
             );
             stage.addActor(bullet);
-            recoilVelocity.mulAdd(bullet.getVelocity(), -super.stats.bulletWeight());
+            recoilVelocity.mulAdd(bullet.getVelocity(), -super.stats.bulletStats().bulletWeight());
         }
         recoil(recoilVelocity);
     }

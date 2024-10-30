@@ -14,9 +14,12 @@ public class BulletActor extends BaseActor { // Полигон для колли
     static Texture bulletTexture = new Texture(Gdx.files.internal("ui/bullet.png"));
     static TextureRegion regionbullet = new TextureRegion(bulletTexture);
 
-    public BulletActor(Vector3 start, Vector3 destination, float speed) {
+    public BulletActor(Vector3 start, Vector3 destination, FireArm.BulletStats stats) {
         super(regionbullet);
         path = 0;
+        this.weight = stats.bulletWeight();
+        this.firingRange = stats.firingRange();
+        this.damage = stats.damage();
 
         // Устанавливаем размеры пули на основе текстуры
         setSize(15, 15);
@@ -26,7 +29,7 @@ public class BulletActor extends BaseActor { // Полигон для колли
         velocity = destination.cpy().sub(start);
         velocity.scl(speed/velocity.len());
         rotateTowards(destination.x, destination.y);
-        Vector3 barrel = velocity.cpy().scl((101+getWidth())/speed);
+        Vector3 barrel = velocity.cpy().scl((101+getWidth())/stats.bulletSpeed());
         moveBy(barrel.x, barrel.y);
 
         // Создаем полигон для коллизии (прямоугольник)
@@ -52,7 +55,7 @@ public class BulletActor extends BaseActor { // Полигон для колли
 
         Vector3 drag = velocity.cpy().scl(delta);
         path += drag.len();
-        if (path >= 2000f) {
+        if (path >= firingRange) {
             remove();
             return;
         }
