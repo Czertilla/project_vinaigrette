@@ -6,11 +6,16 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector3;
+import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.firearm.FireArm;
 
 public class BulletActor extends BaseActor { // Полигон для коллизии
 
     private final Vector3 velocity;
-    private float path;
+    private float
+        path,
+        weight,
+        firingRange,
+        damage;
     static Texture bulletTexture = new Texture(Gdx.files.internal("ui/bullet.png"));
     static TextureRegion regionbullet = new TextureRegion(bulletTexture);
 
