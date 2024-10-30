@@ -1,6 +1,5 @@
 package com.czertilla.project_vinaigrette.handler;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
 import com.czertilla.project_vinaigrette.stage.BaseStage;
@@ -8,10 +7,7 @@ import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
 
 public class InputHandler extends BaseHandler {
     private final PlayerActor actor;
-    private final float speed = 200f;
-//    TODO remove useless numeric constants
     private boolean moveUp = false;
-    private boolean pressE = false;
     private boolean moveDown = false;
     private boolean moveLeft = false;
     private boolean moveRight = false;
@@ -38,24 +34,19 @@ public class InputHandler extends BaseHandler {
         if (keycode == Input.Keys.S) moveDown = false;
         if (keycode == Input.Keys.A) moveLeft = false;
         if (keycode == Input.Keys.D) moveRight = false;
-        if (keycode == Input.Keys.E)  actor.pressE();
+        if (keycode == Input.Keys.E) actor.pressE();
+        if (keycode == Input.Keys.R) actor.onReload();
         return super.keyUp(keycode);
     }
 
-    public static Vector3 getMousePos(){
-        return stage.getViewport().unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
-    }
-
-    public void update(float delta) {
+    public void update() {
         super.update();
-        float speed = 500 * delta; // Скорость перемещения актора
-//        TODO remove constants as local variables. Use property file "game" in "numbers" assets dir
-        // Обновляем позицию актора в зависимости от состояния флагов
-        if (moveUp) actor.moveBy(0, speed);
-        if (moveDown) actor.moveBy(0, -speed);
-        if (moveLeft) actor.moveBy(-speed, 0);
-        if (moveRight) actor.moveBy(speed, 0);
-
+        Vector3 velocity = new Vector3();
+        if (moveUp) velocity.y ++;
+        if (moveDown) velocity.y --;
+        if (moveLeft) velocity.x --;
+        if (moveRight) velocity.x ++;
+        actor.setVelocity(velocity);
     }
 }
 

@@ -3,6 +3,7 @@ package com.czertilla.project_vinaigrette.stage.scene;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -30,12 +31,12 @@ public class BaseScene extends BaseStage {
 
         // Загрузка текстуры
 //        TODO replace string filepath by variable from R.path class in utils. use "paths" bundle
-        Texture texture = new Texture(Gdx.files.internal("ui/shutgun.png"));
+        Texture texture = new Texture(Gdx.files.internal("ui/img.png"));
         TextureRegion region = new TextureRegion(texture); // Создаем TextureRegion
         actor = new PlayerActor(region);
 //        TODO replace numeric constant
         actor.setPosition(200, 200);
-        actor.setSize(200, 100);// Устанавливаем актера в центре экрана
+        actor.setSize(200, 400);// Устанавливаем актера в центре экрана
         actor.toFront();
         addActor(actor); // Добавляем актера в сцену
         actor.toFront();
@@ -56,6 +57,10 @@ public class BaseScene extends BaseStage {
     @Override
     public void onBack() {
 
+    }
+
+    public Vector3 getMousePos(){
+        return getViewport().unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
     }
 
     private void checkCollisions() {
@@ -113,7 +118,7 @@ public class BaseScene extends BaseStage {
     @Override
     public void act(float delta) {
         super.act(delta);
-        inputHandler.update(delta);
+        inputHandler.update();
         checkCollisions();
     }
 
