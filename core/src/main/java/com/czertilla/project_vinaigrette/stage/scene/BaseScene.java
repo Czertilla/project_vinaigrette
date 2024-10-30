@@ -100,8 +100,10 @@ public class BaseScene extends BaseStage {
                     if (i == j) continue; // Игнорируем самого себя
                     Actor other = actors.get(j);
                     if (other instanceof BulletActor) {
-                        if (((BaseActor) enemy).collidesWith((BaseActor) other)) {
-                            enemy.getDamage(1);
+                        BulletActor bullet = (BulletActor) other;
+                        if (enemy.collidesWith(bullet)) {
+                            enemy.getDamage(bullet.getDamage());
+                            enemy.addImpulse(bullet.getImpulse());
                             other.remove();
                         }
                     }
