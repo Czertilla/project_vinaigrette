@@ -11,6 +11,7 @@ public class C {
         gameBundle = I18NBundle.createBundle(new FileHandle(R.path.GAME_HANDLE));
     public static final String[] LANG_CODES = stringBundle.get(R.id.LANG_CODES).split(";");
     public static final float
+        G = Float.parseFloat(gameBundle.get(R.id.PHYSIC_G)),
         FRAMES_LOCK = Float.parseFloat((videoBundle.get(R.id.FRAMES_LOCK))),
         MENU_BUTTONS_WIDTH = Float.parseFloat(layoutBundle.get(R.id.MENU_BUTTONS_WIDTH)),
         MENU_BUTTONS_HEIGHT = Float.parseFloat(layoutBundle.get(R.id.MENU_BUTTONS_HEIGHT)),
@@ -21,7 +22,10 @@ public class C {
         DAMAGE_COOLDOWN = Float.parseFloat(gameBundle.get(R.id.DAMAGE_COOLDOWN)),
         CAM_WEIGHT = Float.parseFloat(gameBundle.get(R.id.CAM_WEIGHT)),
         RECOIL_DRAG = Float.parseFloat(gameBundle.get(R.id.RECOIL_DRAG)),
-        PLAYER_MAX_SPEED = Float.parseFloat(gameBundle.get(R.id.PLAYER_MAX_SPEED));
+        PLAYER_MAX_SPEED = Float.parseFloat(gameBundle.get(R.id.PLAYER_MAX_SPEED)),
+        PLAYER_WEIGHT = Float.parseFloat(gameBundle.get(R.id.PLAYER_WEIGHT)),
+        PLAYER_FRICTION = Float.parseFloat(gameBundle.get(R.id.PLAYER_FRICTION)),
+        FRICTION_BLOCK_MARGIN = Float.parseFloat(gameBundle.get(R.id.FRICTION_BLOCK_MARGIN));
     public static final int
         FONT_SIZE = Integer.parseInt(layoutBundle.get(R.id.FONT_SIZE)),
         DEFAULT_WIDTH = Integer.parseInt(videoBundle.get(R.id.DEFAULT_WIDTH)),
