@@ -41,6 +41,14 @@ public class BulletActor extends BaseActor { // Полигон для колли
         return velocity;
     }
 
+    public Vector3 getImpulse(){
+        return velocity.cpy().scl(weight);
+    }
+
+    public float getDamage(){
+        return damage;
+    }
+
     @Override
     public void act(float delta) {
         super.act(delta);
