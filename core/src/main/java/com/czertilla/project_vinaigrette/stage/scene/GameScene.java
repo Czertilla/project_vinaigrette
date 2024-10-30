@@ -62,9 +62,8 @@ public class GameScene extends BaseScene {
         shotgun.setSize(200,100);
         addActor(shotgun);
 
-        Texture texture2 = new Texture(Gdx.files.internal("ui/img.png"));
-        TextureRegion region3 = new TextureRegion(texture2); // Создаем TextureRegion
-        EnemyActor enemy = new EnemyActor(region3, 20);
+        TextureRegion region3 = new TextureRegion(actorTexture2); // Создаем TextureRegion
+        EnemyActor enemy = new EnemyActor(region3, 100);
         enemy.setPosition(10,10);
         enemy.setSize(200,200);
         addActor(enemy);
