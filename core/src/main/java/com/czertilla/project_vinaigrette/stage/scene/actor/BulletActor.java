@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector3;
 import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.firearm.FireArm;
 
@@ -32,22 +31,10 @@ public class BulletActor extends BaseActor { // Полигон для колли
         // Устанавливаем начальную позицию пули
         setPosition(start.x - getWidth() / 2, start.y); // центрирование пули
         velocity = destination.cpy().sub(start);
-        velocity.scl(speed/velocity.len());
+        velocity.setLength(stats.bulletSpeed());
         rotateTowards(destination.x, destination.y);
         Vector3 barrel = velocity.cpy().scl((101+getWidth())/stats.bulletSpeed());
         moveBy(barrel.x, barrel.y);
-
-        // Создаем полигон для коллизии (прямоугольник)
-        this.boundingBox = new Polygon(new float[]{
-            0, 0,                   // нижний левый угол
-            getWidth(), 0,           // нижний правый угол
-            getWidth(), getHeight(), // верхний правый угол
-            0, getHeight()           // верхний левый угол
-        });
-
-        // Устанавливаем исходную позицию полигона
-        boundingBox.setPosition(getX(), getY());
-        boundingBox.setOrigin(getWidth() / 2, getHeight() / 2);
     }
 
     public Vector3 getVelocity() {
