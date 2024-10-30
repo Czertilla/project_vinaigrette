@@ -23,16 +23,19 @@ public class PlayerActor extends BaseActor implements Movable {
     public boolean pressE=false;
     private Weapon weapon;
     private float dmgTime = 0;
-    private Vector3 velocity;
-    private Vector3 acceleration;
+    private final Vector3
+        velocity,
+        inputVelocity,
+        acceleration;
     private float maxSpeed;
-    private float friction;
+    private float friction = 35f;
 
     public PlayerActor(TextureRegion region) {
         super(region);
         ammo = new Ammo(100,100,100);
         maxSpeed = C.PLAYER_MAX_SPEED;
         velocity = new Vector3();
+        inputVelocity = new Vector3();
         acceleration = new Vector3();
     }
 
@@ -87,7 +90,7 @@ public class PlayerActor extends BaseActor implements Movable {
 
     @Override
     public void setVelocity(Vector3 velocity) {
-        this.velocity = velocity.scl(maxSpeed);
+        inputVelocity.set(velocity.scl(maxSpeed));
     }
 
     @Override
@@ -102,13 +105,26 @@ public class PlayerActor extends BaseActor implements Movable {
 
     @Override
     public void setAcceleration(Vector3 acceleration) {
-        this.acceleration = acceleration;
+        this.acceleration.set(acceleration);
     }
 
     @Override
     public void update(float delta) {
+        float frictionForce = friction * C.G;
+        int f = 0;
+        if (velocity.isZero() && !acceleration.isZero()){
+            acceleration.setLength(Math.max(0, acceleration.len() - frictionForce));
+            f = 1;
+        }
+        else if (!velocity.isZero(C.FRICTION_BLOCK_MARGIN*delta*frictionForce))
+            acceleration.mulAdd(velocity, -frictionForce / velocity.len());
+        else
+            velocity.setZero();
         velocity.mulAdd(acceleration, delta);
-        moveBy(velocity.x * delta, velocity.y * delta);
+        Vector3 scopeVelocity = velocity.cpy().add(inputVelocity);
+        moveBy(scopeVelocity.x * delta, scopeVelocity.y * delta);
+        if (getX()!=500)
+            System.out.print(f+""+scopeVelocity+" x:"+getX()+" y:"+getY()+"\r");
     }
 
     public void onReload() {
