@@ -1,16 +1,9 @@
 package com.czertilla.project_vinaigrette.stage.scene.actor;
 
-import static com.badlogic.gdx.scenes.scene2d.utils.ScissorStack.getViewport;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.utils.Null;
 import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.Weapon;
 import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.firearm.FireArm;
@@ -25,7 +18,6 @@ public class PlayerActor extends BaseActor implements Movable {
     private float dmgTime = 0;
     private final Vector3
         velocity,
-        inputVelocity,
         acceleration;
     private float maxSpeed;
     private float friction = 35f;
@@ -35,7 +27,6 @@ public class PlayerActor extends BaseActor implements Movable {
         ammo = new Ammo(100,100,100);
         maxSpeed = C.PLAYER_MAX_SPEED;
         velocity = new Vector3();
-        inputVelocity = new Vector3();
         acceleration = new Vector3();
     }
 
@@ -96,7 +87,7 @@ public class PlayerActor extends BaseActor implements Movable {
 
     @Override
     public void setVelocity(Vector3 velocity) {
-        inputVelocity.set(velocity.scl(maxSpeed));
+        this.velocity.set(velocity.scl(maxSpeed));
     }
 
     @Override
@@ -117,20 +108,9 @@ public class PlayerActor extends BaseActor implements Movable {
     @Override
     public void update(float delta) {
         float frictionForce = friction * C.G;
-        int f = 0;
-        if (velocity.isZero() && !acceleration.isZero()){
-            acceleration.setLength(Math.max(0, acceleration.len() - frictionForce));
-            f = 1;
-        }
-        else if (!velocity.isZero(C.FRICTION_BLOCK_MARGIN*delta*frictionForce))
-            acceleration.mulAdd(velocity, -frictionForce / velocity.len());
-        else
-            velocity.setZero();
+        velocity.setLength(Math.max(0, velocity.len()-frictionForce*delta));
         velocity.mulAdd(acceleration, delta);
-        Vector3 scopeVelocity = velocity.cpy().add(inputVelocity);
-        moveBy(scopeVelocity.x * delta, scopeVelocity.y * delta);
-        if (getX()!=500)
-            System.out.print(f+""+scopeVelocity+" x:"+getX()+" y:"+getY()+"\r");
+        moveBy(velocity.x * delta, velocity.y * delta);
     }
 
     public void onReload() {
