@@ -20,6 +20,7 @@ public class GameScene extends BaseScene {
     private Texture actorTexture2;
     private Texture bulletTexture;
     private TextureRegion regionbullet;
+    EnemyActor enemy;
     private float bulletSpeed = 5000f;
     private OrthographicCamera camera;
 
@@ -63,7 +64,7 @@ public class GameScene extends BaseScene {
         addActor(shotgun);
 
         TextureRegion region3 = new TextureRegion(actorTexture2); // Создаем TextureRegion
-        EnemyActor enemy = new EnemyActor(region3, 100);
+        enemy = new EnemyActor(region3, 100);
         enemy.setPosition(10,10);
         enemy.setSize(200,200);
         addActor(enemy);
@@ -89,10 +90,10 @@ public class GameScene extends BaseScene {
     public void act(float deltaTime) {
         super.act(deltaTime);
         dragCamera();
+        enemy.setVelocity(actor.getCenter().sub(enemy.getCenter()).setLength(200));
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
             actor.attack();
         }
-
     }
 
 
