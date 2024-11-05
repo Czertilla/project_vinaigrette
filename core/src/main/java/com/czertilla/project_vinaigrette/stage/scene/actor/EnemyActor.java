@@ -10,6 +10,7 @@ public class EnemyActor extends BaseActor implements Movable {
     protected float hp;
     private final Vector3
         velocity,
+        control,
         acceleration;
 
     private float friction;
@@ -19,13 +20,14 @@ public class EnemyActor extends BaseActor implements Movable {
         this.hp= hp;
         velocity = new Vector3();
         acceleration = new Vector3();
+        control = new Vector3();
         friction = C.PLAYER_FRICTION;
     }
     public void getDamage(float dmg){
         hp-=dmg;
         System.out.println("get damaged");
         if (hp<=0) {
-            System.out.println("is dead");
+//            System.out.println("is dead");
             setColor(Color.RED);
         }
 
@@ -39,7 +41,7 @@ public class EnemyActor extends BaseActor implements Movable {
 
     @Override
     public void setVelocity(Vector3 velocity) {
-        this.velocity.set(velocity);
+        this.control.set(velocity);
     }
 
     public void addImpulse(Vector3 velocity){
@@ -68,6 +70,6 @@ public class EnemyActor extends BaseActor implements Movable {
         velocity.setLength(Math.max(0, velocity.len()-frictionForce*delta));
         if (velocity.len() <= C.PLAYER_MAX_SPEED)
             velocity.mulAdd(acceleration, delta);
-        moveBy(velocity.x * delta, velocity.y * delta);
+        moveBy((control.x + velocity.x) * delta, (control.y + velocity.y) * delta);
     }
 }
