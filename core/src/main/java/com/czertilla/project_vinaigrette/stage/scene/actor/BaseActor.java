@@ -6,15 +6,20 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import java.util.HashSet;
+import java.util.Set;
 
 public class BaseActor extends Actor {
     protected TextureRegion region;
     public Polygon boundingBox;
+    Set<BaseActor> collides;
+
     public boolean collidesWith(BaseActor other) {
         return Intersector.overlapConvexPolygons(this.getBoundingBox(), other.getBoundingBox());
     }
     public BaseActor(TextureRegion region){
         this.region = region;
+        collides = new HashSet<>();
         super.setSize(region.getRegionWidth(), region.getRegionHeight());
         setOrigin(getWidth() / 2, getHeight() / 2);
         boundingBox = new Polygon(new float[]{
