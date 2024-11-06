@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Null;
 import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.Weapon;
 import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.firearm.FireArm;
@@ -83,6 +84,16 @@ public class PlayerActor extends BaseActor implements Movable {
     }
     public boolean isHandWeapon(Weapon other){
         return weapon==other;
+    }
+
+    @Override
+    void processCollision(Actor other) {
+        super.processCollision(other);
+        if (other instanceof Weapon weaponActor){
+            if (this.weapon != weaponActor) {
+                handGun(weaponActor);
+            }
+        }
     }
 
     @Override
