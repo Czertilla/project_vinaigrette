@@ -9,8 +9,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.czertilla.project_vinaigrette.screen.game.MainGame;
 import com.czertilla.project_vinaigrette.stage.scene.actor.EnemyActor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
-import com.czertilla.project_vinaigrette.stage.scene.actor.BulletActor;
-import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.Weapon;
+import com.czertilla.project_vinaigrette.stage.scene.actor.WallActor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.firearm.Shotgun;
 import com.czertilla.project_vinaigrette.utils.C;
 
@@ -68,6 +67,8 @@ public class GameScene extends BaseScene {
         enemy.setPosition(10,10);
         enemy.setSize(200,200);
         addActor(enemy);
+
+        addActor(new WallActor(300, 500));
 
         // Устанавливаем обработчик ввода для упр   авления первым актером
     }
