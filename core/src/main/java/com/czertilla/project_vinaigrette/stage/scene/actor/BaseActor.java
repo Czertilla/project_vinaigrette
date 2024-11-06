@@ -84,6 +84,12 @@ public class BaseActor extends Actor {
         }
     }
 
+    void processCollision(Actor other) {
+        if (other instanceof WallActor wallActor) {
+            wallActor.move(this);
+        }
+    }
+
     public void act(float delta){
         super.act(delta);
         updateBoundingBox();
