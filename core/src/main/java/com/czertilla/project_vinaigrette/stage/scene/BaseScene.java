@@ -4,18 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.czertilla.project_vinaigrette.Main;
 import com.czertilla.project_vinaigrette.screen.game.MainGame;
 import com.czertilla.project_vinaigrette.stage.BaseStage;
-import com.czertilla.project_vinaigrette.stage.scene.actor.BaseActor;
-import com.czertilla.project_vinaigrette.stage.scene.actor.BulletActor;
-import com.czertilla.project_vinaigrette.stage.scene.actor.EnemyActor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
 import com.czertilla.project_vinaigrette.handler.InputHandler;
-import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.Weapon;
 import com.czertilla.project_vinaigrette.utils.C;
 
 public class BaseScene extends BaseStage {
@@ -63,69 +57,11 @@ public class BaseScene extends BaseStage {
         return getViewport().unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
     }
 
-    private void checkCollisions() {
-        // Сохраняем ссылки на актеров в виде списка
-        Array<Actor> actors = getActors();
-
-        // Проходим по каждому актеру
-        for (int i = 0; i < actors.size; i++) {
-            Actor actor = actors.get(i);
-            if (actor instanceof PlayerActor) {
-                PlayerActor player = (PlayerActor) actor;
-
-                // Проверяем столкновения только с остальными актерами
-                for (int j = 0; j < actors.size; j++) {
-                    if (i == j) continue; // Игнорируем самого себя
-                    Actor other = actors.get(j);
-                    if (other instanceof Weapon) {
-                        Weapon weapon = (Weapon) other;
-                        BaseActor otherActor = (BaseActor) other;
-                        if (player.collidesWith(otherActor) && !player.isHandWeapon(weapon)) {
-                            player.handGun(weapon);
-                        }
-                    }
-                   /* if (other instanceof BulletActor && baseGun.collidesWith((BaseActor) other)){
-                        //baseGun.damage(0);
-                        other.remove();
-                    }*/
-                }
-                player.handGun(null);
-
-            }
-            if (actor instanceof EnemyActor) {
-                EnemyActor enemy = (EnemyActor) actor;
-
-                // Проверяем столкновения только с остальными актерами
-                for (int j = 0; j < actors.size; j++) {
-                    if (i == j) continue; // Игнорируем самого себя
-                    Actor other = actors.get(j);
-                    if (other instanceof BulletActor) {
-                        BulletActor bullet = (BulletActor) other;
-                        if (enemy.collidesWith(bullet)) {
-                            enemy.getDamage(bullet.getDamage());
-                            enemy.addImpulse(bullet.getImpulse());
-                            other.remove();
-                        }
-                    }
-                    if (other instanceof PlayerActor) {
-                        if (((BaseActor) enemy).collidesWith((BaseActor) other)) {
-                            ((PlayerActor) other).damage(0);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     @Override
     public void act(float delta) {
         super.act(delta);
         inputHandler.update();
-        checkCollisions();
     }
-
-
-    // Метод для обработки изменения размера окна
 
     public void resize(int width, int height) {
         // Обновляем viewport при изменении размеров окна
