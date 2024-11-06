@@ -3,6 +3,7 @@ package com.czertilla.project_vinaigrette.stage.scene.actor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.czertilla.project_vinaigrette.utils.C;
 import com.czertilla.project_vinaigrette.utils.Movable;
 
@@ -31,6 +32,14 @@ public class EnemyActor extends BaseActor implements Movable {
             setColor(Color.RED);
         }
 
+    }
+
+    @Override
+    void processCollision(Actor other) {
+        super.processCollision(other);
+        if (other instanceof PlayerActor player){
+            player.damage(0);
+        }
     }
 
     @Override
