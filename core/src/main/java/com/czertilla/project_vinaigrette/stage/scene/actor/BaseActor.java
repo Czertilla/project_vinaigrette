@@ -15,8 +15,20 @@ public class BaseActor extends Actor {
     Set<BaseActor> collides;
 
     public boolean collidesWith(BaseActor other) {
-        return Intersector.overlapConvexPolygons(this.getBoundingBox(), other.getBoundingBox());
+        boolean isCollides = collides.contains(other);
+        if (other == this) return false;
+        if (isCollides) return true;
+        isCollides = Intersector.overlapConvexPolygons(
+            this.getBoundingBox(),
+            other.getBoundingBox()
+        );
+        if (isCollides){
+            collides.add(other);
+            other.collides.add(this);
+        }
+        return isCollides;
     }
+
     public BaseActor(TextureRegion region){
         this.region = region;
         collides = new HashSet<>();
