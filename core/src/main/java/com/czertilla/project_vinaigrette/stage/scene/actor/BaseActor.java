@@ -77,6 +77,13 @@ public class BaseActor extends Actor {
         updateBoundingBox();
     }
 
+    void checkCollisions(){
+        for (Actor other: getStage().getActors()){
+            if (!(other instanceof BaseActor)) continue;
+            if (collidesWith((BaseActor) other)) this.processCollision(other);
+        }
+    }
+
     public void act(float delta){
         super.act(delta);
         updateBoundingBox();
