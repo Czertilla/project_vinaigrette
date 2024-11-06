@@ -44,6 +44,7 @@ public class PlayerActor extends BaseActor implements Movable {
 
     @Override
     public void act(float delta) {
+        update(delta);
         super.act(delta);
         if (dmgTime <= 0) {
             dmgTime=0;
@@ -51,7 +52,6 @@ public class PlayerActor extends BaseActor implements Movable {
         } else {
             dmgTime-=delta;
         }
-        update(delta);
         if (weapon!=null) {
             Vector3 position = getCenter();
             ((BaseActor) weapon).setPosition(position.x, position.y);
@@ -74,7 +74,6 @@ public class PlayerActor extends BaseActor implements Movable {
             pressE = false;
         }
     }
-
 
     public void attack() {
         if(weapon==null) return;

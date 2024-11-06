@@ -44,8 +44,8 @@ public class EnemyActor extends BaseActor implements Movable {
 
     @Override
     public void act(float delta) {
-        super.act(delta);
         update(delta);
+        super.act(delta);
     }
 
     @Override
