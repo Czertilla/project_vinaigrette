@@ -74,6 +74,7 @@ public class EnemyActor extends BaseActor implements Movable {
 
     @Override
     public void update(float delta) {
+        if (hp <= 0) control.setZero();
         float frictionForce = friction * C.G;
         int f = 0;
         velocity.setLength(Math.max(0, velocity.len()-frictionForce*delta));
