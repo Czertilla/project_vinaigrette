@@ -1,6 +1,7 @@
 package com.czertilla.project_vinaigrette.stage.scene.actor;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
@@ -13,6 +14,9 @@ public class BaseActor extends Actor {
     protected TextureRegion region;
     public Polygon boundingBox;
     Set<BaseActor> collides;
+
+    static final BitmapFont font = new BitmapFont(){{
+    }};
 
     public boolean collidesWith(BaseActor other) {
         boolean isCollides = collides.contains(other);
