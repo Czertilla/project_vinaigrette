@@ -64,6 +64,7 @@ public class BaseActor extends Actor {
             getWidth(), getHeight(),       // ширина и высота текстуры
             getScaleX(), getScaleY(),      // масштабирование по x и y
             getRotation());                // угол поворота
+        if (getDebug()) font.draw(batch, toString(), getX(), getY());
     }
 
     @Override
