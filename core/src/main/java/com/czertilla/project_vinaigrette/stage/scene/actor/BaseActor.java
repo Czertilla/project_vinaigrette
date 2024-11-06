@@ -125,4 +125,9 @@ public class BaseActor extends Actor {
         return boundingBox;
     }
 
+    @Override
+    public String toString() {
+        return super.toString()+"#"+hashCode()+"\n"+
+            getX()+":"+getY();
+    }
 }

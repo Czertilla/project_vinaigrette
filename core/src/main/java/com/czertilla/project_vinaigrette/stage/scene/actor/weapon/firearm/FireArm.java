@@ -98,6 +98,11 @@ public abstract class FireArm extends BaseActor implements Weapon {
         else
             recoilVelocity.scl(len/recoilVelocity.len());
         getStage().getCamera().position.add(recoilVelocity.cpy().scl(delta));
-        System.out.print((isLoaded?"+":"-")+"  "+magazine+"/"+ammo.getShotgunAmmo()+" --"+recoilVelocity.len()+'\r');
+    }
+
+    @Override
+    public String toString() {
+        return super.toString()+"\n"+
+            (isLoaded?"+":"-")+"  "+magazine+"/"+(ammo != null ? ammo.getShotgunAmmo() : "");
     }
 }

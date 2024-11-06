@@ -82,4 +82,10 @@ public class EnemyActor extends BaseActor implements Movable {
             velocity.mulAdd(acceleration, delta);
         moveBy((control.x + velocity.x) * delta, (control.y + velocity.y) * delta);
     }
+
+    @Override
+    public String toString() {
+        return super.toString()+
+            "\nhp:"+hp;
+    }
 }
