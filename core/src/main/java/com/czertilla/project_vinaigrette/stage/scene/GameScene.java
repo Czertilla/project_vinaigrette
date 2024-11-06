@@ -15,12 +15,9 @@ import com.czertilla.project_vinaigrette.utils.C;
 
 public class GameScene extends BaseScene {
     private PlayerActor player;
-    private Texture playerTexture;
     private Texture actorTexture2;
     private Texture bulletTexture;
-    private TextureRegion regionbullet;
     EnemyActor enemy;
-    private float bulletSpeed = 5000f;
     private OrthographicCamera camera;
 
     private static GameScene instance;
@@ -53,7 +50,6 @@ public class GameScene extends BaseScene {
         player.setSize(200,300);
         //bullet
         bulletTexture = new Texture(Gdx.files.internal("ui/bullet.png"));
-        regionbullet = new TextureRegion(bulletTexture);
 
         Texture texture = new Texture(Gdx.files.internal("ui/shutgun.png"));
         TextureRegion region = new TextureRegion(texture); // Создаем TextureRegion
@@ -96,9 +92,6 @@ public class GameScene extends BaseScene {
             actor.attack();
         }
     }
-
-
-
 
     @Override
     public void dispose() {
