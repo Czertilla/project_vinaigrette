@@ -50,6 +50,18 @@ public class BulletActor extends BaseActor { // Полигон для колли
     }
 
     @Override
+    void processCollision(Actor other) {
+        if (other instanceof WallActor) {
+            remove();
+        }
+        if (other instanceof EnemyActor enemyActor){
+            enemyActor.getDamage(damage);
+            enemyActor.addImpulse(getImpulse());
+            remove();
+        }
+    }
+
+    @Override
     public void act(float delta) {
         super.act(delta);
 
