@@ -46,7 +46,7 @@ public class GameScene extends BaseScene {
         TextureRegion playerRegion = new TextureRegion(actorTexture2);
         player = new PlayerActor(playerRegion);
         player.setPosition(500,500);
-        addActor(player);
+//        addActor(player);
         player.setSize(200,300);
         //bullet
         bulletTexture = new Texture(Gdx.files.internal("ui/bullet.png"));
