@@ -12,7 +12,9 @@ public class EnemyActor extends BaseActor implements Movable {
     private final Vector3
         velocity,
         control,
-        acceleration;
+        acceleration,
+        targetLoc;
+    private BaseActor target;
 
     private float friction;
 
@@ -21,6 +23,7 @@ public class EnemyActor extends BaseActor implements Movable {
         this.hp= hp;
         velocity = new Vector3();
         acceleration = new Vector3();
+        targetLoc = new Vector3();
         control = new Vector3();
         friction = C.PLAYER_FRICTION;
     }
