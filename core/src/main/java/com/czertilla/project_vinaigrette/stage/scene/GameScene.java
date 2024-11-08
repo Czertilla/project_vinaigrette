@@ -87,7 +87,6 @@ public class GameScene extends BaseScene {
     public void act(float deltaTime) {
         super.act(deltaTime);
         dragCamera();
-        enemy.setVelocity(actor.getCenter().sub(enemy.getCenter()).setLength(200));
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
             actor.attack();
         }
