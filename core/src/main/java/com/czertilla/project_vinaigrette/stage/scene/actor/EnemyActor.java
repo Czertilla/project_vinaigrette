@@ -2,6 +2,8 @@ package com.czertilla.project_vinaigrette.stage.scene.actor;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.czertilla.project_vinaigrette.utils.C;
@@ -49,6 +51,32 @@ public class EnemyActor extends BaseActor implements Movable {
     public void act(float delta) {
         update(delta);
         super.act(delta);
+    }
+
+    private float getVisibleTargetDistance(BaseActor targetActor, float minDistance){
+        Vector3 center = getCenter();
+        Vector2 centerV2 = new Vector2(center.x, center.y);
+        float[] vertices = targetActor.getBoundingBox().getTransformedVertices();
+        for (int i=0; i < vertices.length; i+=2){
+            Vector2 vertex = new Vector2(vertices[i], vertices[i+1]);
+            float dst = vertex.dst(centerV2);
+            if (dst > 500 || dst > minDistance) continue;
+            boolean isOver = false;
+            for (WallActor wallActor : WallActor.walls){
+                if (Intersector.intersectSegmentRectangle(
+                            centerV2,
+                            vertex,
+                            wallActor.boundingBox.getBoundingRectangle()
+                        )
+                ) {
+                    isOver = true;
+                    break;
+                }
+            }
+            if (isOver) continue;
+            return dst;
+        }
+        return -1;
     }
 
     @Override
