@@ -53,6 +53,19 @@ public class EnemyActor extends BaseActor implements Movable {
         super.act(delta);
     }
 
+    private boolean isTargetVisible(){
+        if (target == null) return false;
+        return isTargetVisible(target);
+    }
+
+    private boolean isTargetVisible(BaseActor targetActor){
+        return getVisibleTargetDistance(targetActor) >= 0;
+    }
+
+    private float getVisibleTargetDistance(BaseActor targetActor){
+        return getVisibleTargetDistance(targetActor, Float.POSITIVE_INFINITY);
+    }
+
     private float getVisibleTargetDistance(BaseActor targetActor, float minDistance){
         Vector3 center = getCenter();
         Vector2 centerV2 = new Vector2(center.x, center.y);
