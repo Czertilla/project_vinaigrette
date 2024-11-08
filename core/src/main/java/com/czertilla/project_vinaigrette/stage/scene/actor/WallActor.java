@@ -5,11 +5,16 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector3;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class WallActor extends BaseActor{
+    public static final Set<WallActor> walls = new HashSet<>();
     static final Texture empty = new Texture("ui/empty.png");
     public WallActor(float width, float height) {
         super(new TextureRegion(empty));
         setSize(width, height);
+        walls.add(this);
     }
 
     public void move(BaseActor other) {
@@ -41,5 +46,11 @@ public class WallActor extends BaseActor{
             this.getBoundingBox(),
             other.getBoundingBox()
         ));
+    }
+
+    @Override
+    public boolean remove() {
+        walls.remove(this);
+        return super.remove();
     }
 }
