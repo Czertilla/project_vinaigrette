@@ -79,6 +79,19 @@ public class EnemyActor extends BaseActor implements Movable {
         return -1;
     }
 
+    private void findPlayer() {
+        float minDistance = Float.POSITIVE_INFINITY;
+        for (Actor actor: getStage().getActors()){
+            if (actor instanceof PlayerActor playerActor){
+                float distance = getVisibleTargetDistance(playerActor, minDistance);
+                if (distance < 0) continue;
+                target = playerActor;
+                minDistance = distance;
+                targetLoc.set(target.getCenter());
+            }
+        }
+    }
+
     @Override
     public void setVelocity(Vector3 velocity) {
         this.control.set(velocity);
