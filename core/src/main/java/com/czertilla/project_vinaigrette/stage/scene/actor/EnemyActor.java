@@ -49,6 +49,7 @@ public class EnemyActor extends BaseActor implements Movable {
 
     @Override
     public void act(float delta) {
+        findTarget();
         update(delta);
         super.act(delta);
     }
@@ -161,6 +162,8 @@ public class EnemyActor extends BaseActor implements Movable {
     @Override
     public String toString() {
         return super.toString()+
-            "\nhp:"+hp;
+            "\nhp: "+hp+
+            "\ntarget: "+target+
+            "\nt: "+targetLoc;
     }
 }
