@@ -11,6 +11,7 @@ public class InputHandler extends BaseHandler {
     private boolean moveDown = false;
     private boolean moveLeft = false;
     private boolean moveRight = false;
+    private AnimationHandler animation = new AnimationHandler();
 
     public InputHandler(PlayerActor actor, BaseStage stage) {
         super(stage);
@@ -43,7 +44,10 @@ public class InputHandler extends BaseHandler {
         super.update();
         Vector3 velocity = new Vector3();
         if (moveUp) velocity.y ++;
-        if (moveDown) velocity.y --;
+        if (moveDown) {
+            velocity.y --;
+            animation.down(actor);
+        }
         if (moveLeft) velocity.x --;
         if (moveRight) velocity.x ++;
         actor.setVelocity(velocity);
