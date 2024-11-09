@@ -6,12 +6,17 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class NoiseActor extends BaseActor{
 
     private final float maxRadius;
     private float currentRadius;
 
     static final Texture empty = new Texture("ui/empty.png");
+    public static final Set<NoiseActor> instances = new HashSet<>();
+
     public NoiseActor(float loud, BaseActor source) {
         super(new TextureRegion(empty));
         maxRadius = loud;
@@ -19,6 +24,11 @@ public class NoiseActor extends BaseActor{
         Vector3 center = source.getCenter();
         setPosition(center.x, center.y);
         setSize(0, 0);
+        instances.add(this);
+    }
+
+    public float getCurrentRadius() {
+        return currentRadius;
     }
 
     @Override
@@ -36,5 +46,11 @@ public class NoiseActor extends BaseActor{
         if (currentRadius >= maxRadius){
             remove();
         }
+    }
+
+    @Override
+    public boolean remove() {
+        instances.remove(this);
+        return super.remove();
     }
 }
