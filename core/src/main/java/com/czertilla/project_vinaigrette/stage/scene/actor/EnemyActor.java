@@ -122,6 +122,18 @@ public class EnemyActor extends BaseActor implements Movable {
                 targetLoc.set(target.getCenter());
             }
         }
+    private void findNoise() {
+        float minDistance = Float.POSITIVE_INFINITY;
+        NoiseActor currentTarget = null;
+        for (NoiseActor noise: NoiseActor.instances){
+            Vector3 noiseLoc = noise.getCenter();
+            float distance = getCenter().dst(noiseLoc);
+            if ( distance < minDistance && distance <= noise.getCurrentRadius()){
+                minDistance = distance;
+                target = noise;
+                targetLoc.set(noiseLoc);
+            }
+        }
     }
 
     @Override
