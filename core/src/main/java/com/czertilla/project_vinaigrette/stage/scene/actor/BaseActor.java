@@ -1,11 +1,15 @@
 package com.czertilla.project_vinaigrette.stage.scene.actor;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Array;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,6 +17,8 @@ public class BaseActor extends Actor {
     protected TextureRegion region;
     public Polygon boundingBox;
     Set<BaseActor> collides;
+    public float stateTime = 0f;
+    float delta;
 
     public boolean collidesWith(BaseActor other) {
         boolean isCollides = collides.contains(other);
@@ -91,6 +97,7 @@ public class BaseActor extends Actor {
     }
 
     public void act(float delta){
+        this.delta = delta;
         super.act(delta);
         updateBoundingBox();
         collides.clear();
@@ -119,5 +126,30 @@ public class BaseActor extends Actor {
     public Polygon getBoundingBox() {
         return boundingBox;
     }
+    public void Animation(String name, String action, int max){
+        TextureAtlas atlas = new TextureAtlas("ui/"+name);
+        Array<TextureAtlas.AtlasRegion> frames = new Array<>();
+        for (int i = 1; i <= max; i++) { // Подставляем количество кадров
+            TextureAtlas.AtlasRegion frame = atlas.findRegion(action + i);
+            if (frame != null) {
+                frames.add(frame);
+            } else {
+                System.out.println("Ошибка: кадр " + i + " не найден.");
+            }
+        }
 
+// Создание анимации, если кадры найдены
+        if (frames.size == 0) {
+            System.out.println("Ошибка: анимация не создана, так как кадры не найдены.");
+        }
+        float frameDuration = 0.1f; // продолжительность одного кадра
+        Animation<TextureAtlas.AtlasRegion> animation = new Animation<>(frameDuration, frames);
+        stateTime += delta ;
+        if (stateTime > animation.getAnimationDuration()) {
+            stateTime -= animation.getAnimationDuration();
+        }
+        System.out.println(stateTime);
+        TextureRegion currentFrame = animation.getKeyFrame(stateTime, true);
+        this.region = new TextureRegion(currentFrame);
+    }
 }
