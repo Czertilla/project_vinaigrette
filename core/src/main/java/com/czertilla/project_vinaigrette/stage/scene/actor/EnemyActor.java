@@ -53,6 +53,24 @@ public class EnemyActor extends BaseActor implements Movable {
         super.act(delta);
     }
 
+    private void findTarget() {
+        if (target == null) {
+            findPlayer();
+        }
+        else if (isTargetVisible()) {
+            targetLoc.set(target.getCenter());
+        }
+        else {
+            if (getCenter().dst(targetLoc) < 5) {
+                target = null;
+            }
+            findPlayer();
+        }
+        if (target != null)
+            setVelocity(targetLoc.cpy().sub(getCenter()).setLength(200));
+        else setVelocity(Vector3.Zero);
+    }
+
     private boolean isTargetVisible(){
         if (target == null) return false;
         return isTargetVisible(target);
