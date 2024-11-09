@@ -20,19 +20,20 @@ public class EnemyActor extends BaseActor implements Movable {
 
     private float friction;
 
-    public EnemyActor(TextureRegion region, float hp){
+    public EnemyActor(TextureRegion region, float hp) {
         super(region);
-        this.hp= hp;
+        this.hp = hp;
         velocity = new Vector3();
         acceleration = new Vector3();
         targetLoc = new Vector3();
         control = new Vector3();
         friction = C.PLAYER_FRICTION;
     }
-    public void getDamage(float dmg){
-        hp-=dmg;
+
+    public void getDamage(float dmg) {
+        hp -= dmg;
         System.out.println("get damaged");
-        if (hp<=0) {
+        if (hp <= 0) {
 //            System.out.println("is dead");
             setColor(Color.RED);
         }
@@ -42,7 +43,7 @@ public class EnemyActor extends BaseActor implements Movable {
     @Override
     void processCollision(Actor other) {
         super.processCollision(other);
-        if (other instanceof PlayerActor player){
+        if (other instanceof PlayerActor player) {
             player.damage(0);
         }
     }
@@ -57,11 +58,9 @@ public class EnemyActor extends BaseActor implements Movable {
     private void findTarget() {
         if (target == null) {
             findPlayer();
-        }
-        else if (isTargetVisible()) {
+        } else if (isTargetVisible()) {
             targetLoc.set(target.getCenter());
-        }
-        else {
+        } else {
             if (getCenter().dst(targetLoc) < 5) {
                 target = null;
             }
@@ -72,34 +71,34 @@ public class EnemyActor extends BaseActor implements Movable {
         else setVelocity(Vector3.Zero);
     }
 
-    private boolean isTargetVisible(){
+    private boolean isTargetVisible() {
         if (target == null) return false;
         return isTargetVisible(target);
     }
 
-    private boolean isTargetVisible(BaseActor targetActor){
+    private boolean isTargetVisible(BaseActor targetActor) {
         return getVisibleTargetDistance(targetActor) >= 0;
     }
 
-    private float getVisibleTargetDistance(BaseActor targetActor){
+    private float getVisibleTargetDistance(BaseActor targetActor) {
         return getVisibleTargetDistance(targetActor, Float.POSITIVE_INFINITY);
     }
 
-    private float getVisibleTargetDistance(BaseActor targetActor, float minDistance){
+    private float getVisibleTargetDistance(BaseActor targetActor, float minDistance) {
         Vector3 center = getCenter();
         Vector2 centerV2 = new Vector2(center.x, center.y);
         float[] vertices = targetActor.getBoundingBox().getTransformedVertices();
-        for (int i=0; i < vertices.length; i+=2){
-            Vector2 vertex = new Vector2(vertices[i], vertices[i+1]);
+        for (int i = 0; i < vertices.length; i += 2) {
+            Vector2 vertex = new Vector2(vertices[i], vertices[i + 1]);
             float dst = vertex.dst(centerV2);
             if (dst > 500 || dst > minDistance) continue;
             boolean isOver = false;
-            for (WallActor wallActor : WallActor.walls){
+            for (WallActor wallActor : WallActor.walls) {
                 if (Intersector.intersectSegmentRectangle(
-                            centerV2,
-                            vertex,
-                            wallActor.boundingBox.getBoundingRectangle()
-                        )
+                    centerV2,
+                    vertex,
+                    wallActor.boundingBox.getBoundingRectangle()
+                )
                 ) {
                     isOver = true;
                     break;
@@ -113,15 +112,22 @@ public class EnemyActor extends BaseActor implements Movable {
 
     private void findPlayer() {
         float minDistance = Float.POSITIVE_INFINITY;
-        for (Actor actor: getStage().getActors()){
-            if (actor instanceof PlayerActor playerActor){
+        BaseActor currentTarget = null;
+        for (Actor actor : getStage().getActors()) {
+            if (actor instanceof PlayerActor playerActor) {
                 float distance = getVisibleTargetDistance(playerActor, minDistance);
                 if (distance < 0) continue;
-                target = playerActor;
+                currentTarget = playerActor;
                 minDistance = distance;
-                targetLoc.set(target.getCenter());
             }
         }
+        if (currentTarget == null) findNoise();
+        else {
+            target = currentTarget;
+            targetLoc.set(target.getCenter());
+        }
+    }
+
     private void findNoise() {
         float minDistance = Float.POSITIVE_INFINITY;
         NoiseActor currentTarget = null;
