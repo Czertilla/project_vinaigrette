@@ -2,12 +2,14 @@ package com.czertilla.project_vinaigrette.stage.scene.actor;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.czertilla.project_vinaigrette.utils.C;
 import com.czertilla.project_vinaigrette.utils.Movable;
+import com.czertilla.project_vinaigrette.utils.PathFinder;
 
 public class EnemyActor extends BaseActor implements Movable {
     protected float hp;
@@ -17,6 +19,12 @@ public class EnemyActor extends BaseActor implements Movable {
         acceleration,
         targetLoc;
     private BaseActor target;
+//    private CatmullRomSpline<Vector2> path;
+    Vector2[] path;
+    private int catmullIdx = 0;
+    private Vector3 currentPathPoint;
+
+    private PathFinder pathFinder;
 
     private float friction;
 
@@ -50,28 +58,90 @@ public class EnemyActor extends BaseActor implements Movable {
 
     @Override
     public void act(float delta) {
+        if (pathFinder != null && path == null){
+            pathFinder.calculate();
+        }
         findTarget();
         update(delta);
         super.act(delta);
     }
 
+    public void setPath(Vector3 location) {
+        setPath(new Vector2(location.x, location.y));
+    }
+
+    private void setPath(Vector2 location){
+        pathFinder = new PathFinder(this, location, 100);
+        pathFinder.calculate();
+    }
+
+    private void initCatmull() {
+//        this.path = new CatmullRomSpline<>(results, true);
+        catmullIdx = 0;
+        currentPathPoint = new Vector3();
+        nextPathPoint();
+    }
+
+    private void nextPathPoint(){
+//        path.valueAt(currentPathPoint, catmullIdx);
+        if (catmullIdx >= path.length){
+            dropPath();
+            target = null;
+            currentPathPoint = null;
+            return;
+        }
+        currentPathPoint.set(path[catmullIdx], 0);
+//        path.derivativeAt(currentPathPoint, catmullIdx);
+        catmullIdx ++;
+    }
+
+    private void dropPath(){
+        if (this.pathFinder == null) return;
+        this.path = null;
+        currentPathPoint = null;
+        pathFinder = null;
+    }
+
     private void findTarget() {
         if (target == null) {
+            setVelocity(Vector3.Zero);
             findPlayer();
-        } else if (isTargetVisible()) {
-            targetLoc.set(target.getCenter());
-        } else {
-            if (getCenter().dst(targetLoc) < 5) {
-                target = null;
-            }
-            findPlayer();
+            return;
         }
-        if (target != null)
-            setVelocity(targetLoc.cpy().sub(getCenter()).setLength(200));
+        if (isTargetVisible()) {
+            dropPath();
+            targetLoc.set(target.getCenter());
+            chase(target);
+            return;
+        }
+        if (path == null){
+            if (pathFinder == null)
+                setPath(targetLoc);
+            path = pathFinder.getResult();
+        }
+        else if (currentPathPoint == null)
+            initCatmull();
+        else if (getCenter().dst(currentPathPoint) < 5)
+            nextPathPoint();
+        findPlayer();
+        if (currentPathPoint != null){
+            setVelocity(currentPathPoint.cpy().sub(getCenter()).setLength(150));
+        }
         else setVelocity(Vector3.Zero);
     }
 
+    private void setNewTarget(BaseActor target){
+        dropPath();
+        this.target = target;
+        targetLoc.set(target.getCenter());
+    }
+
+    public void chase(BaseActor actor){
+        setVelocity(actor.getCenter().sub(getCenter()).setLength(200));
+    }
+
     private boolean isTargetVisible() {
+        if (target instanceof NoiseActor) return false;
         if (target == null) return false;
         return isTargetVisible(target);
     }
@@ -123,22 +193,45 @@ public class EnemyActor extends BaseActor implements Movable {
         }
         if (currentTarget == null) findNoise();
         else {
-            target = currentTarget;
-            targetLoc.set(target.getCenter());
+            setNewTarget(currentTarget);
         }
     }
 
     private void findNoise() {
         float minDistance = Float.POSITIVE_INFINITY;
-        NoiseActor currentTarget = null;
         for (NoiseActor noise: NoiseActor.instances){
             Vector3 noiseLoc = noise.getCenter();
             float distance = getCenter().dst(noiseLoc);
-            if ( distance < minDistance && distance <= noise.getCurrentRadius()){
+            if (
+                distance < minDistance
+                    && distance <= noise.getCurrentRadius()
+                    && target != noise
+            ){
                 minDistance = distance;
-                target = noise;
-                targetLoc.set(noiseLoc);
+                setNewTarget(noise);
             }
+        }
+    }
+
+    @Override
+    protected void drawDebugBounds(ShapeRenderer shapes) {
+        super.drawDebugBounds(shapes);
+        shapes.setColor(Color.BLUE);
+        if (pathFinder != null){
+            if (pathFinder.destination == null)
+                for (PathFinder.Node node: pathFinder.currentNodes){
+                    shapes.circle(node.x, node.y, 5);
+                }
+            shapes.setColor(Color.RED);
+            PathFinder.Node node = pathFinder.destination;
+            while (node != null){
+                shapes.circle(node.x, node.y, 5);
+                node = node.getPrevious();
+            }
+        }
+        if (currentPathPoint != null){
+            shapes.setColor(Color.FOREST);
+            shapes.circle(currentPathPoint.x, currentPathPoint.y, 5);
         }
     }
 
