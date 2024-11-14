@@ -11,6 +11,8 @@ import com.czertilla.project_vinaigrette.utils.C;
 import com.czertilla.project_vinaigrette.utils.R;
 import com.czertilla.project_vinaigrette.utils.StatImport;
 
+import java.util.Optional;
+
 public abstract class FireArm extends BaseActor implements Weapon {
     public record BulletStats(
         float damage,
@@ -36,7 +38,7 @@ public abstract class FireArm extends BaseActor implements Weapon {
         isCocked;
 
     public FireArm(TextureRegion region, String type) {
-        super(region);
+        super(region, "");
         bundle = StatImport.getFireArm(type);
         isLoaded = false;
         isCocked = false;

@@ -7,6 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.czertilla.project_vinaigrette.utils.C;
 import com.czertilla.project_vinaigrette.utils.Movable;
 
+import java.util.Optional;
+
 public class EnemyActor extends BaseActor implements Movable {
     protected float hp;
     private final Vector3
@@ -17,7 +19,7 @@ public class EnemyActor extends BaseActor implements Movable {
     private float friction;
 
     public EnemyActor(TextureRegion region, float hp){
-        super(region);
+        super(region, "");
         this.hp= hp;
         velocity = new Vector3();
         acceleration = new Vector3();
