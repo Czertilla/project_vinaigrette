@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 public class BaseActor extends Actor {
@@ -19,6 +20,7 @@ public class BaseActor extends Actor {
     Set<BaseActor> collides;
     public float stateTime = 0f;
     float delta;
+    TextureAtlas atlas;
 
     public boolean collidesWith(BaseActor other) {
         boolean isCollides = collides.contains(other);
@@ -35,7 +37,10 @@ public class BaseActor extends Actor {
         return isCollides;
     }
 
-    public BaseActor(TextureRegion region){
+    public BaseActor(TextureRegion region, String path_atlas){
+        if (path_atlas.length()>0) {
+            this.atlas = new TextureAtlas(path_atlas);
+        }
         this.region = region;
         collides = new HashSet<>();
         super.setSize(region.getRegionWidth(), region.getRegionHeight());
@@ -127,7 +132,6 @@ public class BaseActor extends Actor {
         return boundingBox;
     }
     public void Animation(String name, String action, int max){
-        TextureAtlas atlas = new TextureAtlas("ui/"+name);
         Array<TextureAtlas.AtlasRegion> frames = new Array<>();
         for (int i = 1; i <= max; i++) { // Подставляем количество кадров
             TextureAtlas.AtlasRegion frame = atlas.findRegion(action + i);
@@ -151,5 +155,6 @@ public class BaseActor extends Actor {
         System.out.println(stateTime);
         TextureRegion currentFrame = animation.getKeyFrame(stateTime, true);
         this.region = new TextureRegion(currentFrame);
+        frames.clear();
     }
 }
