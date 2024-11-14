@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.firearm.FireArm;
 
+
 public class BulletActor extends BaseActor { // Полигон для коллизии
 
     private final Vector3 velocity;
@@ -20,7 +21,7 @@ public class BulletActor extends BaseActor { // Полигон для колли
     static TextureRegion regionbullet = new TextureRegion(bulletTexture);
 
     public BulletActor(Vector3 start, Vector3 destination, FireArm.BulletStats stats) {
-        super(regionbullet);
+        super(regionbullet, "");
         path = 0;
         this.weight = stats.bulletWeight();
         this.firingRange = stats.firingRange();
