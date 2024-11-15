@@ -24,7 +24,7 @@ public class PlayerActor extends BaseActor implements Movable {
     private float friction = 35f;
 
     public PlayerActor(TextureRegion region) {
-        super(region);
+        super(region,"ui/Player.atlas");
         ammo = new Ammo(100,100,100);
         maxSpeed = C.PLAYER_MAX_SPEED;
         velocity = new Vector3();
