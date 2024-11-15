@@ -17,6 +17,14 @@ public class WallActor extends BaseActor{
         walls.add(this);
     }
 
+    public WallActor(float ax, float ay, float bx, float by){
+        super(new TextureRegion(empty));
+        setPosition(ax, ay);
+        setSize(bx-ax, by-ay);
+        walls.add(this);
+
+    }
+
     public void move(BaseActor other) {
         Vector3 center = getCenter();
         float
