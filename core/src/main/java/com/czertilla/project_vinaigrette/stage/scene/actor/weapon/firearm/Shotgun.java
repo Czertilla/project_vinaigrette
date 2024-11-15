@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.czertilla.project_vinaigrette.stage.scene.actor.BulletActor;
+import com.czertilla.project_vinaigrette.stage.scene.actor.NoiseActor;
 import com.czertilla.project_vinaigrette.utils.R;
 
 public class Shotgun extends FireArm{
@@ -28,6 +29,7 @@ public class Shotgun extends FireArm{
             spread = stats.pelletSpread(),
             distance = destination.dst(start);
         Vector3 recoilVelocity = new Vector3();
+        getStage().addActor(new NoiseActor(5000, this));
         for (int i=0; i < stats.pelletNum(); i++){
             Vector3 dest = destination.cpy();
             BulletActor bullet = new BulletActor(
