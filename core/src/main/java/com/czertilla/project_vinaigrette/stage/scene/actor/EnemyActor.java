@@ -44,6 +44,7 @@ public class EnemyActor extends BaseActor implements Movable {
         if (hp <= 0) {
 //            System.out.println("is dead");
             setColor(Color.RED);
+            dropPath();
         }
 
     }
@@ -51,6 +52,7 @@ public class EnemyActor extends BaseActor implements Movable {
     @Override
     void processCollision(Actor other) {
         super.processCollision(other);
+        if (hp <= 0) return;
         if (other instanceof PlayerActor player) {
             player.damage(0);
         }
@@ -58,10 +60,12 @@ public class EnemyActor extends BaseActor implements Movable {
 
     @Override
     public void act(float delta) {
-        if (pathFinder != null && path == null){
-            pathFinder.calculate();
+        if (hp > 0) {
+            if (pathFinder != null && path == null) {
+                pathFinder.calculate();
+            }
+            findTarget();
         }
-        findTarget();
         update(delta);
         super.act(delta);
     }
