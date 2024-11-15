@@ -5,6 +5,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.czertilla.project_vinaigrette.screen.game.MainGame;
 import com.czertilla.project_vinaigrette.stage.scene.actor.EnemyActor;
@@ -54,17 +56,27 @@ public class GameScene extends BaseScene {
         Texture texture = new Texture(Gdx.files.internal("ui/shutgun.png"));
         TextureRegion region = new TextureRegion(texture); // Создаем TextureRegion
         Shotgun shotgun = new Shotgun(region, "shotgunA");
-        shotgun.setPosition(10,10);
+        shotgun.setPosition(300,500);
         shotgun.setSize(200,100);
         addActor(shotgun);
 
         TextureRegion region3 = new TextureRegion(actorTexture2); // Создаем TextureRegion
         enemy = new EnemyActor(region3, 100);
-        enemy.setPosition(10,10);
+        enemy.setPosition(-50,-50);
         enemy.setSize(200,200);
         addActor(enemy);
 
-        addActor(new WallActor(300, 500));
+        for (int i=0; i < 250; i++){
+            addActor(new EnemyActor(region3, 100){{
+                setPosition(MathUtils.random(-10000, 0), MathUtils.random(-1000, 10000));
+                setSize(200, 200);
+            }});
+        }
+
+        addActor(new WallActor(-2000, 0, 550, 500));
+        addActor(new WallActor(250, -500, 550, 500));
+        addActor(new WallActor(-2000, -1000, 550, -500));
+
 
         // Устанавливаем обработчик ввода для упр   авления первым актером
     }
