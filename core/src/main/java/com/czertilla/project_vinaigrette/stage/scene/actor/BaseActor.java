@@ -130,4 +130,9 @@ public class BaseActor extends Actor {
         return super.toString()+"#"+hashCode()+"\n"+
             getX()+":"+getY();
     }
+
+    @Override
+    public String getName() {
+        return BaseActor.this.toString();
+    }
 }
