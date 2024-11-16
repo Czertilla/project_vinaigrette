@@ -1,5 +1,7 @@
 package com.czertilla.project_vinaigrette.stage.scene.actor.weapon.firearm;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
@@ -11,9 +13,16 @@ import com.czertilla.project_vinaigrette.utils.R;
 public class Shotgun extends FireArm{
     private boolean isReloading;
     private float reloadTime;
+
+    static final Sound
+        cockSound = Gdx.audio.newSound(Gdx.files.internal(R.path.SHOTGUN_COCK_SOUND)),
+        emptySound = Gdx.audio.newSound(Gdx.files.internal(R.path.SHOTGUN_EMPTY_SOUND)),
+        loadingSound = Gdx.audio.newSound(Gdx.files.internal(R.path.SHOTGUN_LOADING_SOUND)),
+        shotSound = Gdx.audio.newSound(Gdx.files.internal(R.path.SHOTGUN_SHOT_SOUND));
     @Override
     public void mainAttack(Vector3 destination) {
         if (!isLoaded) {
+            emptySound.play();
             reload();
             return;
         }
@@ -30,6 +39,7 @@ public class Shotgun extends FireArm{
             distance = destination.dst(start);
         Vector3 recoilVelocity = new Vector3();
         getStage().addActor(new NoiseActor(5000, this));
+        shotSound.play();
         for (int i=0; i < stats.pelletNum(); i++){
             Vector3 dest = destination.cpy();
             BulletActor bullet = new BulletActor(
@@ -50,6 +60,12 @@ public class Shotgun extends FireArm{
     @Override
     public void secondaryAttack(Vector3 destination) {
 
+    }
+
+    @Override
+        void cock() {
+        super.cock();
+        cockSound.play();
     }
 
     @Override
@@ -85,10 +101,11 @@ public class Shotgun extends FireArm{
         if (reloadTime > 0) return;
         if (magazine < super.stats.magazineSize() && ammo.getShotgunAmmo() > 0){
             magazine += ammo.getShotgunAmmo((int) ( -reloadTime / super.stats.reloadTime()) + 1);
+            loadingSound.play();
         }
         else {
             isReloading = false;
-            cock();
+            if (!isCocked) cock();
         }
         if (isReloading) reloadTime += super.stats.reloadTime();
     }
