@@ -19,7 +19,7 @@ public class EnemyActor extends BaseActor implements Movable {
     private float friction;
 
     public EnemyActor(TextureRegion region, float hp){
-        super(region, "");
+        super(region);
         this.hp= hp;
         velocity = new Vector3();
         acceleration = new Vector3();

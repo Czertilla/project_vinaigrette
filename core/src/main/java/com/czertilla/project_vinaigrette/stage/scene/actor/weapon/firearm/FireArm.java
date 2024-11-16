@@ -38,7 +38,7 @@ public abstract class FireArm extends BaseActor implements Weapon {
         isCocked;
 
     public FireArm(TextureRegion region, String type) {
-        super(region, "");
+        super(region);
         bundle = StatImport.getFireArm(type);
         isLoaded = false;
         isCocked = false;

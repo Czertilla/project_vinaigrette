@@ -21,7 +21,7 @@ public class BulletActor extends BaseActor { // Полигон для колли
     static TextureRegion regionbullet = new TextureRegion(bulletTexture);
 
     public BulletActor(Vector3 start, Vector3 destination, FireArm.BulletStats stats) {
-        super(regionbullet, "");
+        super(regionbullet);
         path = 0;
         this.weight = stats.bulletWeight();
         this.firingRange = stats.firingRange();
