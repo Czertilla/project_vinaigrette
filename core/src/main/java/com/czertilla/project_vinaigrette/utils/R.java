@@ -1,5 +1,6 @@
 package com.czertilla.project_vinaigrette.utils;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.I18NBundle;
 
@@ -21,7 +22,11 @@ public class R {
             STRINGS_HANDLE = bundle.get("STRINGS_HANDLE"),
             CHARSET_HANDLE = bundle.get("CHARSET_HANDLE"),
             PATHS_HANDLE = bundle.get("PATHS_HANDLE"),
-            CLICK_SOUND = bundle.get("CLICK_SOUND");
+            CLICK_SOUND = bundle.get("CLICK_SOUND"),
+            SHOTGUN_COCK_SOUND = bundle.get("SHOTGUN_COCK_SOUND"),
+            SHOTGUN_EMPTY_SOUND = bundle.get("SHOTGUN_EMPTY_SOUND"),
+            SHOTGUN_LOADING_SOUND = bundle.get("SHOTGUN_LOADING_SOUND"),
+            SHOTGUN_SHOT_SOUND = bundle.get("SHOTGUN_SHOT_SOUND");
     }
 
     public static final class id {
