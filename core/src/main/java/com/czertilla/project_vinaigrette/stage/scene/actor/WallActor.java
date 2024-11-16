@@ -10,7 +10,7 @@ import java.util.Optional;
 public class WallActor extends BaseActor{
     static final Texture empty = new Texture("ui/empty.png");
     public WallActor(float width, float height) {
-        super(new TextureRegion(empty), "");
+        super(new TextureRegion(empty));
         setSize(width, height);
     }
 
