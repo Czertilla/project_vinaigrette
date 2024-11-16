@@ -138,13 +138,13 @@ public class BaseActor extends Actor {
             if (frame != null) {
                 frames.add(frame);
             } else {
-                System.out.println("Ошибка: кадр " + i + " не найден.");
+                Gdx.app.error(C.Tag.ANIMATION, "frame "+i+" not found: atlas "+atlas);
             }
         }
 
 // Создание анимации, если кадры найдены
         if (frames.size == 0) {
-            System.out.println("Ошибка: анимация не создана, так как кадры не найдены.");
+            Gdx.app.error(C.Tag.ANIMATION, "animation is not created: no frames");
         }
         float frameDuration = 0.1f; // продолжительность одного кадра
         Animation<TextureAtlas.AtlasRegion> animation = new Animation<>(frameDuration, frames);
@@ -152,7 +152,7 @@ public class BaseActor extends Actor {
         if (stateTime > animation.getAnimationDuration()) {
             stateTime -= animation.getAnimationDuration();
         }
-        System.out.println(stateTime);
+        Gdx.app.log(C.Tag.ANIMATION, "stateTime: "+stateTime);
         TextureRegion currentFrame = animation.getKeyFrame(stateTime, true);
         this.region = new TextureRegion(currentFrame);
         frames.clear();
