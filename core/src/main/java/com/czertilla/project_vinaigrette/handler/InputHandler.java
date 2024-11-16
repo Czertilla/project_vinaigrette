@@ -1,6 +1,7 @@
 package com.czertilla.project_vinaigrette.handler;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 import com.czertilla.project_vinaigrette.stage.BaseStage;
 import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
@@ -11,6 +12,10 @@ public class InputHandler extends BaseHandler {
     private boolean moveDown = false;
     private boolean moveLeft = false;
     private boolean moveRight = false;
+
+    float[] zoomArray = {1, 2, 5, 10, 20};
+
+    int zoomIdx = 0;
 
     public InputHandler(PlayerActor actor, BaseStage stage) {
         super(stage);
@@ -24,6 +29,7 @@ public class InputHandler extends BaseHandler {
         if (keycode == Input.Keys.S) moveDown = true;
         if (keycode == Input.Keys.A) moveLeft = true;
         if (keycode == Input.Keys.D) moveRight = true;
+        if (keycode == Input.Keys.TAB) zoomIdx = (zoomIdx + 1) % zoomArray.length;
         return true;
     }
 
@@ -41,6 +47,7 @@ public class InputHandler extends BaseHandler {
 
     public void update() {
         super.update();
+        ((OrthographicCamera)actor.getStage().getCamera()).zoom = zoomArray[zoomIdx];
         Vector3 velocity = new Vector3();
         if (moveUp) velocity.y ++;
         if (moveDown) velocity.y --;
