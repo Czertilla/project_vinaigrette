@@ -11,7 +11,6 @@ public class InputHandler extends BaseHandler {
     private boolean moveDown = false;
     private boolean moveLeft = false;
     private boolean moveRight = false;
-    private AnimationHandler animation = new AnimationHandler();
 
     public InputHandler(PlayerActor actor, BaseStage stage) {
         super(stage);
@@ -25,6 +24,7 @@ public class InputHandler extends BaseHandler {
         if (keycode == Input.Keys.S) moveDown = true;
         if (keycode == Input.Keys.A) moveLeft = true;
         if (keycode == Input.Keys.D) moveRight = true;
+        if (keycode == Input.Keys.CONTROL_LEFT) actor.onCntrl(true);
         return true;
     }
 
@@ -37,6 +37,7 @@ public class InputHandler extends BaseHandler {
         if (keycode == Input.Keys.D) moveRight = false;
         if (keycode == Input.Keys.E) actor.pressE();
         if (keycode == Input.Keys.R) actor.onReload();
+        if (keycode == Input.Keys.CONTROL_LEFT) actor.onCntrl(false);
         return super.keyUp(keycode);
     }
 
@@ -44,10 +45,7 @@ public class InputHandler extends BaseHandler {
         super.update();
         Vector3 velocity = new Vector3();
         if (moveUp) velocity.y ++;
-        if (moveDown) {
-            velocity.y --;
-            animation.down(actor);
-        }
+        if (moveDown) velocity.y --;
         if (moveLeft) velocity.x --;
         if (moveRight) velocity.x ++;
         actor.setVelocity(velocity);

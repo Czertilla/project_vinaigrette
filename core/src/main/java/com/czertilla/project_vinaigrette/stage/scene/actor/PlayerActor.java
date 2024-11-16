@@ -20,6 +20,7 @@ public class PlayerActor extends BaseActor implements Movable {
     public boolean pressE=false;
     private Weapon weapon;
     private float dmgTime = 0;
+    private float velMod = 1f;
     private final Vector3
         velocity,
         acceleration;
@@ -146,7 +147,7 @@ public class PlayerActor extends BaseActor implements Movable {
 
     @Override
     public void setVelocity(Vector3 velocity) {
-        this.velocity.set(velocity.scl(maxSpeed));
+        this.velocity.set(velocity.scl(maxSpeed * velMod));
     }
 
     @Override
@@ -176,5 +177,12 @@ public class PlayerActor extends BaseActor implements Movable {
     public void onReload() {
         if (weapon != null)
             weapon.reload();
+    }
+
+    public void onCntrl(boolean b) {
+        if (b){
+            velMod = 0.5f;
+        }
+        else velMod = 1;
     }
 }
