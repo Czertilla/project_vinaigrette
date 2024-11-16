@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.czertilla.project_vinaigrette.screen.game.MainGame;
 import com.czertilla.project_vinaigrette.screen.menu.MainMenu;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
@@ -17,7 +18,7 @@ public class Main extends Game {
     public void create() {
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
-        setScreen(new MainMenu(this));
+        setScreen(new MainGame(this));
     }
 
     @Override

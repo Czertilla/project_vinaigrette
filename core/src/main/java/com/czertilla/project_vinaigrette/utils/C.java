@@ -4,6 +4,23 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.I18NBundle;
 
 public class C {
+    public static class Tag{
+        public static final String
+            ANIMATION = "Animation";
+    }
+
+    public static class State{
+        public static final String
+            DOWN = "down",
+            UP = "up",
+            LEFT = "left",
+            RIGHT = "right",
+            IDLE_DOWN = "idle_down",
+            IDLE_UP = "idle_up",
+            IDLE_LEFT = "idle_left",
+            IDLE_RIGHT = "idle_right",
+            IDLE_PREFIX = "idle_";
+    }
     private static final I18NBundle
         stringBundle = I18NBundle.createBundle(new FileHandle(R.path.STRINGS_HANDLE)),
         layoutBundle = I18NBundle.createBundle(new FileHandle(R.path.LAYOUT_HANDLE)),
@@ -24,6 +41,8 @@ public class C {
         RECOIL_DRAG = Float.parseFloat(gameBundle.get(R.id.RECOIL_DRAG)),
         PLAYER_MAX_SPEED = Float.parseFloat(gameBundle.get(R.id.PLAYER_MAX_SPEED)),
         PLAYER_WEIGHT = Float.parseFloat(gameBundle.get(R.id.PLAYER_WEIGHT)),
+        REVERSE_ANIMATION_ANGLE = Float.parseFloat(gameBundle.get(R.id.REVERSE_ANIMATION_ANGLE)),
+        DEFAULT_PLAYER_FRAME_DUR = Float.parseFloat(gameBundle.get(R.id.DEFAULT_PLAYER_FRAME_DUR)),
         PLAYER_FRICTION = Float.parseFloat(gameBundle.get(R.id.PLAYER_FRICTION)),
         FRICTION_BLOCK_MARGIN = Float.parseFloat(gameBundle.get(R.id.FRICTION_BLOCK_MARGIN));
     public static final int

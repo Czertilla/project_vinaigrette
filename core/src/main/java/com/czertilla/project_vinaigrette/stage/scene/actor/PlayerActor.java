@@ -2,7 +2,10 @@ package com.czertilla.project_vinaigrette.stage.scene.actor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Null;
@@ -17,6 +20,7 @@ public class PlayerActor extends BaseActor implements Movable {
     public boolean pressE=false;
     private Weapon weapon;
     private float dmgTime = 0;
+    private float velMod = 1f;
     private final Vector3
         velocity,
         acceleration;
@@ -24,7 +28,7 @@ public class PlayerActor extends BaseActor implements Movable {
     private float friction = 35f;
 
     public PlayerActor(TextureRegion region) {
-        super(region);
+        super(region,new TextureAtlas("ui/Player.atlas"));
         ammo = new Ammo(100,100,100);
         maxSpeed = C.PLAYER_MAX_SPEED;
         velocity = new Vector3();
@@ -85,6 +89,52 @@ public class PlayerActor extends BaseActor implements Movable {
         return weapon==other;
     }
 
+    public void updateAnimation(){
+        String currStateName = animationHandler.stateName;
+
+        Vector3 screenCoords = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        Vector3 destination = getStage().getViewport().unproject(screenCoords).sub(getCenter());
+        String nextState = getStateName(destination);
+        if (!nextState.equals(currStateName)) animationHandler.setAnimation(nextState, 6);
+        animationHandler.setFrameDuration(
+            velocity.isZero() ? C.DEFAULT_PLAYER_FRAME_DUR :
+                C.DEFAULT_PLAYER_FRAME_DUR / velocity.len() * maxSpeed
+        );
+        Vector2
+            dest2 = new Vector2(destination.x, destination.y),
+            vels2 = new Vector2(velocity.x, velocity.y);
+        float angle = vels2.angleDeg(dest2);
+        float marg = C.REVERSE_ANIMATION_ANGLE;
+        animationHandler.animation.setPlayMode(
+            angle > 180 - marg && angle < 180 + marg ? Animation.PlayMode.LOOP_REVERSED
+                : Animation.PlayMode.LOOP
+        );
+    }
+
+    private String getStateName(Vector3 destination) {
+        String nextState = C.State.DOWN;
+        if (!destination.isZero()) {
+            if (destination.x >= 0){
+                if (destination.y > destination.x)
+                    nextState = C.State.UP;
+                else if (destination.y > -destination.x)
+                    nextState = C.State.RIGHT;
+                else
+                    nextState = C.State.DOWN;
+            }
+            else {
+                if (destination.y < destination.x)
+                    nextState = C.State.DOWN;
+                else if (destination.y < -destination.x)
+                    nextState = C.State.LEFT;
+                else
+                    nextState = C.State.UP;
+            }
+        }
+        if (velocity.isZero()) nextState = C.State.IDLE_PREFIX + nextState;
+        return nextState;
+    }
+
     @Override
     void processCollision(Actor other) {
         super.processCollision(other);
@@ -97,7 +147,7 @@ public class PlayerActor extends BaseActor implements Movable {
 
     @Override
     public void setVelocity(Vector3 velocity) {
-        this.velocity.set(velocity.scl(maxSpeed));
+        this.velocity.set(velocity.scl(maxSpeed * velMod));
     }
 
     @Override
@@ -119,6 +169,7 @@ public class PlayerActor extends BaseActor implements Movable {
     public void update(float delta) {
         float frictionForce = friction * C.G;
         velocity.setLength(Math.max(0, velocity.len()-frictionForce*delta));
+        updateAnimation();
         velocity.mulAdd(acceleration, delta);
         moveBy(velocity.x * delta, velocity.y * delta);
     }
@@ -126,5 +177,12 @@ public class PlayerActor extends BaseActor implements Movable {
     public void onReload() {
         if (weapon != null)
             weapon.reload();
+    }
+
+    public void onCntrl(boolean b) {
+        if (b){
+            velMod = 0.5f;
+        }
+        else velMod = 1;
     }
 }

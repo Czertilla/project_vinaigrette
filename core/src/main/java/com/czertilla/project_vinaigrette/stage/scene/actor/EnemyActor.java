@@ -11,6 +11,8 @@ import com.czertilla.project_vinaigrette.utils.C;
 import com.czertilla.project_vinaigrette.utils.Movable;
 import com.czertilla.project_vinaigrette.utils.PathFinder;
 
+import java.util.Optional;
+
 public class EnemyActor extends BaseActor implements Movable {
     protected float hp;
     private final Vector3

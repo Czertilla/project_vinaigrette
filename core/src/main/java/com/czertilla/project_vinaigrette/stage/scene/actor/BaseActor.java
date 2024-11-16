@@ -1,12 +1,18 @@
 package com.czertilla.project_vinaigrette.stage.scene.actor;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Array;
+import com.czertilla.project_vinaigrette.utils.C;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +20,57 @@ public class BaseActor extends Actor {
     protected TextureRegion region;
     public Polygon boundingBox;
     Set<BaseActor> collides;
+    AnimationHandler animationHandler;
+
+    public class AnimationHandler{
+        TextureAtlas atlas;
+        Animation<TextureAtlas.AtlasRegion> animation;
+        float frameDuration = 0.1f;
+        float stateTime = 0f;
+        protected String stateName = C.State.IDLE_DOWN;
+
+        protected AnimationHandler(TextureAtlas atlas){
+            this.atlas = atlas;
+        }
+        Array<TextureAtlas.AtlasRegion> getFrames(String actionName, int length){
+            Array<TextureAtlas.AtlasRegion> frames = new Array<>();
+            for (int i = 1; i <= length; i++) { // Подставляем количество кадров
+                TextureAtlas.AtlasRegion frame = atlas.findRegion(actionName + i);
+                if (frame != null) {
+                    frames.add(frame);
+                } else {
+                    Gdx.app.error(C.Tag.ANIMATION, "frame "+i+" not found: atlas "+atlas);
+                }
+            }
+            return frames;
+        }
+
+        public void setFrameDuration(float frameDuration) {
+            this.frameDuration = frameDuration;
+            animation.setFrameDuration(frameDuration);
+            Gdx.app.log(C.Tag.ANIMATION, "frame dur: "+frameDuration);
+        }
+
+        public void setAnimation(String actionName, int framesCount){
+            Array<TextureAtlas.AtlasRegion> frames = getFrames(actionName, framesCount);
+            if (frames.size == 0) {
+                Gdx.app.error(C.Tag.ANIMATION, "animation is not created: no frames");
+            }
+            animation = new Animation<>(frameDuration, frames);
+            stateName = actionName;
+        }
+
+        public void setAnimation(String actionName, int framesCount, float frameDuration){
+            setFrameDuration(frameDuration);
+            setAnimation(actionName, framesCount);
+        }
+
+        void act(float delta){
+            stateTime += delta;
+            Gdx.app.debug(C.Tag.ANIMATION, "stateTime: "+stateTime);
+            region.setRegion(animation.getKeyFrame(stateTime, true));
+        }
+    }
 
     static final BitmapFont font = new BitmapFont(){{
     }};
@@ -44,6 +101,11 @@ public class BaseActor extends Actor {
             getWidth(), getHeight(),
             0, getHeight()
         });
+    }
+
+    public BaseActor(TextureRegion region, TextureAtlas atlas){
+        this(region);
+        animationHandler = new AnimationHandler(atlas);
     }
 
     public Vector3 getCenter(){
@@ -97,6 +159,7 @@ public class BaseActor extends Actor {
 
     public void act(float delta){
         super.act(delta);
+        if (animationHandler != null) animationHandler.act(delta);
         updateBoundingBox();
         collides.clear();
         checkCollisions();

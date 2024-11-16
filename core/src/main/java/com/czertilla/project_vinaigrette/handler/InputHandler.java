@@ -24,6 +24,7 @@ public class InputHandler extends BaseHandler {
         if (keycode == Input.Keys.S) moveDown = true;
         if (keycode == Input.Keys.A) moveLeft = true;
         if (keycode == Input.Keys.D) moveRight = true;
+        if (keycode == Input.Keys.CONTROL_LEFT) actor.onCntrl(true);
         return true;
     }
 
@@ -36,6 +37,7 @@ public class InputHandler extends BaseHandler {
         if (keycode == Input.Keys.D) moveRight = false;
         if (keycode == Input.Keys.E) actor.pressE();
         if (keycode == Input.Keys.R) actor.onReload();
+        if (keycode == Input.Keys.CONTROL_LEFT) actor.onCntrl(false);
         return super.keyUp(keycode);
     }
 
