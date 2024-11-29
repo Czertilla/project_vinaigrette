@@ -1,5 +1,6 @@
 package com.czertilla.project_vinaigrette.handler;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
 import com.czertilla.project_vinaigrette.stage.BaseStage;
@@ -35,7 +36,7 @@ public class InputHandler extends BaseHandler {
         if (keycode == Input.Keys.S) moveDown = false;
         if (keycode == Input.Keys.A) moveLeft = false;
         if (keycode == Input.Keys.D) moveRight = false;
-        if (keycode == Input.Keys.E) actor.pressE();
+        if (keycode == Input.Keys.E) actor.interact();
         if (keycode == Input.Keys.R) actor.onReload();
         if (keycode == Input.Keys.CONTROL_LEFT) actor.onCntrl(false);
         return super.keyUp(keycode);
@@ -44,6 +45,7 @@ public class InputHandler extends BaseHandler {
     public void update() {
         super.update();
         Vector3 velocity = new Vector3();
+        actor.setAttack(Gdx.input.isButtonPressed(Input.Buttons.LEFT));
         if (moveUp) velocity.y ++;
         if (moveDown) velocity.y --;
         if (moveLeft) velocity.x --;
