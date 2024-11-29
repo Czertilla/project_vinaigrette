@@ -26,7 +26,9 @@ public class R {
             SHOTGUN_COCK_SOUND = bundle.get("SHOTGUN_COCK_SOUND"),
             SHOTGUN_EMPTY_SOUND = bundle.get("SHOTGUN_EMPTY_SOUND"),
             SHOTGUN_LOADING_SOUND = bundle.get("SHOTGUN_LOADING_SOUND"),
-            SHOTGUN_SHOT_SOUND = bundle.get("SHOTGUN_SHOT_SOUND");
+            SHOTGUN_SHOT_SOUND = bundle.get("SHOTGUN_SHOT_SOUND"),
+            SHOTGUN_LOAD_SOUND = bundle.get("SHOTGUN_LOAD_SOUND"),
+            RIFLE_SHOT_SOUND = bundle.get("RIFLE_SHOT_SOUND");
     }
 
     public static final class id {
