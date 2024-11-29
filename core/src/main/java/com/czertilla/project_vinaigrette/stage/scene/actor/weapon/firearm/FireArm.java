@@ -35,7 +35,8 @@ public abstract class FireArm extends BaseActor implements Weapon {
     int magazine;
     boolean
         isLoaded,
-        isCocked;
+        isCocked,
+        isReleased;
 
     public FireArm(TextureRegion region, String type) {
         super(region);
@@ -67,12 +68,19 @@ public abstract class FireArm extends BaseActor implements Weapon {
     protected void mainAttack() {
         if (isLoaded){
             isLoaded = false;
+            isCocked = false;
             cooldown = stats.fireRate;
         }
     }
 
     void cock(){
         isCocked = true;
+    }
+    void pull() {isCocked = false;}
+
+    void load() {
+        isLoaded = true;
+        magazine -= 1;
     }
 
     void recoil(Vector3 velocity){
@@ -83,15 +91,11 @@ public abstract class FireArm extends BaseActor implements Weapon {
     public void update(float delta){
         Vector3 dest = ((BaseScene)getStage()).getMousePos();
         rotateTowards(dest.x, dest.y);
-        if (!isLoaded && isCocked && magazine > 0 && cooldown <= 0) {
-            isLoaded = true;
-            magazine -= 1;
+        if (!isLoaded && magazine > 0 && cooldown <= 0) {
+            this.load();
         }
         else if (cooldown > 0){
             cooldown -= delta;
-        }
-        else if (isCocked && !isLoaded && magazine <= 0){
-            isCocked = false;
         }
         float len = recoilVelocity.len();
         len -= C.RECOIL_DRAG * delta;
@@ -102,9 +106,12 @@ public abstract class FireArm extends BaseActor implements Weapon {
         getStage().getCamera().position.add(recoilVelocity.cpy().scl(delta));
     }
 
+    abstract int getAmmo();
+
     @Override
     public String toString() {
         return super.toString()+"\n"+
-            (isLoaded?"+":"-")+"  "+magazine+"/"+(ammo != null ? ammo.getShotgunAmmo() : "");
+            (isLoaded?"+":"-")+"  "+magazine+"/"+(ammo != null ? this.getAmmo() : "")+"\n"+
+            (isCocked?"+":"-");
     }
 }
