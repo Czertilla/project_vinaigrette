@@ -8,9 +8,10 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.czertilla.project_vinaigrette.stage.scene.actor.BulletActor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.NoiseActor;
+import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.Weapon;
 import com.czertilla.project_vinaigrette.utils.R;
 
-public class Shotgun extends FireArm{
+public class Shotgun extends FireArm implements Weapon {
     private boolean isReloading;
     private float reloadTime;
 
@@ -18,14 +19,18 @@ public class Shotgun extends FireArm{
         cockSound = Gdx.audio.newSound(Gdx.files.internal(R.path.SHOTGUN_COCK_SOUND)),
         emptySound = Gdx.audio.newSound(Gdx.files.internal(R.path.SHOTGUN_EMPTY_SOUND)),
         loadingSound = Gdx.audio.newSound(Gdx.files.internal(R.path.SHOTGUN_LOADING_SOUND)),
-        shotSound = Gdx.audio.newSound(Gdx.files.internal(R.path.SHOTGUN_SHOT_SOUND));
+        shotSound = Gdx.audio.newSound(Gdx.files.internal(R.path.SHOTGUN_SHOT_SOUND)),
+        loadSound = Gdx.audio.newSound(Gdx.files.internal(R.path.SHOTGUN_LOAD_SOUND));
     @Override
     public void mainAttack(Vector3 destination) {
-        if (!isLoaded) {
+        isReleased = false;
+        if (!isLoaded && isCocked) {
             emptySound.play();
             reload();
-            return;
         }
+        if (!isCocked) return;
+        isCocked = false;
+        if (!isLoaded) return;
         super.mainAttack();
         isReloading = false;
         Vector3
@@ -40,6 +45,7 @@ public class Shotgun extends FireArm{
         Vector3 recoilVelocity = new Vector3();
         getStage().addActor(new NoiseActor(5000, this));
         shotSound.play();
+        loadSound.play();
         for (int i=0; i < stats.pelletNum(); i++){
             Vector3 dest = destination.cpy();
             BulletActor bullet = new BulletActor(
@@ -63,16 +69,22 @@ public class Shotgun extends FireArm{
     }
 
     @Override
-        void cock() {
+    void cock() {
         super.cock();
-        cockSound.play();
+    }
+
+    @Override
+    void load() {
+        if (!isReloading) {
+            super.load();
+        }
     }
 
     @Override
     public void reload() {
         isReloading = !isReloading;
         if (isReloading) reloadTime = super.stats.reloadTime();
-        else if (!isCocked) cock();
+        else if (!isLoaded) cockSound.play();
     }
 
 
@@ -94,19 +106,28 @@ public class Shotgun extends FireArm{
         );
     }
 
-    public void update(float delta) {
-        super.update(delta);
-        if (!isReloading) return;
+    void onReloading(float delta){
         reloadTime -= delta;
         if (reloadTime > 0) return;
         if (magazine < super.stats.magazineSize() && ammo.getShotgunAmmo() > 0){
             magazine += ammo.getShotgunAmmo((int) ( -reloadTime / super.stats.reloadTime()) + 1);
             loadingSound.play();
+            reloadTime += super.stats.reloadTime();
         }
         else {
+            cockSound.play();
             isReloading = false;
-            if (!isCocked) cock();
         }
-        if (isReloading) reloadTime += super.stats.reloadTime();
+    }
+
+    public void update(float delta) {
+        super.update(delta);
+        if (isReloading) onReloading(delta);
+        if (!isCocked && isReleased) cock();
+        isReleased = true;
+    }
+
+    int getAmmo(){
+        return ammo.getShotgunAmmo();
     }
 }
