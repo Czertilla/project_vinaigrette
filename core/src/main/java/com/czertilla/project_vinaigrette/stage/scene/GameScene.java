@@ -8,10 +8,13 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.czertilla.project_vinaigrette.screen.game.MainGame;
 import com.czertilla.project_vinaigrette.stage.scene.actor.EnemyActor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.WallActor;
+import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.firearm.Rifle;
 import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.firearm.Shotgun;
 import com.czertilla.project_vinaigrette.utils.C;
 
@@ -37,6 +40,11 @@ public class GameScene extends BaseScene {
     private GameScene(MainGame screen) {
         super(screen); // Вызов конструктора базовой сцены
 
+        addActor(new Image(new Texture("ui/grid.png")){{
+            setPosition(-9200/2f, -8000/2f);
+            setSize(9200, 8000);
+        }});
+
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
         getViewport().setCamera(camera);
@@ -55,7 +63,7 @@ public class GameScene extends BaseScene {
 
         Texture texture = new Texture(Gdx.files.internal("ui/shutgun.png"));
         TextureRegion region = new TextureRegion(texture); // Создаем TextureRegion
-        Shotgun shotgun = new Shotgun(region, "shotgunA");
+        Rifle shotgun = new Rifle(region, "rifleA");
         shotgun.setPosition(300,500);
         shotgun.setSize(200,100);
         addActor(shotgun);
@@ -76,7 +84,6 @@ public class GameScene extends BaseScene {
         addActor(new WallActor(-2000, 0, 550, 500));
         addActor(new WallActor(250, -500, 550, 500));
         addActor(new WallActor(-2000, -1000, 550, -500));
-
 
         // Устанавливаем обработчик ввода для упр   авления первым актером
     }
@@ -99,9 +106,6 @@ public class GameScene extends BaseScene {
     public void act(float deltaTime) {
         super.act(deltaTime);
         dragCamera();
-        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-            actor.attack();
-        }
     }
 
     @Override

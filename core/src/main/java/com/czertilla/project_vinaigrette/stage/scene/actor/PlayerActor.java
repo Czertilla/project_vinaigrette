@@ -17,7 +17,9 @@ import com.czertilla.project_vinaigrette.utils.Movable;
 
 public class PlayerActor extends BaseActor implements Movable {
     private Ammo ammo;
-    public boolean pressE=false;
+    public boolean
+        isInteract = false,
+        isAttack = false;
     private Weapon weapon;
     private float dmgTime = 0;
     private float velMod = 1f;
@@ -29,7 +31,7 @@ public class PlayerActor extends BaseActor implements Movable {
 
     public PlayerActor(TextureRegion region) {
         super(region,new TextureAtlas("ui/Player.atlas"));
-        ammo = new Ammo(100,100,100);
+        ammo = new Ammo(100,1000,100);
         maxSpeed = C.PLAYER_MAX_SPEED;
         velocity = new Vector3();
         acceleration = new Vector3();
@@ -56,6 +58,7 @@ public class PlayerActor extends BaseActor implements Movable {
         } else {
             dmgTime-=delta;
         }
+        if (isAttack) attack();
         if (weapon!=null) {
             Vector3 position = getCenter();
             ((BaseActor) weapon).setPosition(position.x, position.y);
@@ -69,13 +72,18 @@ public class PlayerActor extends BaseActor implements Movable {
         setColor(Color.RED);
     }
 
-    public void pressE() {
-        pressE=true;
+    public void interact() {
+        isInteract = true;
     }
+
+    public void setAttack(boolean attack) {
+        isAttack = attack;
+    }
+
     public void handGun(@Null Weapon weapon) {
-        if (pressE) {
+        if (isInteract) {
             setWeapon(weapon);
-            pressE = false;
+            isInteract = false;
         }
     }
 
