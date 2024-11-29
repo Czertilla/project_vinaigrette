@@ -67,24 +67,12 @@ public class Rifle extends FireArm implements Weapon {
         else if (!isCocked) cock();
     }
 
-
-    protected record Stats(
-        int pelletNum,
-        float pelletSpread
-    ){};
     Stats stats;
     public Rifle(TextureRegion region, String type) {
         super(region, type);
         setStats();
     }
 
-    void setStats() {
-        super.setStats();
-        stats = new Stats(
-            Integer.parseInt(bundle.get(R.id.PELLET_NUM)),
-            Float.parseFloat(bundle.get(R.id.PELLET_SPREAD))
-        );
-    }
 
     @Override
     void load() {
