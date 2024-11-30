@@ -40,10 +40,12 @@ public class GameScene extends BaseScene {
     private GameScene(MainGame screen) {
         super(screen); // Вызов конструктора базовой сцены
 
-        addActor(new Image(new Texture("ui/grid.png")){{
+        Image grid = new Image(new Texture("ui/grid.png")){{
             setPosition(-9200/2f, -8000/2f);
             setSize(9200, 8000);
-        }});
+        }};
+        addActor(grid);
+        grid.toBack();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
