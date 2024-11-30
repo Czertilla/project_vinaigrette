@@ -63,8 +63,11 @@ public class Rifle extends FireArm implements Weapon {
     @Override
     public void reload() {
         isReloading = !isReloading;
-        if (isReloading) reloadTime = super.stats.reloadTime();
-        else if (!isCocked) cock();
+        if (isReloading) {
+            reloadTime = super.stats.reloadTime();
+            ammo.addRifleAmmo(magazine);
+            magazine = 0;
+        }
     }
 
     Stats stats;
@@ -85,11 +88,8 @@ public class Rifle extends FireArm implements Weapon {
         if (reloadTime > 0) return;
         if (magazine < super.stats.magazineSize() && ammo.getShotgunAmmo() > 0){
             magazine += ammo.getRifleAmmo(super.stats.magazineSize() - magazine);
-            loadingSound.play();
-        }
-        else {
-            isReloading = false;
             cockSound.play();
+            isReloading = false;
         }
     }
 
@@ -100,6 +100,7 @@ public class Rifle extends FireArm implements Weapon {
     public void update(float delta) {
         super.update(delta);
         if (isReloading) onReloading(delta);
+        if (isReleased) cock();
         isReleased = true;
     }
 }
