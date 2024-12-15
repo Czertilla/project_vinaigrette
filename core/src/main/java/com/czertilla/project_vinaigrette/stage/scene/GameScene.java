@@ -19,6 +19,7 @@ import com.czertilla.project_vinaigrette.stage.scene.actor.PlayerActor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.WallActor;
 import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.firearm.Rifle;
 import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.firearm.Shotgun;
+import com.czertilla.project_vinaigrette.stage.scene.actor.weapon.melee.MeleeWeapon;
 import com.czertilla.project_vinaigrette.utils.C;
 
 public class GameScene extends BaseScene {
@@ -61,6 +62,11 @@ public class GameScene extends BaseScene {
         player.setPosition(500, 500);
         player.setSize(200, 300);
         addActor(player);
+        TextureRegion mele = new TextureRegion(new Texture(Gdx.files.internal("ui/bita.png")));
+        MeleeWeapon melle = new MeleeWeapon(mele,this);
+        melle.setPosition(500, 500);
+        melle.setSize(100, 100);
+        addActor(melle);
 
         bulletTexture = new Texture(Gdx.files.internal("ui/bullet.png"));
 
