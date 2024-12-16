@@ -93,8 +93,6 @@ public class GameScene extends BaseScene {
         addActor(new WallActor(-2000, 0, 550, 500));
         addActor(new WallActor(250, -500, 550, 500));
         addActor(new WallActor(-2000, -1000, 550, -500));
-        camera.zoom =0.5f;
-
     }
 
     private void dragCamera() {
