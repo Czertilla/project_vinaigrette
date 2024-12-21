@@ -1,0 +1,50 @@
+{
+    "activeFile": "C:/Users/rekuiemuu/Downloads/Telegram Desktop/demo_scene.tmx",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "Все файлы (*)",
+    "fileStates": {
+        "C:/Users/rekuiemuu/Documents/TIled/32x32_DEMO.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/rekuiemuu/Documents/TIled/demo_scene..tmx": {
+            "scale": 0.33,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 1468.181818181818,
+                "y": 1637.878787878788
+            }
+        },
+        "C:/Users/rekuiemuu/Downloads/Telegram Desktop/demo_scene.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 11,
+            "viewCenter": {
+                "x": 1282,
+                "y": 670
+            }
+        },
+        "D:/HUI/assets/ui/32x32_DEMO.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        }
+    },
+    "last.imagePath": "C:/Users/rekuiemuu/Downloads/GandalfHardcore 14x Arm Layers",
+    "mapScene.enableWorlds": true,
+    "openFiles": [
+        "C:/Users/rekuiemuu/Documents/TIled/32x32_DEMO.tsx",
+        "C:/Users/rekuiemuu/Downloads/Telegram Desktop/demo_scene.tmx"
+    ],
+    "project": "test_gg.tiled-project",
+    "recentFiles": [
+        "C:/Users/rekuiemuu/Documents/TIled/32x32_DEMO.tsx",
+        "C:/Users/rekuiemuu/Downloads/Telegram Desktop/demo_scene.tmx",
+        "C:/Users/rekuiemuu/Documents/TIled/demo_scene..tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 64,
+        "width": 80
+    }
+}
