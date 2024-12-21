@@ -48,7 +48,7 @@ public class GameScene extends BaseScene {
     private OrthographicCamera camera;
 
     private static GameScene instance;
-    int[] up = new int[1];
+    int[] up = new int[2];
     ArrayList<Integer> down = new ArrayList<>();
     public static GameScene getInstance(MainGame screen) {
         if (instance == null) {
@@ -96,7 +96,10 @@ public class GameScene extends BaseScene {
         for (MapLayer layer : layers) {
             if(layer.getName().equalsIgnoreCase( "decor")){
                 up[0] = (layers.getIndex(layer.getName()));
-            } else  {
+            } else if (layer.getName().equalsIgnoreCase( "decor2")){
+                up[1] = (layers.getIndex(layer.getName()));
+            }
+            else  {
                 down.add(layers.getIndex(layer.getName()));
             }
 
@@ -150,14 +153,9 @@ public class GameScene extends BaseScene {
         enemy.setSize(200, 200);
         addActor(enemy);
 
-        for (int i = 0; i < 250; i++) {
-            addActor(new EnemyActor(region3, 100) {{
-                setPosition(MathUtils.random(-10000, 0), MathUtils.random(-1000, 10000));
-                setSize(200, 200);
-            }});
-        }
 
-        addActor(new WallActor(68, 2339, 88, 67));
+
+
 
         camera.zoom =0.5f;
 

@@ -1,6 +1,9 @@
 package com.czertilla.project_vinaigrette.stage.scene.actor;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Intersector;
@@ -15,29 +18,32 @@ import java.util.Optional;
 
 public class EnemyActor extends BaseActor implements Movable {
     protected float hp;
+    protected float death_hp = 5;
     private final Vector3
         velocity,
         control,
         acceleration,
         targetLoc;
     private BaseActor target;
-//    private CatmullRomSpline<Vector2> path;
+    //    private CatmullRomSpline<Vector2> path;
     Vector2[] path;
     private int catmullIdx = 0;
     private Vector3 currentPathPoint;
 
     private PathFinder pathFinder;
+    private int state = 0;
 
     private float friction;
 
     public EnemyActor(TextureRegion region, float hp) {
-        super(region);
+        super(region, new TextureAtlas("ui/cursed_slime.atlas")); // Используем Enemy.atlas для анимаций
         this.hp = hp;
         velocity = new Vector3();
         acceleration = new Vector3();
         targetLoc = new Vector3();
         control = new Vector3();
         friction = C.PLAYER_FRICTION;
+        //animationHandler.setAnimation("idle", 4); // Например, Idle анимация
     }
 
     public void getDamage(float dmg) {
@@ -47,6 +53,7 @@ public class EnemyActor extends BaseActor implements Movable {
 //            System.out.println("is dead");
             setColor(Color.RED);
             dropPath();
+            death_hp-=dmg;
         }
 
     }
@@ -68,7 +75,7 @@ public class EnemyActor extends BaseActor implements Movable {
             }
             findTarget();
         }
-        update(delta);
+        update(delta);// Обновляем анимацию в каждом кадре
         super.act(delta);
     }
 
@@ -76,7 +83,7 @@ public class EnemyActor extends BaseActor implements Movable {
         setPath(new Vector2(location.x, location.y));
     }
 
-    private void setPath(Vector2 location){
+    private void setPath(Vector2 location) {
         pathFinder = new PathFinder(this, location, 100);
         pathFinder.calculate();
     }
@@ -87,6 +94,75 @@ public class EnemyActor extends BaseActor implements Movable {
         currentPathPoint = new Vector3();
         nextPathPoint();
     }
+
+    public void updateAnimation() {
+        // Обработка анимации смерти
+        if (state > 0) {
+            if (state == 1) {
+                // Устанавливаем анимацию смерти при первом вызове
+                animationHandler.setAnimation("death", 3); // Устанавливаем анимацию смерти
+                animationHandler.setFrameDuration(0.24f); // Длительность кадров анимации смерти
+                animationHandler.animation.setPlayMode(Animation.PlayMode.NORMAL); // Один цикл проигрывания
+                state = 2; // Обновляем состояние, чтобы анимация не устанавливалась повторно
+                return;
+            }
+
+            // Проверяем, завершилась ли анимация
+            if (state == 2 && animationHandler.animation.isAnimationFinished(0.75f)) {
+                // Получаем последний кадр как AtlasRegion
+                TextureAtlas.AtlasRegion lastFrame = animationHandler.animation.getKeyFrame(animationHandler.animation.getAnimationDuration());
+
+                // Устанавливаем последний кадр как единственный в новой анимации
+                animationHandler.animation = new Animation<>(Float.MAX_VALUE, lastFrame);
+                state = 3;
+            }
+            return;
+        }
+
+        // Если объект жив, обрабатываем обычные анимации
+        String currStateName = animationHandler.stateName;
+
+        // Рассчитываем направление движения
+        String nextState = getStateName(control);
+        if (!nextState.equals(currStateName)) animationHandler.setAnimation(nextState, 4);
+
+        // Устанавливаем скорость кадров анимации
+        animationHandler.setFrameDuration(0.13f);
+
+        // Устанавливаем режим проигрывания анимации
+        Vector2 vel2D = new Vector2(control.x, control.y);
+        animationHandler.animation.setPlayMode(
+            hp > 0 ? Animation.PlayMode.LOOP : Animation.PlayMode.NORMAL
+        );
+    }
+
+    private String getStateName(Vector3 velocity) {
+        String nextState = C.State.DOWN;
+        if (hp <= 0) {
+            state = 1; // Устанавливаем состояние смерти
+            return "death"; // Возвращаем состояние смерти
+        }
+        if (!velocity.isZero()) {
+            if (velocity.x >= 0) {
+                if (velocity.y > velocity.x)
+                    nextState = C.State.UP;
+                else if (velocity.y > -velocity.x)
+                    nextState = C.State.RIGHT;
+                else
+                    nextState = C.State.DOWN;
+            } else {
+                if (velocity.y < velocity.x)
+                    nextState = C.State.DOWN;
+                else if (velocity.y < -velocity.x)
+                    nextState = C.State.LEFT;
+                else
+                    nextState = C.State.UP;
+            }
+        }
+        if (velocity.isZero()) nextState = "idle";
+        return nextState;
+    }
+
 
     private void nextPathPoint(){
 //        path.valueAt(currentPathPoint, catmullIdx);
@@ -269,11 +345,13 @@ public class EnemyActor extends BaseActor implements Movable {
     public void update(float delta) {
         if (hp <= 0) control.setZero();
         float frictionForce = friction * C.G;
-        int f = 0;
-        velocity.setLength(Math.max(0, velocity.len()-frictionForce*delta));
-        if (velocity.len() <= C.PLAYER_MAX_SPEED)
+        updateAnimation();
+        velocity.setLength(Math.max(0, velocity.len() - frictionForce * delta));
+        if (velocity.len() <= C.PLAYER_MAX_SPEED) {
             velocity.mulAdd(acceleration, delta);
-        moveBy((control.x + velocity.x) * delta, (control.y + velocity.y) * delta);
+        }
+        Gdx.app.log("VelocityDebug", "Velocity: " + control);
+        moveBy((control.x ) * delta, (control.y ) * delta);
     }
 
     @Override
