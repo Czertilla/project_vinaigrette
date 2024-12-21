@@ -1,11 +1,13 @@
 package com.czertilla.project_vinaigrette.stage.scene.actor;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector3;
@@ -118,6 +120,13 @@ public class BaseActor extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        // угол поворота
+        if (getDebug()) {
+
+
+            // Дебаг отрисовка полигона
+            font.draw(batch, toString(), getX(), getY());
+        }
         batch.setColor(getColor());
         // Отрисовка текстуры актера
         batch.draw(region,
@@ -125,8 +134,8 @@ public class BaseActor extends Actor {
             getOriginX(), getOriginY(),   // точка вращения (центр текстуры)
             getWidth(), getHeight(),       // ширина и высота текстуры
             getScaleX(), getScaleY(),      // масштабирование по x и y
-            getRotation());                // угол поворота
-        if (getDebug()) font.draw(batch, toString(), getX(), getY());
+            getRotation());
+
     }
 
     @Override

@@ -14,7 +14,7 @@ import com.czertilla.project_vinaigrette.utils.C;
 
 public class BaseScene extends BaseStage {
     protected PlayerActor actor;
-    final InputHandler inputHandler;
+
 
     protected MainGame screen;
     public BaseScene(MainGame screen) {
@@ -25,18 +25,6 @@ public class BaseScene extends BaseStage {
 
         // Загрузка текстуры
 //        TODO replace string filepath by variable from R.path class in utils. use "paths" bundle
-        Texture texture = new Texture(Gdx.files.internal("ui/img.png"));
-        TextureRegion region = new TextureRegion(texture); // Создаем TextureRegion
-        actor = new PlayerActor(region);
-//        TODO replace numeric constant
-        actor.setPosition(200, 200);
-        actor.setSize(200, 400);// Устанавливаем актера в центре экрана
-        actor.toFront();
-        addActor(actor); // Добавляем актера в сцену
-        actor.toFront();
-
-        inputHandler = new InputHandler(actor,this);
-        Gdx.input.setInputProcessor(inputHandler);
     }
 
     public void show(){
@@ -60,7 +48,6 @@ public class BaseScene extends BaseStage {
     @Override
     public void act(float delta) {
         super.act(delta);
-        inputHandler.update();
     }
 
     public void resize(int width, int height) {

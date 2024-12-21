@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -35,6 +36,33 @@ public class PlayerActor extends BaseActor implements Movable {
         maxSpeed = C.PLAYER_MAX_SPEED;
         velocity = new Vector3();
         acceleration = new Vector3();
+        boundingBox.setVertices(new float[]{
+            0, 0,
+            getWidth(), 0,
+            getWidth(), getHeight()/3f,
+            0, getHeight()/3f
+        });
+
+    }
+    @Override
+    public void setSize(float width, float height) {
+        super.setSize(width, height);
+
+        // Вызов родительского метода
+        setOrigin(width / 2, height / 2); // Обновляем точку вращения
+        boundingBox.setVertices(new float[]{
+            0, 0,  // нижний левый угол
+            width/5, 0,  // нижний правый угол
+            width/5, height/7,  // верхний правый угол
+            0, height/7  // верхний левый угол
+        });
+        updateBoundingBox();
+    }
+    @Override
+    void updateBoundingBox() {
+        boundingBox.setPosition(getX()+60, getY()+45);
+        boundingBox.setOrigin(getOriginX(), getOriginY());
+        boundingBox.setRotation(getRotation());
     }
 
     public void setWeapon(Weapon weapon) {

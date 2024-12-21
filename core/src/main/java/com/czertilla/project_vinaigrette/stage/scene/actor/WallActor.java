@@ -1,14 +1,14 @@
 package com.czertilla.project_vinaigrette.stage.scene.actor;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector3;
+import com.czertilla.project_vinaigrette.stage.scene.actor.BaseActor;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class WallActor extends BaseActor{
+public class WallActor extends BaseActor {
     public static final Set<WallActor> walls = new HashSet<>();
     static final Texture empty = new Texture("ui/empty.png");
     public WallActor(float width, float height) {
@@ -20,7 +20,7 @@ public class WallActor extends BaseActor{
     public WallActor(float ax, float ay, float bx, float by){
         super(new TextureRegion(empty));
         setPosition(ax, ay);
-        setSize(bx-ax, by-ay);
+        setSize(bx, by);
         walls.add(this);
 
     }

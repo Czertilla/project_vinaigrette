@@ -18,7 +18,7 @@ public class Main extends Game {
     public void create() {
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
-        setScreen(new MainGame(this));
+        setScreen(new MainMenu(this));
     }
 
     @Override
