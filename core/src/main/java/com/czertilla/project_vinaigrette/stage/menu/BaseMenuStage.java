@@ -18,17 +18,20 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.I18NBundle;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.czertilla.project_vinaigrette.Main;
 import com.czertilla.project_vinaigrette.asset.Bundle;
 import com.czertilla.project_vinaigrette.handler.BaseHandler;
 import com.czertilla.project_vinaigrette.screen.menu.BaseMenu;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.czertilla.project_vinaigrette.screen.menu.PauseMenu;
 import com.czertilla.project_vinaigrette.stage.BaseStage;
 import com.czertilla.project_vinaigrette.utils.C;
 import com.czertilla.project_vinaigrette.utils.CharSet;
 import com.czertilla.project_vinaigrette.utils.R;
 import com.czertilla.project_vinaigrette.utils.ScrollPane;
+
 
 abstract public class BaseMenuStage extends BaseStage {
     protected static I18NBundle bundle;
@@ -51,11 +54,23 @@ abstract public class BaseMenuStage extends BaseStage {
         }
     }
 
-    protected BaseMenuStage(){
+    protected BaseMenuStage() {
         super(new ScreenViewport());
 
         Skin skin = new Skin();
         bundle = Bundle.getInstance();
+
+        // Создаём фон
+        Texture backgroundTexture = new Texture(Gdx.files.internal("ui/menu_background.png"));
+        Image backgroundImage = new Image(backgroundTexture);
+
+        // Устанавливаем размеры фона, чтобы покрыть весь экран
+        backgroundImage.setSize(getWidth(), getHeight());
+
+        // Добавляем фон в сцену
+        this.addActor(backgroundImage);
+
+        // Настройка остальных элементов
         createTextButtonStyle();
         buttonDrawable = new TextureRegionDrawable(
             new TextureRegion(new Texture(R.path.BUTTON_DRAWABLE_REGION))
@@ -65,6 +80,8 @@ abstract public class BaseMenuStage extends BaseStage {
 
         this.addActor(scrollPane);
     }
+
+
 
     public void setHandler(BaseHandler handler) {
         this.handler = handler;
@@ -143,5 +160,12 @@ abstract public class BaseMenuStage extends BaseStage {
     public void resize(int width, int height) {
         getViewport().update(width, height, true);
         scrollPane.setBounds(0, 0, getWidth(), getHeight());
+
+        // Обновляем размер фона
+        Actor background = getActors().first();
+        if (background instanceof Image) {
+            background.setSize(getWidth(), getHeight());
+        }
     }
+
 }

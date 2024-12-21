@@ -2,31 +2,57 @@ package com.czertilla.project_vinaigrette.stage.menu;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.czertilla.project_vinaigrette.screen.menu.MainMenu;
+import com.czertilla.project_vinaigrette.stage.menu.SettingsMenuStage;
 import com.czertilla.project_vinaigrette.utils.R;
 
-public class MainMenuStage extends BaseMenuStage{
+public class MainMenuStage extends BaseMenuStage {
     private static MainMenuStage instance;
-    public static MainMenuStage getInstance(MainMenu menu){
-        if (instance == null){
-            instance = new MainMenuStage();
+
+    public static MainMenuStage getInstance(MainMenu menu) {
+        if (instance == null) {
+            instance = new MainMenuStage(menu); // Вызываем конструктор с параметром
         }
         instance.menu = menu;
         return instance;
     }
 
-    public void show(){
+    private MainMenuStage(MainMenu menu) {
+        super();
+        this.menu = menu;
+
+        addLogoAndButtons();
+    }
+
+    private void addLogoAndButtons() {
+        Table table = new Table();
+        table.setFillParent(true);
+        this.addActor(table);
+
+        // Загружаем логотип
+        Texture logoTexture = new Texture("ui/logo.png"); // Проверьте путь к файлу
+        Image logoImage = new Image(logoTexture);
+
+        // Добавляем логотип
+        table.top().add(logoImage).padBottom(20f);
+        table.row();
+    }
+
+    @Override
+    public void show() {
         super.show();
 
-        if (false)
-//            TODO implement saves detections
-            createContinueButton();
+        // TODO: Реализовать обнаружение сохранений
         createNewGameButton();
         createSettingsButton();
-        if (Gdx.app.getType().equals(Application.ApplicationType.Desktop))
+        if (Gdx.app.getType().equals(Application.ApplicationType.Desktop)) {
             createQuitButton();
+        }
     }
 
     private void createSettingsButton() {
