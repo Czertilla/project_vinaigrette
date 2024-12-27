@@ -144,7 +144,7 @@ public class GameScene extends BaseScene {
         TextureRegion region = new TextureRegion(texture);
         Rifle shotgun = new Rifle(region, "rifleA");
         shotgun.setPosition(300, 500);
-        shotgun.setSize(200, 100);
+        shotgun.setSize(100, 50);
         addActor(shotgun);
 
         TextureRegion region3 = new TextureRegion(actorTexture2);
