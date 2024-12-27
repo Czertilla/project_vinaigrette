@@ -148,10 +148,10 @@ public class GameScene extends BaseScene {
         addActor(shotgun);
 
         TextureRegion region3 = new TextureRegion(actorTexture2);
-        enemy = new EnemyActor(region3, 100);
-        enemy.setPosition(-50, -50);
-        enemy.setSize(200, 200);
-        addActor(enemy);
+//        enemy = new EnemyActor(region3, 100);
+//        enemy.setPosition(-50, -50);
+//        enemy.setSize(200, 200);
+//        addActor(enemy);w
 
 
 

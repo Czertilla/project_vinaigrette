@@ -2,6 +2,8 @@ package com.czertilla.project_vinaigrette.stage.scene.actor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.czertilla.project_vinaigrette.stage.scene.actor.BaseActor;
 
@@ -26,27 +28,42 @@ public class WallActor extends BaseActor {
     }
 
     public void move(BaseActor other) {
-        Vector3 center = getCenter();
+        Vector3 wallCenter = getCenter();
+        float[] wallWorldVertices = getBoundingBox().getTransformedVertices();
+        int wallVerticesCount = getBoundingBox().getVertexCount();
         float
-            cx = center.x,
-            cy = center.y;
-        Vector3 direction = other.getCenter().sub(center).setLength(1);
-        float dst = Float.POSITIVE_INFINITY;
-        Vector3 axis = new Vector3(0, 0, 1);
-        Vector3 dir = new Vector3(1, 0, 0).rotate(
-            axis,
-            getRotation()
-        );
-        Vector3 result = new Vector3(0, 0, 0);
-        for (int i = 0; i < 4; i++, dir.rotate(axis, 90)){
-            float mlp = ((i % 2 == 1) ? getHeight() : getWidth()) / 2;
-            float len = dir.cpy().sub(direction).len() * mlp;
-            if (len < dst) {
-                result.set(dir);
-                dst = len;
+            cx = wallCenter.x,
+            cy = wallCenter.y;
+        Vector3 otherCenter = new Vector3(
+            other.getBoundingBox().getOriginX(),
+            other.getBoundingBox().getOriginY(),
+            0);
+        Vector3 otherDirection = otherCenter.cpy().sub(wallCenter).setLength(1);
+        float otherDirAngle = MathUtils.atan2(otherDirection.y, otherDirection.x);
+        Vector3 result = new Vector3(1, 0, 0);
+        for (int i=0; i <= wallVerticesCount; i += 2){
+            float
+                x1 = wallWorldVertices[i % wallVerticesCount],
+                y1 = wallWorldVertices[(i + 1) % wallVerticesCount],
+                x2 = wallWorldVertices[(i + 2) % wallVerticesCount],
+                y2 = wallWorldVertices[(i + 3) % wallVerticesCount];
+            float angle1 = MathUtils.atan2(y1 - cy, x1 - cx);
+            float angle2 = MathUtils.atan2(y2 - cy, x2 - cx);
+            if (angle1 < otherDirAngle && otherDirAngle <= angle2) {
+                float
+                    dx = x2 - x1,
+                    dy = y2 - y1;
+                Vector2
+                    p = new Vector2(-dy, dx),
+                    ac = new Vector2(cx - x1, cy - y1);
+                result.set(p.x, p.y, 0);
+                if (p.dot(ac) < 0)
+                    result.scl(-1);
+                result.setLength(1);
+                break;
             }
+
         }
-        result.setLength(1);
         do {
             other.moveBy(result.x, result.y);
             other.updateBoundingBox();
